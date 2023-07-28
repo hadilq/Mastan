@@ -44,6 +44,7 @@ fun Status.toStatusDb(feedType: FeedType = FeedType.Home): StatusDB {
         createdAt = timestamp,
         content = status.content,
         accountId = status.account?.id,
+        originalAccountId = account?.id,
         visibility = status.visibility.name,
         spoilerText = status.spoilerText,
         applicationName = status.application?.name ?: "",

@@ -206,26 +206,29 @@ private fun ScaffoldParent(
                         )
                     },
                     actions = {
+                        val currentAccount = presenter.model.currentAccount
                         val account = presenter.model.account
-                        var text = if (account?.isFollowed == true) "unfollow" else "follow"
+                        if (account != null && account.id != currentAccount?.id) {
+                            var text = if (account?.isFollowed == true) "unfollow" else "follow"
 
-                        TextButton(
-                            onClick = {
-                                submitPresenter.handle(SubmitPresenter.Follow(accountId = accountId))
-                                text = if (text == "follow") "unfollow" else "follow"
+                            TextButton(
+                                onClick = {
+                                    submitPresenter.handle(SubmitPresenter.Follow(accountId = accountId))
+                                    text = if (text == "follow") "unfollow" else "follow"
+                                }
+                            ) {
+
+                                Text(text = text, color = MaterialTheme.colorScheme.primary)
+                                Image(
+                                    modifier = Modifier
+                                        .size(24.dp),
+                                    painter = if (text == "follow") painterResource(R.drawable.add) else painterResource(
+                                        R.drawable.remove
+                                    ),
+                                    contentDescription = "",
+                                    colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary),
+                                )
                             }
-                        ) {
-
-                            Text(text = text, color = MaterialTheme.colorScheme.primary)
-                            Image(
-                                modifier = Modifier
-                                    .size(24.dp),
-                                painter = if (text == "follow") painterResource(R.drawable.add) else painterResource(
-                                    R.drawable.remove
-                                ),
-                                contentDescription = "",
-                                colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary),
-                            )
                         }
                     },
                     navigationIcon = if (navController.previousBackStackEntry != null) {
@@ -269,7 +272,6 @@ private fun ScaffoldParent(
                         )
                     )
                 }
-
 
                 val pagingListUserStatus = userStatuses?.collectAsLazyPagingItems()
                 val pagingListWithReplies = withReplies?.collectAsLazyPagingItems()
@@ -502,32 +504,35 @@ private fun profile(
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.onTertiaryContainer,
                     modifier = Modifier
-                        .padding(PaddingSize0_5, PaddingSizeNone)
+                        .padding(PaddingSize0_5, PaddingSize0_5)
                         .align(Alignment.CenterHorizontally),
                     text = "@${account.username}",
                 )
 
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(PaddingSizeNone),
-                    horizontalArrangement = Arrangement.SpaceEvenly
-                ) {
-                    ProfileSecondaryButton(
-                        onMute,
-                        account.muting == true,
-                        R.drawable.mute,
-                        onText = "Unmute",
-                        offText = "Mute",
-                    )
+                val currentAccount = presenter.model.currentAccount
+                if (account.id != currentAccount?.id) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(PaddingSizeNone),
+                        horizontalArrangement = Arrangement.SpaceEvenly
+                    ) {
+                        ProfileSecondaryButton(
+                            onMute,
+                            account.muting == true,
+                            R.drawable.mute,
+                            onText = "Unmute",
+                            offText = "Mute",
+                        )
 
-                    ProfileSecondaryButton(
-                        onBlock,
-                        account.blocking == true,
-                        R.drawable.block,
-                        onText = "Unblock",
-                        offText = "Block",
-                    )
+                        ProfileSecondaryButton(
+                            onBlock,
+                            account.blocking == true,
+                            R.drawable.block,
+                            onText = "Unblock",
+                            offText = "Block",
+                        )
+                    }
                 }
 
                 Row(
@@ -538,17 +543,17 @@ private fun profile(
                 ) {
                     Boosted(
                         "Followers ${account.followersCount}",
-                        null,
-                        null,
-                        null,
+                        account.avatar,
+                        account.emojis,
+                        R.drawable.followers,
                         modifier = Modifier.height(30.dp),
                         onClick = goToFollowers
                     )
                     Boosted(
                         "Following ${account.followingCount}",
-                        null,
-                        null,
-                        null,
+                        account.avatar,
+                        account.emojis,
+                        R.drawable.followings,
                         modifier = Modifier.height(30.dp),
                         onClick = goToFollowing
 

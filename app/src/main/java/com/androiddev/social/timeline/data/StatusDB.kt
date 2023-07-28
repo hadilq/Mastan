@@ -17,6 +17,7 @@ data class StatusDB(
     val createdAt: Long,
     val content: String,
     val accountId: String?,
+    val originalAccountId: String?,
     val visibility: String,
     val spoilerText: String,
     val avatarUrl: String,
@@ -51,8 +52,8 @@ interface StatusDao {
     @Query("SELECT * FROM status WHERE type = :type ORDER BY dbOrder Desc")
     fun getTimeline(type: String): PagingSource<Int, StatusDB>
 
-    @Query("SELECT * FROM status WHERE type = :type AND accountId = :accountId ORDER BY dbOrder Desc")
-    fun getUserTimeline(type: String, accountId: String): PagingSource<Int, StatusDB>
+    @Query("SELECT * FROM status WHERE type = :type AND originalAccountId = :accountId ORDER BY dbOrder Desc")
+    fun getUserTimeline(type: FeedType, accountId: String): PagingSource<Int, StatusDB>
 
 
     @Query("SELECT * FROM status ORDER BY remoteId Asc Limit 1")
@@ -215,13 +216,14 @@ fun StatusDao.updateOldStatus(newStatus: StatusDB) = with(newStatus) {
     )
 }
 
-@Database(entities = [StatusDB::class], version = 21)
+@Database(entities = [StatusDB::class], version = 22)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun statusDao(): StatusDao
 }
 
 class Converters {
+
     @TypeConverter
     fun toEmoji(value: String): List<Emoji> {
         return Json.decodeFromString(ListSerializer(Emoji.serializer()), value)

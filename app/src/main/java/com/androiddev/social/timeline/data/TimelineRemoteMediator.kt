@@ -8,7 +8,8 @@ import com.androiddev.social.auth.data.OauthRepository
 import com.androiddev.social.shared.UserApi
 import com.androiddev.social.timeline.ui.TimelineReplyRearrangerMediator
 import com.squareup.anvil.annotations.ContributesMultibinding
-import kotlinx.coroutines.flow.toCollection
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
@@ -42,25 +43,21 @@ class LocalTimelineRemoteMediator @Inject constructor(
             val loadKey = when (loadType) {
                 LoadType.REFRESH -> null
                 LoadType.PREPEND -> return MediatorResult.Success(endOfPaginationReached = true)
-                LoadType.APPEND -> {
-                    state
-                    val lastItem: StatusDB? = state.lastItemOrNull()
-                    if (lastItem == null) {
-                        return MediatorResult.Success(
-                            endOfPaginationReached = true
-                        )
-                    }
-                    lastItem.originalId
-                }
+                LoadType.APPEND -> state.lastItemOrNull()?.originalId
             }
 
-            val response = userApi.getLocalTimeline(authHeader = oauthRepository.getAuthHeader(), since = loadKey)
+            val response = userApi.getLocalTimeline(
+                authHeader = oauthRepository.getAuthHeader(),
+                since = loadKey
+            )
 
             val statuses = timelineReplyRearrangerMediator.rearrangeTimeline(
                 response.map { it.toStatusDb(FeedType.Local) },
             )
 
-            val collection = statuses.toCollection(mutableListOf())
+            val collection = withContext(Dispatchers.Default) {
+                statuses.toCollection(mutableListOf())
+            }
             database.withTransaction {
                 dao.insertAll(collection)
             }
@@ -95,23 +92,20 @@ class HomeTimelineRemoteMediator @Inject constructor(
             val loadKey = when (loadType) {
                 LoadType.REFRESH -> null
                 LoadType.PREPEND -> return MediatorResult.Success(endOfPaginationReached = true)
-                LoadType.APPEND -> {
-                    val lastItem: StatusDB? = state.lastItemOrNull()
-                    if (lastItem == null) {
-                        return MediatorResult.Success(
-                            endOfPaginationReached = true
-                        )
-                    }
-                    lastItem.originalId
-                }
+                LoadType.APPEND -> state.lastItemOrNull()?.originalId
             }
 
-            val response = userApi.getHomeTimeline(authHeader = oauthRepository.getAuthHeader(), since = loadKey)
+            val response = userApi.getHomeTimeline(
+                authHeader = oauthRepository.getAuthHeader(),
+                since = loadKey
+            )
 
             val statuses = timelineReplyRearrangerMediator.rearrangeTimeline(
                 response.map { it.toStatusDb(FeedType.Home) },
             )
-            val collection = statuses.toCollection(mutableListOf())
+            val collection = withContext(Dispatchers.Default) {
+                statuses.toCollection(mutableListOf())
+            }
             database.withTransaction {
                 dao.insertAll(collection)
             }
@@ -148,16 +142,7 @@ class FederatedTimelineRemoteMediator @Inject constructor(
             val loadKey = when (loadType) {
                 LoadType.REFRESH -> null
                 LoadType.PREPEND -> return MediatorResult.Success(endOfPaginationReached = true)
-                LoadType.APPEND -> {
-                    state
-                    val lastItem: StatusDB? = state.lastItemOrNull()
-                    if (lastItem == null) {
-                        return MediatorResult.Success(
-                            endOfPaginationReached = true
-                        )
-                    }
-                    lastItem.originalId
-                }
+                LoadType.APPEND -> state.lastItemOrNull()?.originalId
             }
 
             val response = userApi.getLocalTimeline(
@@ -169,7 +154,9 @@ class FederatedTimelineRemoteMediator @Inject constructor(
             val statuses = timelineReplyRearrangerMediator.rearrangeTimeline(
                 response.map { it.toStatusDb(FeedType.Federated) },
             )
-            val collection = statuses.toCollection(mutableListOf())
+            val collection = withContext(Dispatchers.Default) {
+                statuses.toCollection(mutableListOf())
+            }
             database.withTransaction {
                 dao.insertAll(collection)
             }
@@ -204,25 +191,21 @@ class TrendingRemoteMediator @Inject constructor(
             val loadKey = when (loadType) {
                 LoadType.REFRESH -> null
                 LoadType.PREPEND -> return MediatorResult.Success(endOfPaginationReached = true)
-                LoadType.APPEND -> {
-                    state
-                    val lastItem = state.anchorPosition
-                    if (lastItem == null) {
-                        return MediatorResult.Success(
-                            endOfPaginationReached = true
-                        )
-                    }
-                    lastItem
-                }
+                LoadType.APPEND -> state.anchorPosition
             }
 
             val response =
-                userApi.getTrending(authHeader = oauthRepository.getAuthHeader(), offset = loadKey.toString())
+                userApi.getTrending(
+                    authHeader = oauthRepository.getAuthHeader(),
+                    offset = loadKey.toString()
+                )
 
             val statuses = timelineReplyRearrangerMediator.rearrangeTimeline(
                 response.map { it.toStatusDb(FeedType.Trending) },
             )
-            val collection = statuses.toCollection(mutableListOf())
+            val collection = withContext(Dispatchers.Default) {
+                statuses.toCollection(mutableListOf())
+            }
             database.withTransaction {
                 dao.insertAll(collection)
             }
@@ -247,6 +230,7 @@ class UserRemoteMediator @Inject constructor(
     private val database: AppDatabase,
     private val userApi: UserApi,
     private val oauthRepository: OauthRepository,
+    private val accountRepository: AccountRepository,
     private val timelineReplyRearrangerMediator: TimelineReplyRearrangerMediator,
 ) : TimelineRemoteMediator() {
     override suspend fun initialize(): InitializeAction = InitializeAction.SKIP_INITIAL_REFRESH
@@ -258,30 +242,27 @@ class UserRemoteMediator @Inject constructor(
             val loadKey = when (loadType) {
                 LoadType.REFRESH -> null
                 LoadType.PREPEND -> return MediatorResult.Success(endOfPaginationReached = true)
-                LoadType.APPEND -> {
-                    state
-                    val lastItem: StatusDB? = state.lastItemOrNull()
-                    if (lastItem != null) {
-                        return MediatorResult.Success(
-                            endOfPaginationReached = true
-                        )
-                    }
-                    lastItem?.originalId
-                }
+                LoadType.APPEND -> state.lastItemOrNull()?.originalId
             }
 
             val response =
                 userApi.accountStatuses(
                     authHeader = oauthRepository.getAuthHeader(),
                     accountId = accountId,
-                    since = null,
+                    since = loadKey,
                     excludeReplies = true
                 )
+
+            if (response.isEmpty()) {
+                return MediatorResult.Success(endOfPaginationReached = true)
+            }
 
             val statuses = timelineReplyRearrangerMediator.rearrangeTimeline(
                 response.map { it.toStatusDb(FeedType.User) },
             )
-            val collection = statuses.toCollection(mutableListOf())
+            val collection = withContext(Dispatchers.Default) {
+                statuses.toCollection(mutableListOf())
+            }
             database.withTransaction {
                 dao.insertAll(collection)
             }
@@ -318,16 +299,7 @@ class UserWithMediaRemoteMediator @Inject constructor(
             val loadKey = when (loadType) {
                 LoadType.REFRESH -> null
                 LoadType.PREPEND -> return MediatorResult.Success(endOfPaginationReached = true)
-                LoadType.APPEND -> {
-                    state
-                    val lastItem: StatusDB? = state.lastItemOrNull()
-                    if (lastItem == null) {
-                        return MediatorResult.Success(
-                            endOfPaginationReached = true
-                        )
-                    }
-                    lastItem.originalId
-                }
+                LoadType.APPEND -> state.lastItemOrNull()?.originalId
             }
 
             val response =
@@ -335,13 +307,19 @@ class UserWithMediaRemoteMediator @Inject constructor(
                     authHeader = oauthRepository.getAuthHeader(),
                     accountId = accountRepository.get(accountId).id,
                     onlyMedia = true,
-                    since = null
+                    since = loadKey
                 )
+
+            if (response.isEmpty()) {
+                return MediatorResult.Success(endOfPaginationReached = true)
+            }
 
             val statuses = timelineReplyRearrangerMediator.rearrangeTimeline(
                 response.map { it.toStatusDb(FeedType.UserWithMedia) },
             )
-            val collection = statuses.toCollection(mutableListOf())
+            val collection = withContext(Dispatchers.Default) {
+                statuses.toCollection(mutableListOf())
+            }
             database.withTransaction {
                 dao.insertAll(collection)
             }
@@ -378,16 +356,7 @@ class UserWithRepliesRemoteMediator @Inject constructor(
             val loadKey = when (loadType) {
                 LoadType.REFRESH -> null
                 LoadType.PREPEND -> return MediatorResult.Success(endOfPaginationReached = true)
-                LoadType.APPEND -> {
-                    state
-                    val lastItem: StatusDB? = state.lastItemOrNull()
-                    if (lastItem == null) {
-                        return MediatorResult.Success(
-                            endOfPaginationReached = true
-                        )
-                    }
-                    lastItem.originalId
-                }
+                LoadType.APPEND -> state.lastItemOrNull()?.originalId
             }
 
             val response =
@@ -398,10 +367,16 @@ class UserWithRepliesRemoteMediator @Inject constructor(
                     excludeReplies = false
                 )
 
+            if (response.isEmpty()) {
+                return MediatorResult.Success(endOfPaginationReached = true)
+            }
+
             val statuses = timelineReplyRearrangerMediator.rearrangeTimeline(
                 response.map { it.toStatusDb(FeedType.UserWithReplies) },
             )
-            val collection = statuses.toCollection(mutableListOf())
+            val collection = withContext(Dispatchers.Default) {
+                statuses.toCollection(mutableListOf())
+            }
             database.withTransaction {
                 dao.insertAll(collection)
             }
@@ -428,7 +403,14 @@ class HashtagRemoteMediatorFactory @Inject constructor(
 
     @OptIn(ExperimentalPagingApi::class)
     fun from(hashtag: String) =
-        HashtagRemoteMediator(dao, database, userApi, oauthRepository, timelineReplyRearrangerMediator, hashtag)
+        HashtagRemoteMediator(
+            dao,
+            database,
+            userApi,
+            oauthRepository,
+            timelineReplyRearrangerMediator,
+            hashtag
+        )
 }
 
 @ExperimentalPagingApi
@@ -451,16 +433,7 @@ class HashtagRemoteMediator(
             val loadKey = when (loadType) {
                 LoadType.REFRESH -> null
                 LoadType.PREPEND -> return MediatorResult.Success(endOfPaginationReached = true)
-                LoadType.APPEND -> {
-                    state
-                    val lastItem: StatusDB? = state.lastItemOrNull()
-                    if (lastItem == null) {
-                        return MediatorResult.Success(
-                            endOfPaginationReached = true
-                        )
-                    }
-                    lastItem.originalId
-                }
+                LoadType.APPEND -> state.lastItemOrNull()?.originalId
             }
 
             val response = userApi.getTagTimeline(
@@ -470,10 +443,13 @@ class HashtagRemoteMediator(
             )
 
             val statuses = timelineReplyRearrangerMediator.rearrangeTimeline(
-                response.map { it.toStatusDb(FeedType.Hashtag) }.map { it.copy(type = it.type + hashtag) },
+                response.map { it.toStatusDb(FeedType.Hashtag) }
+                    .map { it.copy(type = it.type + hashtag) },
             )
 
-            val collection = statuses.toCollection(mutableListOf())
+            val collection = withContext(Dispatchers.Default) {
+                statuses.toCollection(mutableListOf())
+            }
             database.withTransaction {
                 dao.insertAll(collection)
             }
@@ -488,4 +464,3 @@ class HashtagRemoteMediator(
         }
     }
 }
-

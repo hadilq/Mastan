@@ -141,7 +141,7 @@ class RealTimelinePresenter @Inject constructor(
                             remoteMediator = userWithRepliesRemoteMediator
                         ) {
                             statusDao.getUserTimeline(
-                                FeedType.UserWithReplies.type,
+                                FeedType.UserWithReplies,
                                 event.accountId
                             )
                         }.flow
@@ -155,7 +155,7 @@ class RealTimelinePresenter @Inject constructor(
                             config = pagingConfig,
                             remoteMediator = remoteMediatorWithMedia
                         ) {
-                            statusDao.getUserTimeline(FeedType.UserWithMedia.type, event.accountId)
+                            statusDao.getUserTimeline(FeedType.UserWithMedia, event.accountId)
                         }.flow
 
                         val remoteMediator =
@@ -167,7 +167,7 @@ class RealTimelinePresenter @Inject constructor(
                             config = pagingConfig,
                             remoteMediator = remoteMediator
                         ) {
-                            statusDao.getUserTimeline(FeedType.User.type, event.accountId)
+                            statusDao.getUserTimeline(FeedType.User, event.accountId)
                         }.flow
 
 

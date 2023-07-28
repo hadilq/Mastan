@@ -2,7 +2,6 @@
 
 package com.androiddev.social.timeline.ui
 
-import android.net.Uri
 import androidx.compose.animation.*
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -571,26 +570,36 @@ fun TimelineRows(
     onOpenURI: (URI, FeedType) -> Unit,
 ) {
 
-
     Crossfade(targetState = ui, label = "") { item ->
+
         if (item.itemCount == 0) {
-            LazyColumn {
-                items(3) {
-                    TimelineCard(
-                        goToBottomSheet = goToBottomSheet,
-                        goToProfile = goToProfile,
-                        goToTag = goToTag,
-                        ui = null,
-                        account = null,
-                        replyToStatus = replyToStatus,
-                        boostStatus = boostStatus,
-                        favoriteStatus = favoriteStatus,
-                        goToConversation = goToConversation,
-                        onReplying = onReplying,
-                        onProfileClick = onProfileClick,
-                        onVote = onVote,
-                        onOpenURI = onOpenURI,
+            if (ui.loadState.append.endOfPaginationReached) {
+                Text(
+                    modifier = Modifier.padding(PaddingSize8),
+                    text = "This page is empty!",
+                    style = MaterialTheme.typography.labelMedium.copy(
+                        color = MaterialTheme.colorScheme.onSurface
                     )
+                )
+            } else {
+                LazyColumn {
+                    items(3) {
+                        TimelineCard(
+                            goToBottomSheet = goToBottomSheet,
+                            goToProfile = goToProfile,
+                            goToTag = goToTag,
+                            ui = null,
+                            account = null,
+                            replyToStatus = replyToStatus,
+                            boostStatus = boostStatus,
+                            favoriteStatus = favoriteStatus,
+                            goToConversation = goToConversation,
+                            onReplying = onReplying,
+                            onProfileClick = onProfileClick,
+                            onVote = onVote,
+                            onOpenURI = onOpenURI,
+                        )
+                    }
                 }
             }
         } else {
