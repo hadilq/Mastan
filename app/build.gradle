@@ -13,6 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import org.jetbrains.kotlin.gradle.tasks.KaptGenerateStubs
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -20,31 +22,23 @@ plugins {
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.firebase.crashlytics)
-    alias(libs.plugins.gms.googleServices)
-}
-
-repositories {
-    google()
-    mavenCentral()
-    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
 }
 
 android {
     signingConfigs {
         release {
             storeFile file('/Users/***/keystore')
-
         }
     }
-    namespace 'social.androiddev.firefly'
+    namespace 'com.hadilq.mastan'
     compileSdk 33
 
     defaultConfig {
-        applicationId "social.androiddev"
+        applicationId "com.hadilq.mastan"
         minSdk 24
         targetSdk 33
-        versionCode 16
-        versionName "0.0.16"
+        versionCode 17
+        versionName "0.0.17"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -59,14 +53,15 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '11'
     }
     buildFeatures {
         compose true
+        buildConfig true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.androidxComposeCompiler.get()
@@ -78,7 +73,15 @@ android {
     }
 }
 
+tasks.withType(KaptGenerateStubs).configureEach {
+    kotlinOptions {
+        jvmTarget = "11"
+    }
+}
+
 dependencies {
+    implementation(projects.legacy)
+    implementation(projects.theme)
     implementation(platform(libs.androidx.compose.bom))
     implementation(platform(libs.google.firebase.bom))
     implementation(libs.androidx.constraintlayout)
@@ -138,20 +141,11 @@ dependencies {
     implementation(libs.androidx.room.paging)
     kapt(libs.androidx.room.compiler)
 
-    // optional - Paging 3 Integration
-    implementation "com.google.accompanist:accompanist-placeholder-material3:0.29.1-alpha"
-    implementation("androidx.constraintlayout:constraintlayout-compose:1.1.0-alpha07")
-    implementation("io.coil-kt:coil-gif:2.2.2")
-    implementation("io.coil-kt:coil-video:2.2.2")
-    implementation 'com.google.android.exoplayer:exoplayer:2.18.4'
-    implementation "com.google.accompanist:accompanist-navigation-animation:0.28.0"
-    implementation "com.google.accompanist:accompanist-navigation-material:0.28.0"
-    implementation "com.patrykandpatrick.vico:compose-m3:1.6.4"
-    implementation "me.saket.telephoto:sub-sampling-image:1.0.0-SNAPSHOT"
-//    implementation 'org.whispersystems:signal-protocol-android:2.7.0'
-
-
+    implementation libs.accompanist.navigation.animation
+    implementation libs.accompanist.navigation.material
+    implementation libs.accompanist.placeholder
+    implementation libs.exoplayer
+    implementation libs.coil.gif
+    implementation libs.coil.video
+    implementation libs.patrykandpatrick
 }
-
-
-

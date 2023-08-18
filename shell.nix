@@ -1,7 +1,9 @@
 let
-  pkgs = import (
+  pkgs = import
+    (
       fetchTarball https://github.com/nixos/nixpkgs/tarball/9f9f5dde5c687f3cb9d67715af7318c1a7cc4103
-    ) {
+    )
+    {
       config.android_sdk.accept_license = true;
       config.allowUnfree = true;
     };
@@ -12,8 +14,7 @@ let
       buildTools = [
         "30.0.3"
         "31.0.0"
-        "32.0.0"
-        "33.0.2"
+        "33.0.0"
       ];
       cmdLine = "8.0";
       emulator = "32.1.12";
