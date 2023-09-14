@@ -67,7 +67,7 @@ let
   };
 
   platformTools = androidComposition.platform-tools;
-  jdk = pkgs.jdk11;
+  jdk = pkgs.jdk17;
 in
 with pkgs;
 pkgs.mkShell {

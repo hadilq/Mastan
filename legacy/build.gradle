@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KaptGenerateStubs
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
@@ -13,8 +15,6 @@ android {
     defaultConfig {
         minSdk 24
         targetSdk 33
-        versionCode 16
-        versionName "0.0.16"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -23,12 +23,10 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
-    kotlinOptions {
-        jvmTarget = '11'
-    }
+
     buildFeatures {
         compose true
     }
@@ -42,7 +40,14 @@ android {
     }
 }
 
+tasks.withType(KaptGenerateStubs).configureEach {
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+}
+
 dependencies {
+    implementation(projects.theme)
     implementation(platform(libs.androidx.compose.bom))
     implementation(platform(libs.google.firebase.bom))
     implementation(libs.androidx.constraintlayout)
@@ -101,4 +106,12 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.room.paging)
     kapt(libs.androidx.room.compiler)
+
+    implementation libs.accompanist.navigation.animation
+    implementation libs.accompanist.navigation.material
+    implementation libs.accompanist.placeholder
+    implementation libs.exoplayer
+    implementation libs.coil.gif
+    implementation libs.coil.video
+    implementation libs.patrykandpatrick
 }

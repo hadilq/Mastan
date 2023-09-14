@@ -32,6 +32,7 @@ kotlinx-serialization-json = "1.5.0-RC"
 kotlinx-datetime = "0.4.0"
 kotlinx-collections = "0.3.5"
 kotlin = "1.8.10"
+kotlin-android-plugin = "1.5.31"
 junit4 = "4.13.2"
 junit-ext = "1.1.3"
 lifecycle-runtime-ktx = "2.3.1"
@@ -110,7 +111,7 @@ exoplayer = "com.google.android.exoplayer:exoplayer:2.18.4"
 android-application = { id = "com.android.application", version.ref = "gradle-plugin" }
 android-library = { id = "com.android.library", version.ref = "gradle-plugin" }
 anvil = { id = "com.squareup.anvil", version.ref = "anvil" }
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin-android-plugin" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 compose = { id = "org.jetbrains.compose", version.ref = "androidxComposeCompiler" }
