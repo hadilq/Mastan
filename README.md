@@ -1,6 +1,8 @@
-# Firefly
-Stealth mode mastodon client
+# Mastan
+This is a passive aggressive refactor of Firefly/[Ebony](https://github.com/digitalbuddha/Firefly).
 
-Investors can contact admin@androiddev.social 
-
-Users can check out the nightly build https://alpha.androiddev.social
+# Road map
+ - Create a light root module.
+ - Modularize.
+ - Complete the features.
+ - Make it multiplatform.

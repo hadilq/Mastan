@@ -65,7 +65,7 @@ import kotlinx.coroutines.withContext
 @Composable
 fun getUserComponent(accessTokenRequest: AccessTokenRequest): UserComponent {
     val userManager =
-        ((LocalContext.current.applicationContext as UserParentComponentProvider).component as UserManagerProvider).getUserManager()
+        ((LocalContext.current.applicationContext as UserParentComponentProvider).userParentComponent as UserManagerProvider).getUserManager()
     return userManager.userComponentFor(accessTokenRequest = accessTokenRequest)
 }
 
@@ -75,7 +75,7 @@ fun getUserComponent(
     navBackStackEntry: NavBackStackEntry,
 ): UserComponent {
     val userManager =
-        ((LocalContext.current.applicationContext as UserParentComponentProvider).component as UserManagerProvider).getUserManager()
+        ((LocalContext.current.applicationContext as UserParentComponentProvider).userParentComponent as UserManagerProvider).getUserManager()
     return userManager.userComponentFor(
         code = code
     ) ?: run {

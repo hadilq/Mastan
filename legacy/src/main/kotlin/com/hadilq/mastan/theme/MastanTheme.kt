@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 
 @Composable
-fun FireflyTheme(
+fun MastanTheme(
     isDarkTheme: Boolean = isSystemInDarkTheme(),
     isDynamicColor: Boolean = true,
     content: @Composable () -> Unit

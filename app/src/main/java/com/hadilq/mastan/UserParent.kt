@@ -24,15 +24,19 @@ import com.squareup.anvil.annotations.MergeComponent
 import dagger.BindsInstance
 import dagger.Component
 
-class App : Application(), UserParentComponentProvider {
+class UserParent : Application(), UserParentComponentProvider, AuthOptionalParentComponentProvider {
 
-    val appComponent: AppComponent by lazy {
+    val component: AppComponent by lazy(LazyThreadSafetyMode.NONE) {
         (DaggerSkeletonComponent.factory()
-            .create(this as Application, this, this) as AppComponent.AppParentComponent).appComponent()
+            .create(this as Application, this, this, this) as AppComponent.AppParentComponent).appComponent()
     }
 
-    override val component: UserParentComponent by lazy {
-        appComponent.userParentComponentProvider().component
+    override val userParentComponent: UserParentComponent by lazy(LazyThreadSafetyMode.NONE) {
+        component as UserParentComponent
+    }
+
+    override val authOptionalParentComponent: AuthOptionalComponent.AuthOptionalParentComponent by lazy(LazyThreadSafetyMode.NONE) {
+        component as AuthOptionalComponent.AuthOptionalParentComponent
     }
 
     override fun onCreate() {
@@ -47,8 +51,9 @@ interface SkeletonComponent {
     interface Factory {
         fun create(
             @BindsInstance app2: Application,
-            @BindsInstance app: App,
-            @BindsInstance componentProvider: UserParentComponentProvider,
+            @BindsInstance app: UserParent,
+            @BindsInstance userParentComponentProvider: UserParentComponentProvider,
+            @BindsInstance authOptionalParentComponentProvider: AuthOptionalParentComponentProvider,
         ): SkeletonComponent
     }
 
@@ -67,6 +72,7 @@ interface AppComponent {
     }
 
     fun urlHandlerMediator(): UrlHandlerMediator
+
     fun userParentComponentProvider(): UserParentComponentProvider
 }
 

@@ -77,7 +77,7 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.hadilq.mastan.theme.FireflyTheme
+import com.hadilq.mastan.theme.MastanTheme
 import com.hadilq.mastan.theme.PaddingSize0_5
 import com.hadilq.mastan.theme.PaddingSize1
 import com.hadilq.mastan.theme.PaddingSize2
@@ -202,7 +202,7 @@ private fun ScaffoldParent(
     goToBottomSheet: suspend (SheetContentState) -> Unit,
     scope: CoroutineScope
 ) {
-    FireflyTheme {
+    MastanTheme {
         val scaffoldState = rememberBackdropScaffoldState(BackdropValue.Concealed)
         BackdropScaffold(
             scaffoldState = scaffoldState,

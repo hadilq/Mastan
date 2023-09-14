@@ -37,7 +37,6 @@ import coil.ImageLoader
 import coil.decode.GifDecoder
 import coil.decode.ImageDecoderDecoder
 import coil.decode.VideoFrameDecoder
-import com.hadilq.mastan.AuthOptionalComponent.ParentComponent
 import com.hadilq.mastan.AuthOptionalScope
 import com.hadilq.mastan.AuthRequiredScope
 import com.hadilq.mastan.auth.ui.SignInPresenter
@@ -48,7 +47,7 @@ import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.accompanist.navigation.material.BottomSheetNavigator
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import com.google.accompanist.navigation.material.ModalBottomSheetLayout
-import com.hadilq.mastan.UserParentComponentProvider
+import com.hadilq.mastan.AuthOptionalParentComponentProvider
 import com.squareup.anvil.annotations.ContributesTo
 import com.hadilq.mastan.legacy.R
 import javax.inject.Provider
@@ -128,7 +127,7 @@ class MainActivity : ComponentActivity() {
 
             CompositionLocalProvider(LocalImageLoader provides loader) {
                 var isDynamicTheme by remember { mutableStateOf(true) }
-                FireflyTheme(isDynamicColor = isDynamicTheme) {
+                MastanTheme(isDynamicColor = isDynamicTheme) {
                     Box(
                         modifier = Modifier
                             .fillMaxSize()
@@ -159,8 +158,8 @@ class MainActivity : ComponentActivity() {
 
 
     fun noAuthComponent() =
-        ((applicationContext as UserParentComponentProvider).component as ParentComponent).createAuthOptionalComponent()
+        (applicationContext as AuthOptionalParentComponentProvider).authOptionalParentComponent.createAuthOptionalComponent()
 
     fun AuthComponent() =
-        ((applicationContext as UserParentComponentProvider).component as ParentComponent).createAuthOptionalComponent()
+        (applicationContext as AuthOptionalParentComponentProvider).authOptionalParentComponent.createAuthOptionalComponent()
 }

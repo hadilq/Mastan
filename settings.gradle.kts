@@ -31,7 +31,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Maston"
+rootProject.name = "Mastan"
 include(":app")
 include(":legacy")
 include(":theme")

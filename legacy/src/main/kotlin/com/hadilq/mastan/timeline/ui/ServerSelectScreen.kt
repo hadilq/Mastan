@@ -45,7 +45,7 @@ fun ServerSelectScreen(
     onServerSelected: (selected: String) -> Unit
 ) {
     var current by remember { mutableStateOf("") }
-    FireflyTheme {
+    MastanTheme {
         Surface(
             color = colorScheme.background
         ) {
@@ -65,7 +65,7 @@ fun ServerSelectScreen(
                 Text(
                     color = colorScheme.primary,
                     modifier = Modifier.padding(bottom = PaddingSize2),
-                    text = "Welcome to Firefly",
+                    text = "Welcome to Mastan",
                     style = MaterialTheme.typography.headlineLarge
                 )
                 Text(

@@ -15,7 +15,6 @@
  */
 package com.hadilq.mastan.auth.data
 
-import android.app.Application
 import com.hadilq.mastan.*
 import com.squareup.anvil.annotations.ContributesBinding
 import com.squareup.anvil.annotations.ContributesTo
@@ -36,7 +35,9 @@ interface UserManagerProvider {
 
 @ContributesBinding(AppScope::class)
 @SingleIn(AppScope::class)
-class RealUserManager @Inject constructor(private val userParentComponentProvider: UserParentComponentProvider) : UserManager {
+class RealUserManager @Inject constructor(
+    private val userParentComponentProvider: UserParentComponentProvider
+) : UserManager {
     private val cache = CacheBuilder<String, UserComponent>()
         .build()
     private val atomicReference = AtomicReference<UserComponent>()
@@ -44,7 +45,7 @@ class RealUserManager @Inject constructor(private val userParentComponentProvide
 
     override fun userComponentFor(accessTokenRequest: AccessTokenRequest): UserComponent {
         return cache.getOrPut(accessTokenRequest.code) {
-            userParentComponentProvider.component.createUserComponent()
+            userParentComponentProvider.userParentComponent.createUserComponent()
                 .userComponent(accessTokenRequest = accessTokenRequest)
         }.also {
             atomicReference.set(it)

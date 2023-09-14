@@ -21,8 +21,8 @@ import kotlinx.serialization.Serializable
 data class ApplicationBody(
     val baseUrl: String = "androiddev.social",
     val scopes: String = "read write follow push",
-    val clientName: String = "Firefly",
-    val redirectScheme: String = "fireflyoauth2redirect://",
+    val clientName: String = "Mastan",
+    val redirectScheme: String = "mastanoauth2redirect://",
 ) {
     fun redirectUris():String = redirectScheme + baseUrl
 }

@@ -36,7 +36,7 @@ interface UserParentComponent {
 }
 
 interface UserParentComponentProvider {
-    val component: UserParentComponent
+    val userParentComponent: UserParentComponent
 }
 
 @ContributesSubcomponent(
@@ -64,12 +64,15 @@ interface Injector {
 @SingleIn(AuthOptionalScope::class)
 interface AuthOptionalComponent : Injector {
     @ContributesTo(AppScope::class)
-    interface ParentComponent {
+    interface AuthOptionalParentComponent {
         fun createAuthOptionalComponent(): AuthOptionalComponent
     }
 }
 
-@OptIn(ExperimentalAnvilApi::class)
+interface AuthOptionalParentComponentProvider {
+    val authOptionalParentComponent: AuthOptionalComponent.AuthOptionalParentComponent
+}
+
 @ContributesSubcomponent(
     scope = AuthOptionalScreenScope::class,
     parentScope = AppScope::class

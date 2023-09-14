@@ -24,7 +24,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.hadilq.mastan.theme.FireflyTheme
+import com.hadilq.mastan.theme.MastanTheme
 
 @Composable
 fun SignInContent(
@@ -35,7 +35,7 @@ fun SignInContent(
     onCloseClicked: () -> Unit,
     shouldCancelLoadingUrl: (url: String) -> Boolean
 ) {
-    FireflyTheme {
+    MastanTheme {
         Box(Modifier.heightIn(min = 1.dp))
         Column(
             modifier = modifier.fillMaxSize().background(Color.Transparent)

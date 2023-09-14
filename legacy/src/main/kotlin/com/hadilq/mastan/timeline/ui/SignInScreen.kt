@@ -77,4 +77,4 @@ fun SignInScreen(
 }
 
 fun NoAuthComponent(context: Context) =
-    ((context.applicationContext as UserParentComponentProvider).component as AuthOptionalComponent.ParentComponent).createAuthOptionalComponent()
+    ((context.applicationContext as UserParentComponentProvider).userParentComponent as AuthOptionalComponent.AuthOptionalParentComponent).createAuthOptionalComponent()
