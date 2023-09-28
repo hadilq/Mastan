@@ -25,7 +25,8 @@ import javax.inject.Inject
 
 interface UserManager {
     fun userComponentFor(accessTokenRequest: AccessTokenRequest): UserComponent
-    fun userComponentFor(code: String): UserComponent?
+
+    fun userComponentFor(code: String): UserComponent
 }
 
 @ContributesTo(AppScope::class)
@@ -52,7 +53,7 @@ class RealUserManager @Inject constructor(
         }
     }
 
-    override fun userComponentFor(code: String): UserComponent? {
-        return cache.getIfPresent(code)
+    override fun userComponentFor(code: String): UserComponent {
+        return cache.getIfPresent(code)!!
     }
 }
