@@ -50,7 +50,6 @@ import com.google.accompanist.navigation.material.ModalBottomSheetLayout
 import com.hadilq.mastan.AuthOptionalParentComponentProvider
 import com.hadilq.mastan.di.legacyInput
 import com.squareup.anvil.annotations.ContributesTo
-import com.hadilq.mastan.legacy.R
 import javax.inject.Provider
 
 
@@ -94,9 +93,9 @@ class MainActivity : ComponentActivity() {
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash)
+        setContentView(legacyInput.splashOutput.splashActivityRes)
 
-        findViewById<MotionLayout>(R.id.motionLayout).setTransitionListener(object :
+        findViewById<MotionLayout>(legacyInput.splashOutput.motionLayoutRes).setTransitionListener(object :
             MotionLayout.TransitionListener {
             override fun onTransitionCompleted(p0: MotionLayout?, p1: Int) {
                 content()

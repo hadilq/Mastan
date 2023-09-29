@@ -19,6 +19,7 @@ package com.hadilq.mastan
 import android.app.Application
 import com.hadilq.mastan.di.AppInput
 import com.hadilq.mastan.di.setLegacyInputProvider
+import com.hadilq.mastan.splash.di.setSplashInputProvider
 import com.hadilq.mastan.timeline.ui.UrlHandlerMediator
 import com.squareup.anvil.annotations.ContributesSubcomponent
 import com.squareup.anvil.annotations.ContributesTo
@@ -52,6 +53,7 @@ class UserParent : Application(), UserParentComponentProvider, AuthOptionalParen
     override fun onCreate() {
         super.onCreate()
         setLegacyInputProvider(appInput::legacyInput)
+        setSplashInputProvider(appInput::splashInput)
     }
 }
 

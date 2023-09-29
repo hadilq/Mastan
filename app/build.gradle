@@ -83,6 +83,8 @@ dependencies {
     implementation(projects.legacy)
     implementation(projects.theme.io)
     implementation(projects.theme.impl)
+    implementation(projects.splash.io)
+    implementation(projects.splash.impl)
     implementation(platform(libs.androidx.compose.bom))
     implementation(platform(libs.google.firebase.bom))
     implementation(libs.androidx.constraintlayout)

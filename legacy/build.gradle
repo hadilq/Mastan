@@ -48,6 +48,7 @@ tasks.withType(KaptGenerateStubs).configureEach {
 
 dependencies {
     implementation(projects.theme.io)
+    implementation(projects.splash.io)
     implementation(platform(libs.androidx.compose.bom))
     implementation(platform(libs.google.firebase.bom))
     implementation(libs.androidx.constraintlayout)

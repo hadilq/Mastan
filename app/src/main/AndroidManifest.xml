@@ -20,7 +20,7 @@
         android:configChanges="locale|layoutDirection">
         <activity
             android:configChanges="locale|layoutDirection"
-            android:name="com.hadilq.mastan.ui.SplashActivity"
+            android:name="com.hadilq.mastan.splash.SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.Splash"
             >

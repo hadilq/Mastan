@@ -34,6 +34,7 @@ dependencyResolutionManagement {
 rootProject.name = "Mastan"
 include(":app")
 include(":legacy")
-include(":theme")
+include(":splash:io")
+include(":splash:impl")
 include(":theme:io")
 include(":theme:impl")

@@ -13,29 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-@file:OptIn(ExperimentalTextApi::class)
-
-package com.hadilq.mastan.ui
+package com.hadilq.mastan.splash
 
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.ui.ExperimentalComposeUiApi
-import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.constraintlayout.motion.widget.MotionLayout
-import com.hadilq.mastan.timeline.ui.MainActivity
-import com.hadilq.mastan.legacy.R
+import com.hadilq.mastan.splash.R
+import com.hadilq.mastan.splash.di.splashInput
 
-@ExperimentalMaterial3Api
-@ExperimentalComposeUiApi
 class SplashActivity : Activity() {
-    @OptIn(ExperimentalTextApi::class, ExperimentalMaterialApi::class,
-        ExperimentalAnimationApi::class
-    )
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
@@ -44,7 +33,7 @@ class SplashActivity : Activity() {
             MotionLayout.TransitionListener {
             override fun onTransitionCompleted(p0: MotionLayout?, p1: Int) {
 
-                startActivity(Intent(this@SplashActivity, MainActivity::class.java)
+                startActivity(Intent(this@SplashActivity, splashInput.mainActivityClass())
                     .addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION))
             }
 
