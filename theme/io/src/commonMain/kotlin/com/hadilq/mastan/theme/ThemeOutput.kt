@@ -13,27 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+package com.hadilq.mastan.theme
 
-pluginManagement {
-    repositories {
-        mavenCentral()
-        gradlePluginPortal()
-        google()
-    }
+import androidx.compose.material3.Typography
+import androidx.compose.material3.ColorScheme
+import androidx.compose.runtime.compositionLocalOf
+
+val LocalThemeOutput = compositionLocalOf<ThemeOutput> { error("No component found!") }
+
+/**
+ * This is the output of `theme` module. Its implementation is available in the `:theme:impl` module.
+ */
+interface ThemeOutput {
+    val lightColors: ColorScheme
+    val darkColors: ColorScheme
+    val dim: Dimension
+    val type: Typography
 }
-
-dependencyResolutionManagement {
-    repositories {
-        mavenCentral()
-        google()
-        mavenLocal()
-    }
-}
-
-rootProject.name = "Mastan"
-include(":app")
-include(":legacy")
-include(":theme")
-include(":theme:io")
-include(":theme:impl")

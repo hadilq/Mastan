@@ -17,6 +17,8 @@ package com.hadilq.mastan
 
 
 import android.app.Application
+import com.hadilq.mastan.di.AppInput
+import com.hadilq.mastan.di.setLegacyInputProvider
 import com.hadilq.mastan.timeline.ui.UrlHandlerMediator
 import com.squareup.anvil.annotations.ContributesSubcomponent
 import com.squareup.anvil.annotations.ContributesTo
@@ -25,6 +27,14 @@ import dagger.BindsInstance
 import dagger.Component
 
 class UserParent : Application(), UserParentComponentProvider, AuthOptionalParentComponentProvider {
+
+    /**
+     * Root of the dependency graph. It's a singleton. Btw, the lazy is not using thread safe mod
+     * because the graph is created in the one thread, Main Tread.
+     */
+    private val appInput by lazy(LazyThreadSafetyMode.NONE) {
+        AppInput(this)
+    }
 
     val component: AppComponent by lazy(LazyThreadSafetyMode.NONE) {
         (DaggerSkeletonComponent.factory()
@@ -41,6 +51,7 @@ class UserParent : Application(), UserParentComponentProvider, AuthOptionalParen
 
     override fun onCreate() {
         super.onCreate()
+        setLegacyInputProvider(appInput::legacyInput)
     }
 }
 

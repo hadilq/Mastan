@@ -20,6 +20,7 @@ import com.hadilq.mastan.AuthRequiredScope
 import com.hadilq.mastan.SingleIn
 import com.hadilq.mastan.auth.data.OauthRepository
 import com.hadilq.mastan.shared.UserApi
+import com.hadilq.mastan.theme.Dimension
 import com.hadilq.mastan.timeline.data.Account
 import com.hadilq.mastan.timeline.data.AccountRepository
 import com.hadilq.mastan.timeline.data.FeedStoreRequest
@@ -43,7 +44,7 @@ abstract class ConversationPresenter :
     sealed interface ConversationEvent
 
     data class Load(
-        val statusId: String, val type: FeedType, val colorScheme: ColorScheme,
+        val statusId: String, val type: FeedType, val colorScheme: ColorScheme, val dim: Dimension,
     ) : ConversationEvent
 
     data class ConversationModel(
@@ -85,7 +86,7 @@ class RealConversationPresenter @Inject constructor(
                     if (status.isSuccess) {
                         currentConvo =
                             currentConvo.copy(
-                                status = status.getOrThrow().mapStatus(event.colorScheme)
+                                status = status.getOrThrow().mapStatus(event.colorScheme, event.dim)
                                     .copy(replyIndention = 0)
                             )
                     }
@@ -106,11 +107,11 @@ class RealConversationPresenter @Inject constructor(
                         }
                         currentConvo = currentConvo.copy(
                             before = statuses.ancestors
-                                .map { it.toStatusDb(FeedType.Home).mapStatus(event.colorScheme) }
+                                .map { it.toStatusDb(FeedType.Home).mapStatus(event.colorScheme, event.dim) }
                                 .map { it.copy(replyType = ReplyType.CHILD, replyIndention = 0) },
                             after = conversationReplyRearrangerMediator
                                 .rearrangeConversations(after, event.statusId)
-                                .map { it.mapStatus(event.colorScheme) }
+                                .map { it.mapStatus(event.colorScheme, event.dim) }
                                 .map { it.copy(replyType = ReplyType.CHILD) },
                         )
 

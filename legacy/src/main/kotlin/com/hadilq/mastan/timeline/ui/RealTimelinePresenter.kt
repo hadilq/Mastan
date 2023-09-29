@@ -22,6 +22,7 @@ import com.hadilq.mastan.SingleIn
 import com.hadilq.mastan.auth.data.OauthRepository
 import com.hadilq.mastan.shared.UserApi
 import com.hadilq.mastan.shared.headerLinks
+import com.hadilq.mastan.theme.Dimension
 import com.hadilq.mastan.timeline.data.*
 import com.hadilq.mastan.timeline.ui.model.UI
 import com.hadilq.mastan.ui.util.Presenter
@@ -111,7 +112,7 @@ class RealTimelinePresenter @Inject constructor(
                     FeedType.Home -> {
                         model = model.copy(homeStatuses = homeFlow.map {
                             it.map {
-                                it.mapStatus(event.colorScheme)
+                                it.mapStatus(event.colorScheme, event.dim)
                             }
                         })
                     }
@@ -119,7 +120,7 @@ class RealTimelinePresenter @Inject constructor(
                     FeedType.Local -> {
                         model = model.copy(localStatuses = localFlow.map {
                             it.map {
-                                it.mapStatus(event.colorScheme)
+                                it.mapStatus(event.colorScheme, event.dim)
                             }
                         })
                     }
@@ -127,7 +128,7 @@ class RealTimelinePresenter @Inject constructor(
                     FeedType.Federated -> {
                         model = model.copy(federatedStatuses = federatedFlow.map {
                             it.map {
-                                it.mapStatus(event.colorScheme)
+                                it.mapStatus(event.colorScheme, event.dim)
                             }
                         })
                     }
@@ -135,7 +136,7 @@ class RealTimelinePresenter @Inject constructor(
                     FeedType.Trending -> {
                         model = model.copy(trendingStatuses = trendingFlow.map {
                             it.map {
-                                it.mapStatus(event.colorScheme)
+                                it.mapStatus(event.colorScheme, event.dim)
                             }
                         })
 
@@ -188,13 +189,13 @@ class RealTimelinePresenter @Inject constructor(
 
                         model = model.copy(
                             userWithRepliesStatuses = flow.map {
-                                it.map { it.mapStatus(event.colorScheme) }
+                                it.map { it.mapStatus(event.colorScheme, event.dim) }
                             }.cachedIn(scope),
                             userWithMediaStatuses = flowWithMedia.map {
-                                it.map { it.mapStatus(event.colorScheme) }
+                                it.map { it.mapStatus(event.colorScheme, event.dim) }
                             }.cachedIn(scope),
                             userStatuses = flow2.map {
-                                it.map { it.mapStatus(event.colorScheme) }
+                                it.map { it.mapStatus(event.colorScheme, event.dim) }
                             }.cachedIn(scope)
                         )
 
@@ -204,7 +205,7 @@ class RealTimelinePresenter @Inject constructor(
                         model = model.copy(bookmarkedStatuses = bookmarksFlow.map {
                             it.map {
                                 it.toStatusDb(FeedType.Bookmarks)
-                                    .mapStatus(colorScheme = event.colorScheme)
+                                    .mapStatus(colorScheme = event.colorScheme, event.dim)
                             }
                         })
                     }
@@ -213,7 +214,7 @@ class RealTimelinePresenter @Inject constructor(
                         model = model.copy(favoriteStatuses = favoritesFlow.map {
                             it.map {
                                 it.toStatusDb(FeedType.Favorites)
-                                    .mapStatus(colorScheme = event.colorScheme)
+                                    .mapStatus(colorScheme = event.colorScheme, event.dim)
                             }
                         })
                     }
@@ -228,7 +229,7 @@ class RealTimelinePresenter @Inject constructor(
                         }
                             .flow.cachedIn(scope).map {
                                 it.map {
-                                    it.mapStatus(colorScheme = event.colorScheme)
+                                    it.mapStatus(colorScheme = event.colorScheme, event.dim)
                                 }
                             })
                     }
@@ -249,7 +250,8 @@ abstract class TimelinePresenter :
     data class Load(
         val feedType: FeedType,
         val accountId: String? = null,
-        val colorScheme: ColorScheme
+        val colorScheme: ColorScheme,
+        val dim: Dimension
     ) : HomeEvent
 
 

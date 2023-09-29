@@ -47,8 +47,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.hadilq.mastan.accounts.AccountTab
 import com.hadilq.mastan.search.SearchPresenter
-import com.hadilq.mastan.theme.PaddingSize0_5
-import com.hadilq.mastan.theme.PaddingSize1
 import com.hadilq.mastan.timeline.data.Account
 import com.hadilq.mastan.timeline.data.FeedType
 import com.hadilq.mastan.timeline.data.Tag
@@ -61,6 +59,7 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.pagerTabIndicatorOffset
 import com.google.accompanist.pager.rememberPagerState
+import com.hadilq.mastan.theme.LocalThemeOutput
 import com.patrykandpatrick.vico.compose.chart.Chart
 import com.patrykandpatrick.vico.compose.chart.line.lineChart
 import com.patrykandpatrick.vico.compose.m3.style.m3ChartStyle
@@ -215,13 +214,14 @@ private fun HashTagTab(
     results: List<Tag>,
     submitPresenter: SubmitPresenter
 ) {
+    val dim = LocalThemeOutput.current.dim
     LazyColumn(Modifier.fillMaxSize()) {
         items(results, key = { it.name }) {
             Row(
                 modifier = Modifier
                     .clickable { }
                     .fillMaxWidth()
-                    .padding(PaddingSize1),
+                    .padding(dim.paddingSize1),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
 
@@ -229,7 +229,7 @@ private fun HashTagTab(
                     style = MaterialTheme.typography.titleLarge,
                     color = colorScheme.onSurface,
                     modifier = Modifier
-                        .padding(PaddingSize0_5),
+                        .padding(dim.paddingSize0_5),
                     text = it.name,
                 )
 

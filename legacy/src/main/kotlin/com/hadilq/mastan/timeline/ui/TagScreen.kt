@@ -38,7 +38,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.hadilq.mastan.theme.PaddingSize1
+import com.hadilq.mastan.theme.LocalThemeOutput
 import com.hadilq.mastan.timeline.data.FeedType
 import com.hadilq.mastan.timeline.ui.model.UI
 import kotlinx.coroutines.delay
@@ -55,6 +55,7 @@ fun TagScreen(
     goToProfile: (String) -> Unit,
     goToTag: (String) -> Unit
 ) {
+    val dim = LocalThemeOutput.current.dim
     val component = LocalAuthComponent.current
 
     val homePresenter by remember(key1 = tag) {
@@ -77,7 +78,7 @@ fun TagScreen(
 
     val colorScheme = MaterialTheme.colorScheme
     LaunchedEffect(key1 = { tag }) {
-        homePresenter.handle(TimelinePresenter.Load(feedType, colorScheme = colorScheme))
+        homePresenter.handle(TimelinePresenter.Load(feedType, colorScheme = colorScheme, dim = dim))
     }
     LaunchedEffect(key1 = tag) {
         uriPresenter.start()
@@ -85,7 +86,7 @@ fun TagScreen(
     OpenHandledUri(uriPresenter, navController, code)
 
     val pullRefreshState = rememberPullRefreshState(false, {
-        homePresenter.handle(TimelinePresenter.Load(feedType, colorScheme = colorScheme))
+        homePresenter.handle(TimelinePresenter.Load(feedType, colorScheme = colorScheme, dim = dim))
     })
 
     val items = homePresenter.model.hashtagStatuses?.collectAsLazyPagingItems()
@@ -95,7 +96,7 @@ fun TagScreen(
 
     ModalBottomSheetLayout(
         sheetState = bottomState,
-        sheetShape = RoundedCornerShape(topStart = PaddingSize1, topEnd = PaddingSize1),
+        sheetShape = RoundedCornerShape(topStart = dim.paddingSize1, topEnd = dim.paddingSize1),
         sheetContent = {
             BottomSheetContent(
                 bottomSheetContentProvider = bottomSheetContentProvider,

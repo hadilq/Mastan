@@ -48,6 +48,7 @@ import com.google.accompanist.navigation.material.BottomSheetNavigator
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import com.google.accompanist.navigation.material.ModalBottomSheetLayout
 import com.hadilq.mastan.AuthOptionalParentComponentProvider
+import com.hadilq.mastan.di.legacyInput
 import com.squareup.anvil.annotations.ContributesTo
 import com.hadilq.mastan.legacy.R
 import javax.inject.Provider
@@ -126,35 +127,43 @@ class MainActivity : ComponentActivity() {
                 .build()
 
             CompositionLocalProvider(LocalImageLoader provides loader) {
-                var isDynamicTheme by remember { mutableStateOf(true) }
-                MastanTheme(isDynamicColor = isDynamicTheme) {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .background(MaterialTheme.colorScheme.surface)
-                    ) {
-                        val scope = rememberCoroutineScope()
-                        val sheetState = rememberModalBottomSheetState(
-                            ModalBottomSheetValue.Hidden,
-                            SwipeableDefaults.AnimationSpec,
-                            skipHalfExpanded = true
-                        )
-                        val bottomSheetNavigator = remember(sheetState) {
-                            BottomSheetNavigator(sheetState = sheetState)
-                        }
+                CompositionLocalProvider(LocalThemeOutput provides legacyInput.themeOutput) {
+                    MainContent()
+                }
+            }
+        }
 
-                        val navController = rememberAnimatedNavController(bottomSheetNavigator)
-                        ModalBottomSheetLayout(bottomSheetNavigator) {
-                            Navigator(
-                                navController, scope,
-                            ) {
-                                isDynamicTheme = !isDynamicTheme
-                            }
-                        }
+    @Composable
+    @OptIn(ExperimentalMaterialNavigationApi::class)
+    private fun MainContent() {
+        var isDynamicTheme by remember { mutableStateOf(true) }
+        MastanTheme(isDynamicColor = isDynamicTheme) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(MaterialTheme.colorScheme.surface)
+            ) {
+                val scope = rememberCoroutineScope()
+                val sheetState = rememberModalBottomSheetState(
+                    ModalBottomSheetValue.Hidden,
+                    SwipeableDefaults.AnimationSpec,
+                    skipHalfExpanded = true
+                )
+                val bottomSheetNavigator = remember(sheetState) {
+                    BottomSheetNavigator(sheetState = sheetState)
+                }
+
+                val navController = rememberAnimatedNavController(bottomSheetNavigator)
+                ModalBottomSheetLayout(bottomSheetNavigator) {
+                    Navigator(
+                        navController, scope,
+                    ) {
+                        isDynamicTheme = !isDynamicTheme
                     }
                 }
             }
         }
+    }
 
 
     fun noAuthComponent() =

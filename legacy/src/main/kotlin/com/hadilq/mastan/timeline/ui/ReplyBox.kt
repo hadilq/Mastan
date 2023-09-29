@@ -139,6 +139,7 @@ fun UserInput(
     goToProfile: (String) -> Unit,
     goToTag: (String) -> Unit
 ) {
+    val dim = LocalThemeOutput.current.dim
     var currentInputSelector by rememberSaveable { mutableStateOf(InputSelector.NONE) }
     val dismissKeyboard = { currentInputSelector = InputSelector.NONE }
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -169,7 +170,7 @@ fun UserInput(
         Column(
             modifier = modifier
                 .focusRequester(focusRequester)
-                .padding(PaddingSizeNone)
+                .padding(dim.paddingSizeNone)
                 .clip(RoundedCornerShape(8.dp))
                 .background(colorScheme.surface.copy(alpha = .9f))
         ) {
@@ -250,9 +251,7 @@ fun UserInput(
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(colorScheme.surface)
-                    .padding(
-                        PaddingSize0_5
-                    )
+                    .padding(dim.paddingSize0_5)
             ) {
                 uris.forEach {
                     Box {
@@ -261,7 +260,7 @@ fun UserInput(
                             contentDescription = "Content",
                             imageLoader = LocalImageLoader.current,
                             modifier = modifier
-                                .padding(PaddingSize0_5)
+                                .padding(dim.paddingSize0_5)
                                 .clickable {
                                     uris.remove(it)
                                     if (uris.isEmpty()) {
@@ -284,7 +283,7 @@ fun UserInput(
             val pollColumnModifier = Modifier
                 .fillMaxWidth()
                 .background(colorScheme.surface)
-                .padding(PaddingSize0_5)
+                .padding(dim.paddingSize0_5)
             Column(
                 verticalArrangement = Arrangement.Top,
                 modifier = if (isVerticalScrollHandled) {
@@ -328,7 +327,7 @@ fun UserInput(
                     )
                     Text(
                         modifier = Modifier
-                            .padding(horizontal = PaddingSize2),
+                            .padding(horizontal = dim.paddingSize2),
                         text = "Added options:",
                         style = MaterialTheme.typography.labelSmall.copy(
                             color = colorScheme.onSurface,
@@ -350,6 +349,7 @@ private fun PollOption(
     option: String,
     pollOptions: SnapshotStateList<String>
 ) {
+    val dim = LocalThemeOutput.current.dim
     Row(
         modifier = modifier
             .fillMaxWidth(),
@@ -359,7 +359,7 @@ private fun PollOption(
             modifier = Modifier
                 .align(Alignment.CenterVertically)
                 .weight(1f)
-                .padding(horizontal = PaddingSize3, vertical = PaddingSize1),
+                .padding(horizontal = dim.paddingSize3, vertical = dim.paddingSize1),
             style = MaterialTheme.typography.bodyLarge.copy(
                 color = colorScheme.onSurface,
                 lineHeight = 16.sp
@@ -372,7 +372,7 @@ private fun PollOption(
         )
         IconButton(
             modifier = Modifier
-                .padding(horizontal = PaddingSize1)
+                .padding(horizontal = dim.paddingSize1)
                 .align(Alignment.CenterVertically),
             onClick = {
                 pollOptions.remove(option)
@@ -418,6 +418,7 @@ private fun SelectorExpanded(
     goToProfile: (String) -> Unit,
     goToTag: (String) -> Unit
 ) {
+    val dim = LocalThemeOutput.current.dim
     if (currentSelector == InputSelector.NONE) return
 
     // Request focus to force the TextField to lose it
@@ -429,7 +430,7 @@ private fun SelectorExpanded(
         }
     }
 
-    Surface(tonalElevation = PaddingSize1) {
+    Surface(tonalElevation = dim.paddingSize1) {
         when (currentSelector) {
             InputSelector.EMOJI -> EmojiSelector(onTextAdded, focusRequester, connection)
             InputSelector.REPLIES  -> {}
@@ -499,6 +500,7 @@ private fun PollCreator(
     focusRequester: FocusRequester,
     pollOptionAdded: (String) -> Unit,
 ) {
+    val dim = LocalThemeOutput.current.dim
     var option: TextFieldValue by remember { mutableStateOf(TextFieldValue("")) }
 
     Row(
@@ -512,8 +514,8 @@ private fun PollCreator(
             modifier = Modifier
                 .wrapContentHeight()
                 .padding(
-                    horizontal = PaddingSize1,
-                    vertical = PaddingSize2
+                    horizontal = dim.paddingSize1,
+                    vertical = dim.paddingSize2
                 )
                 .focusRequester(focusRequester)
                 .weight(1f),
@@ -563,10 +565,11 @@ private fun UserInputSelector(
     currentInputSelector: InputSelector,
     modifier: Modifier = Modifier,
 ) {
+    val dim = LocalThemeOutput.current.dim
     Row(
         modifier = modifier
             .wrapContentHeight()
-            .padding(start = PaddingSizeNone, end = PaddingSize1, bottom = PaddingSize1),
+            .padding(start = dim.paddingSizeNone, end = dim.paddingSize1, bottom = dim.paddingSize1),
         verticalAlignment = Alignment.CenterVertically
     ) {
         InputSelectorButton(
@@ -601,7 +604,7 @@ private fun UserInputSelector(
 
         val border = if (!sendMessageEnabled) {
             BorderStroke(
-                width = ThickSm,
+                width = dim.thickSm,
                 color = colorScheme.onSurface.copy(alpha = 0.3f)
             )
         } else {
@@ -617,7 +620,6 @@ private fun UserInputSelector(
 //            containerColor = MaterialTheme.colorScheme.tertiary
         )
         var clicked by remember { mutableStateOf(false) }
-
         val imageSize: Float by animateFloatAsState(
             if (clicked) 1.1f else 1f,
             animationSpec = spring(
@@ -633,9 +635,9 @@ private fun UserInputSelector(
                 .padding(end = 20.dp, top = 8.dp, bottom = 2.dp)
                 .wrapContentSize(),
             elevation = ButtonDefaults.buttonElevation(
-                defaultElevation = PaddingSize3,
-                pressedElevation = PaddingSize1,
-                disabledElevation = PaddingSize3
+                defaultElevation = dim.paddingSize3,
+                pressedElevation = dim.paddingSize1,
+                disabledElevation = dim.paddingSize3
             ),
             enabled = sendMessageEnabled,
             onClick = {
@@ -647,7 +649,7 @@ private fun UserInputSelector(
             colors = buttonColors,
             border = border,
             shape = CircleShape,
-            contentPadding = PaddingValues(PaddingSize1)
+            contentPadding = PaddingValues(dim.paddingSize1)
         ) {
             Row(Modifier.padding(4.dp)) {
                 Image(
@@ -675,10 +677,11 @@ private fun InputSelectorButton(
     description: String,
     selected: Boolean
 ) {
+    val dim = LocalThemeOutput.current.dim
     val backgroundModifier = if (selected) {
         Modifier.background(
             color = colorScheme.primary.copy(alpha = .5f),
-            shape = RoundedCornerShape(TouchpointMd)
+            shape = RoundedCornerShape(dim.touchpointMd)
         )
     } else {
         Modifier
@@ -686,7 +689,7 @@ private fun InputSelectorButton(
     IconButton(
         onClick = onClick,
         modifier = Modifier
-            .size(TouchpointMd)
+            .size(dim.touchpointMd)
 //            .then(backgroundModifier)
     ) {
         val tint = if (selected) {
@@ -735,6 +738,7 @@ private fun UserInputText(
             },
         horizontalArrangement = Arrangement.End
     ) {
+        val dim = LocalThemeOutput.current.dim
         Surface {
             Row(modifier = Modifier.background(colorScheme.surfaceVariant.copy(alpha = .9f))) {
 
@@ -758,9 +762,9 @@ private fun UserInputText(
                             .fillMaxWidth()
                             .wrapContentHeight()
                             .padding(
-                                start = PaddingSize1,
-                                bottom = PaddingSize2,
-                                top = PaddingSize2
+                                start = dim.paddingSize1,
+                                bottom = dim.paddingSize2,
+                                top = dim.paddingSize2
                             )
                             .align(Alignment.TopStart)
                             .onFocusChanged { state ->
@@ -786,9 +790,9 @@ private fun UserInputText(
                             modifier = Modifier
                                 .align(Alignment.TopStart)
                                 .padding(
-                                    start = PaddingSize3,
-                                    bottom = PaddingSize2,
-                                    top = PaddingSize2
+                                    start = dim.paddingSize3,
+                                    bottom = dim.paddingSize2,
+                                    top = dim.paddingSize2
                                 )
                                 .wrapContentWidth(),
                             text = "Be Heard",
@@ -810,6 +814,7 @@ fun EmojiSelector(
     focusRequester: FocusRequester,
     connection: NestedScrollConnection?
 ) {
+    val dim = LocalThemeOutput.current.dim
     var selected by remember { mutableStateOf(EmojiStickerSelector.EMOJI) }
 
     val a11yLabel = "description"
@@ -823,7 +828,7 @@ fun EmojiSelector(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = PaddingSize1)
+                .padding(horizontal = dim.paddingSize1)
         ) {
 //            ExtendedSelectorInnerButton(
 //                text = "Emoji",
@@ -839,7 +844,7 @@ fun EmojiSelector(
 //            )
         }
         Row(modifier = connection?.let { Modifier.nestedScroll(it) } ?: Modifier) {
-            EmojiTable(onTextAdded, modifier = Modifier.padding(PaddingSize1))
+            EmojiTable(onTextAdded, modifier = Modifier.padding(dim.paddingSize1))
         }
     }
     if (selected == EmojiStickerSelector.STICKER) {
@@ -854,6 +859,7 @@ fun ExtendedSelectorInnerButton(
     selected: Boolean,
     modifier: Modifier = Modifier
 ) {
+    val dim = LocalThemeOutput.current.dim
     val colors = ButtonDefaults.buttonColors(
         containerColor = if (selected) colorScheme.onSurface.copy(alpha = 0.08f)
         else Color.Transparent,
@@ -864,10 +870,10 @@ fun ExtendedSelectorInnerButton(
     TextButton(
         onClick = onClick,
         modifier = modifier
-            .padding(PaddingSize1)
-            .height(PaddingSize4),
+            .padding(dim.paddingSize1)
+            .height(dim.paddingSize4),
         colors = colors,
-        contentPadding = PaddingValues(PaddingSizeNone)
+        contentPadding = PaddingValues(dim.paddingSizeNone)
     ) {
         Text(
             text = text,
@@ -893,6 +899,7 @@ private fun PollExpireAt(
     expireAt: LocalDateTime,
     onClick: (LocalDateTime) -> Unit,
 ) {
+    val dim = LocalThemeOutput.current.dim
     val datetime = remember { mutableStateOf(expireAt) }
 
     val showTimePicker = showTimePicker(
@@ -929,7 +936,7 @@ private fun PollExpireAt(
         text = buildAnnotatedString { append("Expire at(click to change): ${datetime.value.format()}") },
 
         modifier = Modifier
-            .padding(PaddingSize2),
+            .padding(dim.paddingSize2),
         style = MaterialTheme.typography.titleSmall.copy(
             color = colorScheme.onSurface,
         ),
@@ -989,6 +996,7 @@ private fun PollProperty(
     selected: Boolean,
     onClick: (Boolean) -> Unit,
 ) {
+    val dim = LocalThemeOutput.current.dim
     Row(
         modifier = modifier
             .fillMaxWidth(),
@@ -996,7 +1004,7 @@ private fun PollProperty(
         Checkbox(
             checked = selected,
             modifier = Modifier
-                .padding(horizontal = PaddingSize1)
+                .padding(horizontal = dim.paddingSize1)
                 .align(Alignment.CenterVertically),
             onCheckedChange = {
                 onClick(selected)
@@ -1006,7 +1014,7 @@ private fun PollProperty(
         ClickableText(
             text = buildAnnotatedString { append(option) },
             modifier = Modifier
-                .padding(PaddingSize1)
+                .padding(dim.paddingSize1)
                 .weight(1f)
                 .alignByBaseline(),
             style = style,
@@ -1023,6 +1031,7 @@ fun EmojiTable(
     onTextAdded: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val dim = LocalThemeOutput.current.dim
     Column(
         modifier
             .fillMaxWidth()
@@ -1038,8 +1047,8 @@ fun EmojiTable(
                     Text(
                         modifier = Modifier
                             .clickable(onClick = { onTextAdded(emoji) })
-                            .sizeIn(minWidth = 42.dp, minHeight = PaddingSize5)
-                            .padding(PaddingSize1),
+                            .sizeIn(minWidth = 42.dp, minHeight = dim.paddingSize5)
+                            .padding(dim.paddingSize1),
                         text = emoji,
                         style = LocalTextStyle.current.copy(
                             fontSize = 18.sp,

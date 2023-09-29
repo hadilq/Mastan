@@ -31,16 +31,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.hadilq.mastan.theme.PaddingSize1
-import com.hadilq.mastan.theme.PaddingSizeNone
-import com.hadilq.mastan.theme.ThickSm
 import com.hadilq.mastan.legacy.R
+import com.hadilq.mastan.theme.LocalThemeOutput
 
 @Composable
 fun BottomBar(
     goToMentions: () -> Unit,
     goToNotifications: () -> Unit,
 ) {
+    val dim = LocalThemeOutput.current.dim
     val size = 24
     Row(
         horizontalArrangement = Arrangement.SpaceEvenly,
@@ -49,8 +48,8 @@ fun BottomBar(
 
     ) {
         OutlinedButton(
-            contentPadding = PaddingValues(PaddingSizeNone, PaddingSize1),
-            border = BorderStroke(ThickSm, Color.Transparent),
+            contentPadding = PaddingValues(dim.paddingSizeNone, dim.paddingSize1),
+            border = BorderStroke(dim.thickSm, Color.Transparent),
             onClick = goToMentions
         ) {
             Image(
@@ -63,15 +62,15 @@ fun BottomBar(
 
         //placeholder for spacing
         OutlinedButton(
-            border = BorderStroke(ThickSm, Color.Transparent),
+            border = BorderStroke(dim.thickSm, Color.Transparent),
             onClick = { }
         ) {
         }
 
 
         OutlinedButton(
-            contentPadding = PaddingValues(PaddingSizeNone, PaddingSize1),
-            border = BorderStroke(ThickSm, Color.Transparent),
+            contentPadding = PaddingValues(dim.paddingSizeNone, dim.paddingSize1),
+            border = BorderStroke(dim.thickSm, Color.Transparent),
             onClick = goToNotifications
         ) {
             Image(

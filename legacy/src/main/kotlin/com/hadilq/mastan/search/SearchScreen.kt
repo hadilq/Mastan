@@ -31,7 +31,7 @@ import androidx.navigation.NavController
 import com.hadilq.mastan.search.SearchPresenter.SearchModel
 import com.hadilq.mastan.search.results.SearchResults
 import com.hadilq.mastan.search.topbar.TopBar
-import com.hadilq.mastan.theme.PaddingSize1
+import com.hadilq.mastan.theme.LocalThemeOutput
 import com.hadilq.mastan.timeline.ui.BottomSheetContent
 import com.hadilq.mastan.timeline.ui.BottomSheetContentProvider
 import com.hadilq.mastan.timeline.ui.UriPresenter
@@ -83,9 +83,10 @@ fun SearchView(
     goToTag: (String) -> Unit,
     goToConversation: (UI) -> Unit,
 ) {
+    val dim = LocalThemeOutput.current.dim
     ModalBottomSheetLayout(
         sheetState = bottomSheetContentProvider.bottomState,
-        sheetShape = RoundedCornerShape(topStart = PaddingSize1, topEnd = PaddingSize1),
+        sheetShape = RoundedCornerShape(topStart = dim.paddingSize1, topEnd = dim.paddingSize1),
         sheetContent = {
             BottomSheetContent(
                 bottomSheetContentProvider = bottomSheetContentProvider,

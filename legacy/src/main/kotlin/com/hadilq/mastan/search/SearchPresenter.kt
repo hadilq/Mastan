@@ -21,6 +21,7 @@ import com.hadilq.mastan.AuthRequiredScope
 import com.hadilq.mastan.SingleIn
 import com.hadilq.mastan.auth.data.OauthRepository
 import com.hadilq.mastan.shared.UserApi
+import com.hadilq.mastan.theme.Dimension
 import com.hadilq.mastan.timeline.data.Account
 import com.hadilq.mastan.timeline.data.AccountRepository
 import com.hadilq.mastan.timeline.data.FeedType
@@ -53,7 +54,7 @@ abstract class SearchPresenter :
     sealed interface SearchEvent
 
     //    object Load : searchEvent
-    data class Init(val colorScheme: ColorScheme) : SearchEvent
+    data class Init(val colorScheme: ColorScheme, val dim: Dimension) : SearchEvent
 
 
     data class SearchModel(
@@ -88,13 +89,13 @@ class RealSearchPresenter @Inject constructor(
         when (event) {
             is Init -> {
                 model = model.copy(account = accountRepository.getCurrent())
-                mapSearchToResults(event.colorScheme)
+                mapSearchToResults(event.colorScheme, event.dim)
             }
 
         }
     }
 
-    suspend fun mapSearchToResults(colorScheme: ColorScheme) {
+    suspend fun mapSearchToResults(colorScheme: ColorScheme, dim: Dimension) {
         searchInput
             .debounce(100)
             .filter { lengthGreaterThan1(it) }
@@ -129,7 +130,7 @@ class RealSearchPresenter @Inject constructor(
                                     }
                                 },
                                 statuses = searchResults.statuses.map {
-                                    it.toStatusDb(FeedType.User).mapStatus(colorScheme)
+                                    it.toStatusDb(FeedType.User).mapStatus(colorScheme, dim)
                                 })
                         }
                     }

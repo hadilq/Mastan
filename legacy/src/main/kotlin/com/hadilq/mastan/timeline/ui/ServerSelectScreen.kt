@@ -44,6 +44,7 @@ import com.hadilq.mastan.legacy.R
 fun ServerSelectScreen(
     onServerSelected: (selected: String) -> Unit
 ) {
+    val dim = LocalThemeOutput.current.dim
     var current by remember { mutableStateOf("") }
     MastanTheme {
         Surface(
@@ -54,7 +55,7 @@ fun ServerSelectScreen(
 
             Column(
                 Modifier
-                    .padding(PaddingSize2)
+                    .padding(dim.paddingSize2)
                     .fillMaxWidth(1f)
                     .fillMaxHeight()
                     .wrapContentHeight(),
@@ -64,15 +65,15 @@ fun ServerSelectScreen(
             ) {
                 Text(
                     color = colorScheme.primary,
-                    modifier = Modifier.padding(bottom = PaddingSize2),
+                    modifier = Modifier.padding(bottom = dim.paddingSize2),
                     text = "Welcome to Mastan",
                     style = MaterialTheme.typography.headlineLarge
                 )
                 Text(
                     color = colorScheme.primary,
 //                    modifier = Modifier.padding(
-//                        horizontal = PaddingSize2,
-//                        vertical = PaddingSize1
+//                        horizontal = dim.PaddingSize2,
+//                        vertical = dim.PaddingSize1
 //                    ),
                     text = "Enter Server Name",
                     style = MaterialTheme.typography.headlineMedium
@@ -86,7 +87,7 @@ fun ServerSelectScreen(
                     .focusRequester(focusRequester =focusRequester)
                     .wrapContentHeight()
                     .fillMaxWidth(.99f)
-                    .padding(top = PaddingSize8, start = PaddingSize1, end = PaddingSize1),
+                    .padding(top = dim.paddingSize8, start = dim.paddingSize1, end = dim.paddingSize1),
                     textStyle = LocalTextStyle.current.copy(
                         //                                        textAlign = TextAlign.Cewn
                     ),
@@ -120,7 +121,7 @@ fun ServerSelectScreen(
                         modifier = Modifier
                             .wrapContentWidth()
                             .align(Alignment.Center)
-                            .padding(PaddingSize5),
+                            .padding(dim.paddingSize5),
                         text = {
                             Text("Continue to Server")
                         },

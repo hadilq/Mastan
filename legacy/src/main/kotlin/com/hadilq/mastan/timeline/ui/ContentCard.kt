@@ -26,9 +26,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.sp
-import com.hadilq.mastan.theme.PaddingSize0_5
-import com.hadilq.mastan.theme.PaddingSize1
-import com.hadilq.mastan.theme.TonalSurfaceElevation
+import com.hadilq.mastan.theme.LocalThemeOutput
 import com.hadilq.mastan.timeline.data.FeedType
 import com.hadilq.mastan.timeline.ui.model.CardUI
 import java.net.URI
@@ -40,21 +38,22 @@ fun ContentCard(
     feedType: FeedType,
     onOpenURI: (URI, FeedType) -> Unit,
 ) {
+    val dim = LocalThemeOutput.current.dim
     Surface(
         modifier = Modifier
-            .padding(top = PaddingSize1)
+            .padding(top = dim.paddingSize1)
             .fillMaxWidth(),
-        tonalElevation = TonalSurfaceElevation,
-        shape = RoundedCornerShape(PaddingSize1),
+        tonalElevation = dim.tonalSurfaceElevation,
+        shape = RoundedCornerShape(dim.paddingSize1),
         onClick = {
             onOpenURI(URI(card.url), feedType)
         }
     ) {
         Column(
-            modifier = Modifier.padding(PaddingSize1),
+            modifier = Modifier.padding(dim.paddingSize1),
         ) {
             Text(
-                modifier = Modifier.padding(PaddingSize0_5),
+                modifier = Modifier.padding(dim.paddingSize0_5),
                 style = MaterialTheme.typography.bodyMedium.copy(
                     color = MaterialTheme.colorScheme.onSurface,
                     lineHeight = 16.sp
@@ -62,7 +61,7 @@ fun ContentCard(
                 text = card.title
             )
             Text(
-                modifier = Modifier.padding(PaddingSize0_5),
+                modifier = Modifier.padding(dim.paddingSize0_5),
                 style = MaterialTheme.typography.bodySmall.copy(
                     color = MaterialTheme.colorScheme.onSurface,
                     lineHeight = 12.sp

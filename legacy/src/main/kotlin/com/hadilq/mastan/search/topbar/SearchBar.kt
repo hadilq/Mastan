@@ -24,7 +24,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
-import com.hadilq.mastan.theme.PaddingSize0_5
 
 /**
  * Composable used for getting search input from a user
@@ -49,7 +48,6 @@ fun SearchBar(
     onSearchAll: () -> Unit
 ) {
   val searchBarHeight = 56.dp
-  val paddingHalf = PaddingSize0_5
   Surface(
       modifier = modifier
           .fillMaxWidth()

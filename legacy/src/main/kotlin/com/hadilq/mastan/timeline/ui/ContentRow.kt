@@ -83,13 +83,6 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.hadilq.mastan.theme.PaddingSize0_5
-import com.hadilq.mastan.theme.PaddingSize1
-import com.hadilq.mastan.theme.PaddingSize10
-import com.hadilq.mastan.theme.PaddingSize3
-import com.hadilq.mastan.theme.PaddingSize6
-import com.hadilq.mastan.theme.PaddingSize7
-import com.hadilq.mastan.theme.ThickSm
 import com.hadilq.mastan.timeline.data.Account
 import com.hadilq.mastan.timeline.data.FeedType
 import com.hadilq.mastan.timeline.data.LinkListener
@@ -101,6 +94,7 @@ import com.google.accompanist.placeholder.material3.placeholder
 import com.google.accompanist.placeholder.shimmer
 import me.saket.swipe.SwipeAction
 import com.hadilq.mastan.legacy.R
+import com.hadilq.mastan.theme.LocalThemeOutput
 import java.lang.Integer.min
 import java.net.URI
 
@@ -124,6 +118,7 @@ fun TimelineCard(
     onOpenURI: (URI, FeedType) -> Unit,
 ) {
 
+    val dim = LocalThemeOutput.current.dim
     val urlHandlerMediator = LocalUserComponent.current.urlHandlerMediator()
 
     val cardModifier = if (
@@ -138,10 +133,10 @@ fun TimelineCard(
     Column(
         cardModifier
             .padding(
-                bottom = PaddingSize1,
-                start = PaddingSize1,
-                end = PaddingSize1,
-                top = PaddingSize1
+                bottom = dim.paddingSize1,
+                start = dim.paddingSize1,
+                end = dim.paddingSize1,
+                top = dim.paddingSize1
             ),
     ) {
 
@@ -150,7 +145,7 @@ fun TimelineCard(
         Column {
             Row(
                 Modifier
-                    .padding(bottom = PaddingSize1),
+                    .padding(bottom = dim.paddingSize1),
             ) {
                 ui?.let { status ->
                     val magicNumber = 2
@@ -164,8 +159,8 @@ fun TimelineCard(
                         Box(
                             Modifier
                                 .fillMaxHeight()
-                                .padding(end = PaddingSize0_5)
-                                .width(ThickSm)
+                                .padding(end = dim.paddingSize0_5)
+                                .width(dim.thickSm)
                                 .background(color = colorScheme.onSurface)
                         )
                     }
@@ -183,8 +178,8 @@ fun TimelineCard(
                         Box(
                             Modifier
                                 .fillMaxHeight()
-                                .padding(end = PaddingSize0_5)
-                                .width(ThickSm)
+                                .padding(end = dim.paddingSize0_5)
+                                .width(dim.thickSm)
                                 .background(color = colorScheme.onSurface)
                         )
                     }
@@ -268,7 +263,7 @@ fun TimelineCard(
                     ContentImage(ui?.attachments?.mapNotNull { it.url } ?: emptyList()) {
                         clicked = !clicked
                     }
-                    val toolbarHeight = PaddingSize6
+                    val toolbarHeight = dim.paddingSize6
                     val toolbarHeightPx =
                         with(LocalDensity.current) {
                             toolbarHeight.roundToPx().toFloat()
@@ -307,7 +302,7 @@ fun TimelineCard(
                         Column {
                             IconButton(
                                 modifier = Modifier
-                                    .padding(horizontal = PaddingSize1)
+                                    .padding(horizontal = dim.paddingSize1)
                                     .align(Alignment.End),
                                 onClick = {
                                     showReply = false
@@ -408,10 +403,11 @@ fun UserInfo(
     goToProfile: (String) -> Unit,
     onProfileClick: (accountId: String, isCurrent: Boolean) -> Unit = { a, b -> }
 ) {
+    val dim = LocalThemeOutput.current.dim
     Row(
         Modifier
             .fillMaxWidth()
-            .padding(bottom = PaddingSize1, start = 60.dp)
+            .padding(bottom = dim.paddingSize1, start = 60.dp)
 //            .placeholder(
 //                color = colorScheme.surfaceColorAtElevation(
 //                    LocalAbsoluteTonalElevation.current + 8.dp
@@ -438,18 +434,18 @@ fun UserInfo(
     Row(
         Modifier
             .fillMaxWidth()
-            .padding(bottom = PaddingSize1)
+            .padding(bottom = dim.paddingSize1)
             .clickable {
                 ui?.accountId?.let { goToProfile(it) }
             },
         horizontalArrangement = Arrangement.Start
     ) {
-        AvatarImage(PaddingSize7, ui?.avatar, onClick = { goToProfile(ui?.accountId!!) })
-        Column(Modifier.padding(start = PaddingSize1)) {
+        AvatarImage(dim.paddingSize7, ui?.avatar, onClick = { goToProfile(ui?.accountId!!) })
+        Column(Modifier.padding(start = dim.paddingSize1)) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = PaddingSize0_5)
+                    .padding(bottom = dim.paddingSize0_5)
                     .placeholder(
                         color = colorScheme.surfaceColorAtElevation(
                             LocalAbsoluteTonalElevation.current + 8.dp
@@ -496,7 +492,7 @@ fun UserInfo(
                     text = ui?.userName ?: "",
                     style = MaterialTheme.typography.titleSmall,
                     modifier = Modifier
-                        .padding(end = PaddingSize1)
+                        .padding(end = dim.paddingSize1)
                         .weight(1f),
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
@@ -516,7 +512,7 @@ fun UserInfo(
 fun rocket() = SwipeAction(
     icon = {
         androidx.compose.foundation.Image(
-            modifier = Modifier.size(PaddingSize10),
+            modifier = Modifier.size(LocalThemeOutput.current.dim.paddingSize10),
             painter = painterResource(R.drawable.rocket3),
             contentDescription = "",
             colorFilter = ColorFilter.tint(colorScheme.tertiary)
@@ -530,7 +526,7 @@ fun rocket() = SwipeAction(
 fun reply() = SwipeAction(
     icon = {
         androidx.compose.foundation.Image(
-            modifier = Modifier.size(PaddingSize10),
+            modifier = Modifier.size(LocalThemeOutput.current.dim.paddingSize10),
             painter = painterResource(R.drawable.reply),
             contentDescription = "",
             colorFilter = ColorFilter.tint(colorScheme.tertiary)
@@ -544,7 +540,7 @@ fun reply() = SwipeAction(
 fun replyAll() = SwipeAction(
     icon = {
         androidx.compose.foundation.Image(
-            modifier = Modifier.size(PaddingSize10),
+            modifier = Modifier.size(LocalThemeOutput.current.dim.paddingSize10),
             painter = painterResource(R.drawable.reply_all),
             contentDescription = "",
             colorFilter = ColorFilter.tint(colorScheme.tertiary)
@@ -655,6 +651,7 @@ private fun MultipleChoicePollVoter(
     disabled: Boolean,
     onClick: (List<Int>) -> Unit,
 ) {
+    val dim = LocalThemeOutput.current.dim
     val selected = remember {
         mutableStateListOf(*List(options.size) { index -> ownVotes.contains(index) }.toTypedArray())
     }
@@ -668,7 +665,7 @@ private fun MultipleChoicePollVoter(
     )
     Column(
         modifier = Modifier
-            .padding(PaddingSize1)
+            .padding(dim.paddingSize1)
             .fillMaxWidth()
     ) {
         options.forEachIndexed { index, option ->
@@ -699,9 +696,9 @@ private fun MultipleChoicePollVoter(
                 .wrapContentSize()
                 .align(Alignment.End),
             elevation = androidx.compose.material3.ButtonDefaults.buttonElevation(
-                defaultElevation = PaddingSize3,
-                pressedElevation = PaddingSize1,
-                disabledElevation = PaddingSize3
+                defaultElevation = dim.paddingSize3,
+                pressedElevation = dim.paddingSize1,
+                disabledElevation = dim.paddingSize3
             ),
             enabled = !disabled,
             onClick = {
@@ -709,7 +706,7 @@ private fun MultipleChoicePollVoter(
                 clicked = true
             },
             shape = CircleShape,
-            contentPadding = PaddingValues(PaddingSize1)
+            contentPadding = PaddingValues(dim.paddingSize1)
         ) {
             Row(Modifier.padding(4.dp)) {
                 Image(
@@ -740,12 +737,13 @@ private fun SingleChoicePollVoter(
     disabled: Boolean,
     onClick: (Int) -> Unit,
 ) {
+    val dim = LocalThemeOutput.current.dim
     val selected = remember {
         mutableStateListOf(*List(options.size) { index -> ownVote == index }.toTypedArray())
     }
     Column(
         modifier = Modifier
-            .padding(PaddingSize1)
+            .padding(dim.paddingSize1)
             .fillMaxWidth()
     ) {
         options.forEachIndexed { index, option ->
@@ -782,6 +780,7 @@ private fun MultiChoicePollOptionVoter(
     selected: Boolean,
     onClick: (Boolean) -> Unit,
 ) {
+    val dim = LocalThemeOutput.current.dim
     Row(
         modifier = modifier
             .fillMaxWidth(),
@@ -789,7 +788,7 @@ private fun MultiChoicePollOptionVoter(
         Checkbox(
             checked = selected,
             modifier = Modifier
-                .padding(horizontal = PaddingSize1)
+                .padding(horizontal = dim.paddingSize1)
                 .align(Alignment.CenterVertically),
             enabled = !disabled,
             onCheckedChange = {
@@ -800,7 +799,7 @@ private fun MultiChoicePollOptionVoter(
         ClickableText(
             text = option.voteContent,
             modifier = Modifier
-                .padding(PaddingSize1)
+                .padding(dim.paddingSize1)
                 .weight(1f)
                 .alignByBaseline(),
             style = if (disabled) style.copy(color = style.color.copy(alpha = ContentAlpha.disabled)) else style,
@@ -816,7 +815,7 @@ private fun MultiChoicePollOptionVoter(
             Text(
                 text = option.percentage,
                 modifier = Modifier
-                    .padding(PaddingSize1)
+                    .padding(dim.paddingSize1)
                     .alignByBaseline(),
                 style = style,
                 maxLines = 1,
@@ -839,10 +838,11 @@ private fun SingleChoicePollOptionVoter(
         modifier = modifier
             .fillMaxWidth(),
     ) {
+        val dim = LocalThemeOutput.current.dim
         RadioButton(
             selected = selected,
             modifier = Modifier
-                .padding(horizontal = PaddingSize1)
+                .padding(horizontal = dim.paddingSize1)
                 .align(Alignment.CenterVertically),
             enabled = !disabled,
             onClick = {
@@ -853,7 +853,7 @@ private fun SingleChoicePollOptionVoter(
         ClickableText(
             text = option.voteContent,
             modifier = Modifier
-                .padding(PaddingSize0_5)
+                .padding(dim.paddingSize0_5)
                 .weight(1f)
                 .alignByBaseline(),
             style = if (disabled) style.copy(color = style.color.copy(alpha = ContentAlpha.disabled)) else style,
@@ -869,7 +869,7 @@ private fun SingleChoicePollOptionVoter(
             Text(
                 text = option.percentage,
                 modifier = Modifier
-                    .padding(PaddingSize0_5)
+                    .padding(dim.paddingSize0_5)
                     .alignByBaseline(),
                 style = style,
                 maxLines = 1,

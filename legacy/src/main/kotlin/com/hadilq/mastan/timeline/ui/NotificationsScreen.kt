@@ -51,7 +51,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.hadilq.mastan.theme.PaddingSize1
 import com.hadilq.mastan.timeline.data.FeedType
 import com.hadilq.mastan.timeline.data.Notification
 import com.hadilq.mastan.timeline.data.Type
@@ -59,6 +58,7 @@ import com.hadilq.mastan.timeline.data.mapStatus
 import com.hadilq.mastan.timeline.data.toStatusDb
 import com.hadilq.mastan.timeline.ui.model.UI
 import com.hadilq.mastan.legacy.R
+import com.hadilq.mastan.theme.LocalThemeOutput
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -69,6 +69,7 @@ fun NotificationsScreen(
     goToProfile: (String) -> Unit,
     goToTag: (String) -> Unit,
 ) {
+    val dim = LocalThemeOutput.current.dim
     val component = LocalAuthComponent.current
     val userComponent = LocalUserComponent.current
 
@@ -102,7 +103,7 @@ fun NotificationsScreen(
 
     ModalBottomSheetLayout(
         sheetState = bottomState,
-        sheetShape = RoundedCornerShape(topStart = PaddingSize1, topEnd = PaddingSize1),
+        sheetShape = RoundedCornerShape(topStart = dim.paddingSize1, topEnd = dim.paddingSize1),
         sheetContent = {
             BottomSheetContent(
                 bottomSheetContentProvider = bottomSheetContentProvider,
@@ -156,6 +157,7 @@ private fun ScaffoldParent(
     goToTag: (String) -> Unit,
     navController: NavHostController,
 ) {
+    val dim = LocalThemeOutput.current.dim
     Box(
         Modifier
             .background(colorScheme.surface)
@@ -198,7 +200,7 @@ private fun ScaffoldParent(
                     }
                     card(
                         modifier = Modifier.background(Color.Transparent),
-                        status = it.status!!.toStatusDb(FeedType.Home).mapStatus(colorScheme),
+                        status = it.status!!.toStatusDb(FeedType.Home).mapStatus(colorScheme, dim),
                         account = notificationPresenter.model.account,
                         events = submitPresenter.events,
                         goToBottomSheet = goToBottomSheet,

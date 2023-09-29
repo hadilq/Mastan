@@ -39,7 +39,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.hadilq.mastan.theme.PaddingSize1
+import com.hadilq.mastan.theme.LocalThemeOutput
 import com.hadilq.mastan.timeline.data.FeedType
 import com.hadilq.mastan.timeline.data.mapStatus
 import com.hadilq.mastan.timeline.data.toStatusDb
@@ -67,8 +67,9 @@ fun MentionsScreen(
     LaunchedEffect(key1 = userComponent.request()) {
         mentionsPresenter.handle(MentionsPresenter.Load)
     }
+    val dim = LocalThemeOutput.current.dim
     val statuses = mentionsPresenter.model.statuses.map {
-        it.toStatusDb(FeedType.Home).mapStatus(MaterialTheme.colorScheme)
+        it.toStatusDb(FeedType.Home).mapStatus(MaterialTheme.colorScheme, dim)
     }
     LaunchedEffect(key1 = userComponent.request()) {
         submitPresenter.start()
@@ -87,7 +88,7 @@ fun MentionsScreen(
 
     ModalBottomSheetLayout(
         sheetState = bottomState,
-        sheetShape = RoundedCornerShape(topStart = PaddingSize1, topEnd = PaddingSize1),
+        sheetShape = RoundedCornerShape(topStart = dim.paddingSize1, topEnd = dim.paddingSize1),
         sheetContent = {
             BottomSheetContent(
                 bottomSheetContentProvider = bottomSheetContentProvider,

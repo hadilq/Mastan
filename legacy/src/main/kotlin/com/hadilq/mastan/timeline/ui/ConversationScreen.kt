@@ -43,7 +43,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.hadilq.mastan.theme.PaddingSize1
+import com.hadilq.mastan.theme.LocalThemeOutput
 import com.hadilq.mastan.timeline.data.FeedType
 import com.hadilq.mastan.timeline.ui.model.UI
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -70,11 +70,12 @@ fun ConversationScreen(
     LaunchedEffect(key1 = userComponent.request()) {
         submitPresenter.start()
     }
+    val dim = LocalThemeOutput.current.dim
     val colorScheme = MaterialTheme.colorScheme
     LaunchedEffect(key1 = statusId, type) {
         presenter.handle(
             ConversationPresenter.Load(
-                statusId, FeedType.valueOf(type), colorScheme,
+                statusId, FeedType.valueOf(type), colorScheme, dim,
             )
         )
     }
@@ -93,7 +94,7 @@ fun ConversationScreen(
 
     val pullRefreshState = rememberPullRefreshState(false, {
         presenter.handle(
-            ConversationPresenter.Load(statusId, FeedType.valueOf(type), colorScheme)
+            ConversationPresenter.Load(statusId, FeedType.valueOf(type), colorScheme, dim)
         )
     })
     val bottomState: ModalBottomSheetState =
@@ -102,7 +103,7 @@ fun ConversationScreen(
 
     ModalBottomSheetLayout(
         sheetState = bottomState,
-        sheetShape = RoundedCornerShape(topStart = PaddingSize1, topEnd = PaddingSize1),
+        sheetShape = RoundedCornerShape(topStart = dim.paddingSize1, topEnd = dim.paddingSize1),
         sheetContent = {
             BottomSheetContent(
                 bottomSheetContentProvider = bottomSheetContentProvider,

@@ -41,14 +41,11 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.hadilq.mastan.theme.PaddingSize0_5
-import com.hadilq.mastan.theme.PaddingSize1
-import com.hadilq.mastan.theme.PaddingSize3
-import com.hadilq.mastan.theme.ThickSm
 import com.hadilq.mastan.timeline.data.Account
 import com.hadilq.mastan.timeline.ui.model.UI
 import kotlinx.coroutines.launch
 import com.hadilq.mastan.legacy.R
+import com.hadilq.mastan.theme.LocalThemeOutput
 
 @Composable
 fun ButtonBar(
@@ -68,12 +65,13 @@ fun ButtonBar(
     bookmarked: Boolean,
     onBookmark: () -> Unit
 ) {
+    val dim = LocalThemeOutput.current.dim
     Column {
         Row(horizontalArrangement = Arrangement.SpaceEvenly, modifier = Modifier.fillMaxWidth()) {
             TextButton(
                 colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.secondary),
-                contentPadding = PaddingValues(PaddingSize1, 0.dp),
-                border = BorderStroke(ThickSm, Color.Transparent),
+                contentPadding = PaddingValues(dim.paddingSize1, 0.dp),
+                border = BorderStroke(dim.thickSm, Color.Transparent),
                 onClick = onReply
             ) {
                 Image(
@@ -102,7 +100,7 @@ fun ButtonBar(
             )
             TextButton(
                 colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.primary),
-                border = BorderStroke(ThickSm, Color.Transparent),
+                border = BorderStroke(dim.thickSm, Color.Transparent),
                 onClick = onBookmark
             ) {
                 Image(
@@ -116,13 +114,13 @@ fun ButtonBar(
             if ((replyCount != null && replyCount > 0) || hasParent == true) {
                 TextButton(
                     colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.primary),
-                    contentPadding = PaddingValues(PaddingSize1, 0.dp),
+                    contentPadding = PaddingValues(dim.paddingSize1, 0.dp),
                     onClick = {
                         onShowReplies()
                     }
                 ) {
                     Image(
-                        modifier = Modifier.size(PaddingSize3),
+                        modifier = Modifier.size(dim.paddingSize3),
                         painter = painterResource(R.drawable.chat),
                         contentDescription = "",
                         colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.secondary)
@@ -138,13 +136,13 @@ fun ButtonBar(
                 //placeholder I am bad at code
                 TextButton(
                     colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.secondary),
-                    contentPadding = PaddingValues(PaddingSize1, 0.dp),
+                    contentPadding = PaddingValues(dim.paddingSize1, 0.dp),
                     onClick = {
                         onShowReplies()
                     }
                 ) {
                     Image(
-                        modifier = Modifier.size(PaddingSize3),
+                        modifier = Modifier.size(dim.paddingSize3),
                         painter = painterResource(R.drawable.chat),
                         contentDescription = "",
                         colorFilter = ColorFilter.tint(Color.Gray)
@@ -166,10 +164,11 @@ private fun MoreMenu(
     account: Account?,
     goToBottomSheet: suspend (SheetContentState) -> Unit,
 ) {
+    val dim = LocalThemeOutput.current.dim
     val coroutineScope = rememberCoroutineScope()
     TextButton(
         colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.secondary),
-        contentPadding = PaddingValues(PaddingSize1, 0.dp),
+        contentPadding = PaddingValues(dim.paddingSize1, 0.dp),
         onClick = {
             coroutineScope.launch {
                 if (status.accountId == account?.id) {
@@ -184,8 +183,9 @@ private fun MoreMenu(
             }
         }
     ) {
+        val dim = LocalThemeOutput.current.dim
         Image(
-            modifier = Modifier.size(PaddingSize3),
+            modifier = Modifier.size(dim.paddingSize3),
             painter = painterResource(R.drawable.more_vert),
             contentDescription = "",
             colorFilter = ColorFilter.tint(Color.Gray)
@@ -200,9 +200,10 @@ private fun SpringyButton(
     @DrawableRes onIcon: Int,
     @DrawableRes offIcon: Int,
     count: Int?,
-    iconSize:Dp = PaddingSize3
+    iconSize:Dp = LocalThemeOutput.current.dim.paddingSize3
 ) {
 
+    val dim = LocalThemeOutput.current.dim
     var clicked by remember { mutableStateOf(on) }
     var localCount by remember { mutableStateOf(count) }
 
@@ -210,7 +211,7 @@ private fun SpringyButton(
 
     TextButton(
         colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.secondary),
-        contentPadding = PaddingValues(PaddingSize1, 0.dp),
+        contentPadding = PaddingValues(dim.paddingSize1, 0.dp),
         onClick = {
             localCount?.let {
                 localCount = it + if (clicked) { if (it > 0) -1 else 0 } else 1
@@ -221,9 +222,10 @@ private fun SpringyButton(
             }
         }
     ) {
+        val dim = LocalThemeOutput.current.dim
         Image(
             modifier = Modifier
-                .padding(end = PaddingSize0_5)
+                .padding(end = dim.paddingSize0_5)
                 .size(iconSize),
             painter = painterResource(if (clicked) onIcon else offIcon),
             contentDescription = "",

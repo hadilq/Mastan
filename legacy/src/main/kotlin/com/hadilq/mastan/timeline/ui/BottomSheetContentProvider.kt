@@ -37,15 +37,13 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.hadilq.mastan.theme.PaddingSize1
-import com.hadilq.mastan.theme.PaddingSize3
-import com.hadilq.mastan.theme.PaddingSizeNone
 import com.hadilq.mastan.timeline.data.Account
 import com.hadilq.mastan.timeline.ui.model.UI
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import com.hadilq.mastan.legacy.R
+import com.hadilq.mastan.theme.LocalThemeOutput
 
 @OptIn(ExperimentalMaterialApi::class)
 class BottomSheetContentProvider(
@@ -129,10 +127,11 @@ fun StatusMenu(
     onMuteAccount: (accountId: String) -> Unit,
     onBlockAccount: (accountId: String) -> Unit,
 ) {
+    val dim = LocalThemeOutput.current.dim
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(PaddingSizeNone, PaddingSize1),
+            .padding(dim.paddingSizeNone, dim.paddingSize1),
     ) {
         BottomSheetMenuButton(
             bottomSheetContentProvider = bottomSheetContentProvider,
@@ -164,10 +163,11 @@ fun OwnedStatusMenu(
     onShareStatus: (UI) -> Unit,
     onDelete: (statusId: String) -> Unit,
 ) {
+    val dim = LocalThemeOutput.current.dim
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(PaddingSizeNone, PaddingSize1),
+            .padding(dim.paddingSizeNone, dim.paddingSize1),
     ) {
         BottomSheetMenuButton(
             bottomSheetContentProvider = bottomSheetContentProvider,
@@ -191,6 +191,7 @@ private fun BottomSheetMenuButton(
     text: String,
     onClick: () -> Unit,
 ) {
+    val dim = LocalThemeOutput.current.dim
     val coroutineScope = rememberCoroutineScope()
     TextButton(
         modifier = Modifier
@@ -205,9 +206,9 @@ private fun BottomSheetMenuButton(
         Row(Modifier.fillMaxWidth()) {
             Image(
                 modifier = Modifier
-                    .padding(start = PaddingSize1)
+                    .padding(start = dim.paddingSize1)
                     .align(Alignment.CenterVertically)
-                    .size(PaddingSize3),
+                    .size(dim.paddingSize3),
                 painter = painterResource(icon),
                 contentDescription = "",
                 colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.secondary),
@@ -215,7 +216,7 @@ private fun BottomSheetMenuButton(
             Text(
                 modifier = Modifier
                     .align(Alignment.CenterVertically)
-                    .padding(horizontal = PaddingSize3),
+                    .padding(horizontal = dim.paddingSize3),
                 text = text,
                 style = MaterialTheme.typography.titleMedium.copy(color = MaterialTheme.colorScheme.primary),
                 maxLines = 1

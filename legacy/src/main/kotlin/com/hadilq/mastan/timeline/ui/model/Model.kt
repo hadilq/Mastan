@@ -34,7 +34,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.sp
 import androidx.core.text.parseAsHtml
-import com.hadilq.mastan.theme.PaddingSize2_5
+import com.hadilq.mastan.theme.Dimension
 import com.hadilq.mastan.timeline.data.Attachment
 import com.hadilq.mastan.timeline.data.Emoji
 import com.hadilq.mastan.timeline.data.FeedType
@@ -136,7 +136,8 @@ fun Spanned.trimTrailingWhitespace(): Spanned {
 fun Spanned.toAnnotatedString(
     primaryColor: Color,
     emojis: List<Emoji>? = listOf(),
-    mutableMapOf: MutableMap<String, InlineTextContent>
+    mutableMapOf: MutableMap<String, InlineTextContent>,
+    dim: Dimension,
 ): AnnotatedString {
     val builder = AnnotatedString.Builder()
     val split = split("((?<=:)|(?=:))".toRegex()).filter { group -> group != "" }
@@ -162,7 +163,7 @@ fun Spanned.toAnnotatedString(
                 Placeholder(
                     20.sp, 20.sp, PlaceholderVerticalAlign.TextCenter
                 ), children = {
-                    AvatarImage(PaddingSize2_5, url = emoji.url)
+                    AvatarImage(dim.paddingSize2_5, url = emoji.url)
                 })
         } else {
             builder.append("${token}")

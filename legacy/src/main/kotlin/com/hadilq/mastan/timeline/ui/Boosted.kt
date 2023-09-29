@@ -36,8 +36,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.hadilq.mastan.theme.PaddingSize0_5
-import com.hadilq.mastan.theme.PaddingSize2
+import com.hadilq.mastan.theme.LocalThemeOutput
 import com.hadilq.mastan.timeline.data.Emoji
 import com.hadilq.mastan.ui.util.EmojiText
 import com.hadilq.mastan.ui.util.emojiText
@@ -53,12 +52,13 @@ fun Boosted(
     containerColor: Color = colorScheme.surface,
     onClick: () -> Unit = {}
 ) {
+    val dim = LocalThemeOutput.current.dim
     boostedBy?.let {
         AssistChip(
             modifier = modifier ?: Modifier
                 .height(24.dp)
                 .wrapContentWidth()
-                .padding(horizontal = PaddingSize0_5),
+                .padding(horizontal = dim.paddingSize0_5),
             colors = AssistChipDefaults.assistChipColors(
                 containerColor = containerColor,
                 leadingIconContentColor = colorScheme.secondary, labelColor = colorScheme.primary
@@ -74,7 +74,8 @@ fun Boosted(
                             emptyList(),
                             emptyList(),
                             boostedEmojis,
-                            myColorScheme
+                            myColorScheme,
+                            dim,
                         )
                     )
                 }
@@ -86,12 +87,12 @@ fun Boosted(
                 )
             },
             leadingIcon = {
-                AvatarImage(size = PaddingSize2, url = boostedAvatar, onClick = onClick)
+                AvatarImage(size = dim.paddingSize2, url = boostedAvatar, onClick = onClick)
             },
             trailingIcon = {
                 if (drawable != null)
                     Image(
-                        modifier = Modifier.height(PaddingSize2),
+                        modifier = Modifier.height(dim.paddingSize2),
                         painter = painterResource(drawable),
                         contentDescription = "",
                         colorFilter = ColorFilter.tint(colorScheme.secondary),
@@ -112,12 +113,13 @@ fun Boosted(
     containerColor: Color = colorScheme.surface,
     onClick: () -> Unit = {}
 ) {
+    val dim = LocalThemeOutput.current.dim
     boosted?.let {
         AssistChip(
             modifier = modifier ?: Modifier
                 .height(24.dp)
                 .wrapContentWidth()
-                .padding(horizontal = PaddingSize0_5),
+                .padding(horizontal = dim.paddingSize0_5),
             colors = AssistChipDefaults.assistChipColors(
                 containerColor = containerColor,
                 leadingIconContentColor = colorScheme.secondary, labelColor = colorScheme.primary
@@ -135,12 +137,12 @@ fun Boosted(
                 )
             },
             leadingIcon = {
-//                AvatarImage(size = PaddingSize2, url = boostedAvatar, onClick = onClick)
+//                AvatarImage(size = dim.PaddingSize2, url = boostedAvatar, onClick = onClick)
             },
             trailingIcon = {
                 if (drawable != null)
                     Image(
-                        modifier = Modifier.height(PaddingSize2),
+                        modifier = Modifier.height(dim.paddingSize2),
                         painter = painterResource(drawable),
                         contentDescription = "",
                         colorFilter = ColorFilter.tint(colorScheme.secondary),

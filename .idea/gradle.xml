@@ -13,6 +13,8 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/legacy" />
             <option value="$PROJECT_DIR$/theme" />
+            <option value="$PROJECT_DIR$/theme/impl" />
+            <option value="$PROJECT_DIR$/theme/io" />
           </set>
         </option>
       </GradleProjectSettings>

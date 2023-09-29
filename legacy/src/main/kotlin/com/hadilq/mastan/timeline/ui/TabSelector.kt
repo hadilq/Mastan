@@ -41,10 +41,11 @@ import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import com.hadilq.mastan.tabselector.Tab
 import com.hadilq.mastan.tabselector.TabSelectorDetail
-import com.hadilq.mastan.theme.PaddingSize4
+import com.hadilq.mastan.theme.LocalThemeOutput
 
 @Composable
 fun TabSelector(items: MutableList<Tab>, selectedIndex: Int, expanded:Boolean, expand: (Boolean) -> Unit) {
+    val dim = LocalThemeOutput.current.dim
     Row(
         modifier = Modifier.clickable(onClick = {
             expand(true)
@@ -53,7 +54,7 @@ fun TabSelector(items: MutableList<Tab>, selectedIndex: Int, expanded:Boolean, e
     ) {
         Image(
             modifier = Modifier
-                .size(PaddingSize4)
+                .size(dim.paddingSize4)
                 .padding(4.dp),
             painter = painterResource(items[selectedIndex].image),
             contentDescription = "",

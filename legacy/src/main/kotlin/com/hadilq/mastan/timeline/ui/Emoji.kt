@@ -22,7 +22,7 @@ import androidx.compose.ui.text.Placeholder
 import androidx.compose.ui.text.PlaceholderVerticalAlign
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.unit.sp
-import com.hadilq.mastan.theme.PaddingSize2_5
+import com.hadilq.mastan.theme.LocalThemeOutput
 import com.hadilq.mastan.timeline.data.Emoji
 import com.hadilq.mastan.ui.util.EmojiText
 
@@ -31,6 +31,7 @@ fun inlineEmojis(
     unformatted: String,
     emojis: List<Emoji>
 ): EmojiText {
+    val dim = LocalThemeOutput.current.dim
     val inlineContentMap: MutableMap<String, InlineTextContent> = mutableMapOf()
     val text = buildAnnotatedString {
         val split = unformatted.split(":").filter { group -> group != "" }
@@ -42,7 +43,7 @@ fun inlineEmojis(
                     Placeholder(
                         20.sp, 20.sp, PlaceholderVerticalAlign.TextCenter
                     ), children = {
-                        AvatarImage(PaddingSize2_5, url = emoji.url)
+                        AvatarImage(dim.paddingSize2_5, url = emoji.url)
                     })
             } else {
                 append(token)

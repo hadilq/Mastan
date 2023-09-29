@@ -40,11 +40,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
-import com.hadilq.mastan.theme.PaddingSize0_5
-import com.hadilq.mastan.theme.PaddingSize3
-import com.hadilq.mastan.theme.ThickSm
 import com.hadilq.mastan.timeline.data.Account
 import com.hadilq.mastan.legacy.R
+import com.hadilq.mastan.theme.LocalThemeOutput
+
 @Composable
 fun AccountChooser(
     onProfileClick: (accountId: String, isCurrent:Boolean) -> Unit = {a,b->},
@@ -52,6 +51,7 @@ fun AccountChooser(
     onNewAccount: () -> Unit = {},
     model: AvatarPresenter.AvatarModel
 ) {
+    val dim = LocalThemeOutput.current.dim
     var expanded by remember { mutableStateOf(false) }
 
     Row(modifier = Modifier) {
@@ -93,7 +93,7 @@ fun AccountChooser(
 
                                 Text(
                                     modifier = Modifier
-                                        .padding(PaddingSize0_5)
+                                        .padding(dim.paddingSize0_5)
                                         .align(Alignment.CenterVertically),
                                     text = text,
                                     inlineContent = inlineContentMap
@@ -106,7 +106,7 @@ fun AccountChooser(
 
 
 
-            Divider(thickness = ThickSm, color = Color.Gray)
+            Divider(thickness = dim.thickSm, color = Color.Gray)
 
             DropdownMenuItem(onClick = {
                 expanded = false
@@ -114,7 +114,7 @@ fun AccountChooser(
             }, text = {
                 Row {
                     Image(
-                        modifier = Modifier.size(PaddingSize3),
+                        modifier = Modifier.size(dim.paddingSize3),
                         painter = painterResource(R.drawable.theme),
                         contentDescription = "",
                         colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary)
@@ -122,7 +122,7 @@ fun AccountChooser(
                     Text(
                         "Switch Theme",
                         modifier = Modifier
-                            .padding(PaddingSize0_5)
+                            .padding(dim.paddingSize0_5)
                             .align(Alignment.CenterVertically)
                     )
                 }
@@ -133,7 +133,7 @@ fun AccountChooser(
             }, text = {
                 Row {
                     Image(
-                        modifier = Modifier.size(PaddingSize3),
+                        modifier = Modifier.size(dim.paddingSize3),
                         painter = painterResource(R.drawable.adduser),
                         contentDescription = "",
                         colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary)
@@ -141,7 +141,7 @@ fun AccountChooser(
                     Text(
                         "Add User/Server",
                         modifier = Modifier
-                            .padding(PaddingSize0_5)
+                            .padding(dim.paddingSize0_5)
                             .align(Alignment.CenterVertically)
                     )
                 }

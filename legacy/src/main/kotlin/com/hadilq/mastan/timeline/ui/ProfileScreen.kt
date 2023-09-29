@@ -78,10 +78,6 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.hadilq.mastan.theme.MastanTheme
-import com.hadilq.mastan.theme.PaddingSize0_5
-import com.hadilq.mastan.theme.PaddingSize1
-import com.hadilq.mastan.theme.PaddingSize2
-import com.hadilq.mastan.theme.PaddingSizeNone
 import com.hadilq.mastan.timeline.data.Account
 import com.hadilq.mastan.timeline.data.FeedType
 import com.hadilq.mastan.timeline.data.ProfilePresenter
@@ -95,6 +91,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 import com.hadilq.mastan.legacy.R
+import com.hadilq.mastan.theme.LocalThemeOutput
 import java.net.URI
 
 @SuppressLint("CoroutineCreationDuringComposition")
@@ -108,6 +105,7 @@ fun ProfileScreen(
     goToFollowers: () -> Unit,
     goToFollowing: () -> Unit,
 ) {
+    val dim = LocalThemeOutput.current.dim
     val homePresenter by remember(key1 = accountId) {
         mutableStateOf(
             component.homePresenter()
@@ -142,7 +140,7 @@ fun ProfileScreen(
 
     ModalBottomSheetLayout(
         sheetState = bottomState,
-        sheetShape = RoundedCornerShape(topStart = PaddingSize1, topEnd = PaddingSize1),
+        sheetShape = RoundedCornerShape(topStart = dim.paddingSize1, topEnd = dim.paddingSize1),
         sheetContent = {
             BottomSheetContent(
                 bottomSheetContentProvider = bottomSheetContentProvider,
@@ -202,6 +200,7 @@ private fun ScaffoldParent(
     goToBottomSheet: suspend (SheetContentState) -> Unit,
     scope: CoroutineScope
 ) {
+    val dim = LocalThemeOutput.current.dim
     MastanTheme {
         val scaffoldState = rememberBackdropScaffoldState(BackdropValue.Concealed)
         BackdropScaffold(
@@ -282,7 +281,8 @@ private fun ScaffoldParent(
                         TimelinePresenter.Load(
                             FeedType.UserWithReplies,
                             accountId,
-                            colorScheme
+                            colorScheme,
+                            dim,
                         )
                     )
                 }
@@ -465,6 +465,7 @@ private fun profile(
     onMute: (Boolean) -> Unit,
     onBlock: (Boolean) -> Unit,
 ) {
+    val dim = LocalThemeOutput.current.dim
     Box(
         Modifier
             .fillMaxSize()
@@ -501,7 +502,7 @@ private fun profile(
                     style = MaterialTheme.typography.titleLarge,
                     color = MaterialTheme.colorScheme.onTertiaryContainer,
                     modifier = Modifier
-                        .padding(PaddingSize0_5)
+                        .padding(dim.paddingSize0_5)
                         .align(Alignment.CenterHorizontally),
                     text = text,
                     inlineContent = inlineContentMap
@@ -518,7 +519,7 @@ private fun profile(
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.onTertiaryContainer,
                     modifier = Modifier
-                        .padding(PaddingSize0_5, PaddingSize0_5)
+                        .padding(dim.paddingSize0_5, dim.paddingSize0_5)
                         .align(Alignment.CenterHorizontally),
                     text = "@${account.username}",
                 )
@@ -528,7 +529,7 @@ private fun profile(
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(PaddingSizeNone),
+                            .padding(dim.paddingSizeNone),
                         horizontalArrangement = Arrangement.SpaceEvenly
                     ) {
                         ProfileSecondaryButton(
@@ -552,7 +553,7 @@ private fun profile(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(PaddingSize2, PaddingSizeNone),
+                        .padding(dim.paddingSize2, dim.paddingSizeNone),
                     horizontalArrangement = Arrangement.SpaceEvenly
                 ) {
                     Boosted(
@@ -579,7 +580,8 @@ private fun profile(
                     emptyList(),
                     emptyList(),
                     account.emojis,
-                    MaterialTheme.colorScheme
+                    MaterialTheme.colorScheme,
+                    dim
                 )
                 val scroll = rememberScrollState(0)
 
@@ -588,7 +590,7 @@ private fun profile(
                     color = MaterialTheme.colorScheme.secondary,
                     modifier = Modifier
                         .verticalScroll(scroll)
-                        .padding(PaddingSize0_5)
+                        .padding(dim.paddingSize0_5)
                         .align(Alignment.CenterHorizontally),
                     text = noteText,
                     inlineContent = mapping
@@ -609,10 +611,11 @@ private fun ProfileSecondaryButton(
 ) {
     var clicked by remember { mutableStateOf(on) }
     val scope = rememberCoroutineScope()
+    val dim = LocalThemeOutput.current.dim
 
     TextButton(
         colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.secondary),
-        contentPadding = PaddingValues(PaddingSize1, PaddingSizeNone),
+        contentPadding = PaddingValues(dim.paddingSize1, dim.paddingSizeNone),
         onClick = {
             val oldClicked = clicked
             clicked = !clicked
@@ -623,8 +626,8 @@ private fun ProfileSecondaryButton(
     ) {
         Image(
             modifier = Modifier
-                .padding(PaddingSize1, PaddingSizeNone)
-                .size(PaddingSize2),
+                .padding(dim.paddingSize1, dim.paddingSizeNone)
+                .size(dim.paddingSize2),
             painter = painterResource(icon),
             contentDescription = "",
             colorFilter = ColorFilter.tint(
@@ -633,7 +636,7 @@ private fun ProfileSecondaryButton(
         )
         Text(
             modifier = Modifier
-                .padding(PaddingSize0_5, PaddingSizeNone),
+                .padding(dim.paddingSize0_5, dim.paddingSizeNone),
             color = if (clicked) MaterialTheme.colorScheme.scrim else MaterialTheme.colorScheme.secondary,
             fontSize = if (clicked) 10.sp else 8.sp,
             text = AnnotatedString(if (clicked) onText else offText),

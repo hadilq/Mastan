@@ -63,7 +63,6 @@ import androidx.compose.ui.window.DialogProperties
 import coil.compose.AsyncImage
 import coil.compose.AsyncImagePainter
 import coil.request.ImageRequest
-import com.hadilq.mastan.theme.PaddingSize4
 import com.hadilq.mastan.ui.util.VideoPlayer
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.placeholder.PlaceholderHighlight
@@ -74,10 +73,11 @@ import me.saket.telephoto.zoomable.ZoomableState
 import me.saket.telephoto.zoomable.coil.ZoomableAsyncImage
 import me.saket.telephoto.zoomable.rememberZoomableState
 import com.hadilq.mastan.legacy.R
+import com.hadilq.mastan.theme.LocalThemeOutput
 
 @Composable
 fun AvatarImage(
-    size: Dp = PaddingSize4,
+    size: Dp = LocalThemeOutput.current.dim.paddingSize4,
     url: String?,
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {}

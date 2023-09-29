@@ -48,11 +48,6 @@ import com.hadilq.mastan.AuthRequiredComponent
 import com.hadilq.mastan.UserComponent
 import com.hadilq.mastan.auth.data.AccessTokenRequest
 import com.hadilq.mastan.tabselector.Tab
-import com.hadilq.mastan.theme.BottomBarElevation
-import com.hadilq.mastan.theme.PaddingSize1
-import com.hadilq.mastan.theme.PaddingSize2
-import com.hadilq.mastan.theme.PaddingSize8
-import com.hadilq.mastan.theme.PaddingSizeNone
 import com.hadilq.mastan.timeline.data.Account
 import com.hadilq.mastan.timeline.data.FeedType
 import com.hadilq.mastan.timeline.ui.model.UI
@@ -61,6 +56,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 import com.hadilq.mastan.legacy.R
+import com.hadilq.mastan.theme.LocalThemeOutput
 import java.net.URI
 
 val LocalAuthComponent = compositionLocalOf<AuthRequiredInjector> { error("No component found!") }
@@ -85,6 +81,7 @@ fun TimelineScreen(
     goToProfile: (String) -> Unit,
     goToTag: (String) -> Unit,
 ) {
+    val dim = LocalThemeOutput.current.dim
     val component =
         retainInActivity(
             owner = LocalContext.current as ViewModelStoreOwner,
@@ -117,8 +114,8 @@ fun TimelineScreen(
 
         ModalBottomSheetLayout(
             sheetState = bottomState,
-            sheetShape = RoundedCornerShape(topStart = PaddingSize1, topEnd = PaddingSize1),
-            sheetElevation = PaddingSize2,
+            sheetShape = RoundedCornerShape(topStart = dim.paddingSize1, topEnd = dim.paddingSize1),
+            sheetElevation = dim.paddingSize2,
             sheetBackgroundColor = MaterialTheme.colorScheme.surfaceVariant,
             sheetContent = {
                 BottomSheetContent(
@@ -188,6 +185,7 @@ private fun ScaffoldParent(
     goToProfile: (String) -> Unit,
     goToTag: (String) -> Unit,
 ) {
+    val dim = LocalThemeOutput.current.dim
     var tabToLoad: FeedType by rememberSaveable { mutableStateOf(FeedType.Home) }
     var refresh: Boolean by remember { mutableStateOf(false) }
     var expanded: Boolean by remember { mutableStateOf(false) }
@@ -279,9 +277,9 @@ private fun ScaffoldParent(
         bottomBar = {
             AnimatedVisibility(!isReplying, enter = fadeIn(), exit = fadeOut()) {
                 BottomAppBar(
-                    modifier = Modifier.height(PaddingSize8),
-                    contentPadding = PaddingValues(PaddingSizeNone, PaddingSizeNone),
-                    elevation = BottomBarElevation,
+                    modifier = Modifier.height(dim.paddingSize8),
+                    contentPadding = PaddingValues(dim.paddingSizeNone, dim.paddingSizeNone),
+                    elevation = dim.bottomBarElevation,
                     backgroundColor = MaterialTheme.colorScheme.surface,
                 ) {
                     BottomBar(
@@ -489,9 +487,10 @@ private fun timelineTab(
     doneRefreshing: () -> Unit,
     onOpenURI: (URI, FeedType) -> Unit,
 ) {
+    val dim = LocalThemeOutput.current.dim
     val colorScheme = MaterialTheme.colorScheme
     LaunchedEffect(key1 = tabToLoad, key2 = domain, key3 = tabToLoad.tagName) {
-        events.tryEmit(TimelinePresenter.Load(tabToLoad, colorScheme = colorScheme))
+        events.tryEmit(TimelinePresenter.Load(tabToLoad, colorScheme = colorScheme, dim = dim))
     }
 
     val refreshing = items?.loadState?.refresh is LoadState.Loading
@@ -583,13 +582,13 @@ fun TimelineRows(
     onVote: (statusId: String, pollId: String, choices: List<Int>) -> Unit,
     onOpenURI: (URI, FeedType) -> Unit,
 ) {
-
+    val dim = LocalThemeOutput.current.dim
     Crossfade(targetState = ui, label = "") { item ->
 
         if (item.itemCount == 0) {
             if (ui.loadState.append.endOfPaginationReached) {
                 Text(
-                    modifier = Modifier.padding(PaddingSize8),
+                    modifier = Modifier.padding(dim.paddingSize8),
                     text = "This page is empty!",
                     style = MaterialTheme.typography.labelMedium.copy(
                         color = MaterialTheme.colorScheme.onSurface

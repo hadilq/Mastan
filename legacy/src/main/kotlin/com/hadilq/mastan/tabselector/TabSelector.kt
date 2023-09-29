@@ -39,8 +39,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.hadilq.mastan.theme.PaddingSize0_5
-import com.hadilq.mastan.theme.PaddingSize4
+import com.hadilq.mastan.theme.LocalThemeOutput
 
 
 data class Tab(val name: String, val image: Int, val onClick: () -> Unit)
@@ -103,12 +102,12 @@ private const val CategoryTextProportion = 0.55f
 private fun TabContent(
     tab: Tab
 ) {
-
+    val dim = LocalThemeOutput.current.dim
     AssistChip(
         modifier =  Modifier
             .height(80.dp)
             .width(130.dp)
-            .padding(horizontal = PaddingSize0_5, vertical = PaddingSize0_5),
+            .padding(horizontal = dim.paddingSize0_5, vertical = dim.paddingSize0_5),
         colors = AssistChipDefaults.assistChipColors(
             containerColor = colorScheme.surface,
             leadingIconContentColor = colorScheme.secondary, labelColor = colorScheme.primary
@@ -126,7 +125,7 @@ private fun TabContent(
         },
         leadingIcon = {
             Image(
-                modifier = Modifier.size(PaddingSize4),
+                modifier = Modifier.size(dim.paddingSize4),
                 painter = painterResource(tab.image),
                 contentDescription = "",
                 colorFilter = ColorFilter.tint(colorScheme.secondary),

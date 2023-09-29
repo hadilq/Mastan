@@ -55,6 +55,7 @@ import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.navigation
 import com.hadilq.mastan.UserParentComponentProvider
+import com.hadilq.mastan.theme.LocalThemeOutput
 import dev.marcellogalhardo.retained.compose.retain
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -106,6 +107,7 @@ fun Navigator(
     onChangeTheme: () -> Unit,
 ) {
 
+    val dim = LocalThemeOutput.current.dim
     // It must be non-null as soon as `splash` navigates to `home`.
     val accessTokenRequestState = remember { mutableStateOf<AccessTokenRequest?>(null) }
 
@@ -296,7 +298,7 @@ fun Navigator(
                     }
                     val colorScheme = MaterialTheme.colorScheme
                     LaunchedEffect(key1 = code) {
-                        searchPresenter.handle(SearchPresenter.Init(colorScheme))
+                        searchPresenter.handle(SearchPresenter.Init(colorScheme, dim))
                     }
                     val uriPresenter = remember { component.urlPresenter().get() }
                     LaunchedEffect(key1 = code) {

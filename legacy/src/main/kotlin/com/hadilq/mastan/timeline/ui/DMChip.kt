@@ -32,11 +32,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.hadilq.mastan.theme.PaddingSize2
 import com.hadilq.mastan.legacy.R
+import com.hadilq.mastan.theme.LocalThemeOutput
+
 @OptIn(ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun DirectMessage(directMessage: Boolean) {
+    val dim = LocalThemeOutput.current.dim
     if (directMessage) {
         Row(
             horizontalArrangement = Arrangement.Center,
@@ -56,7 +58,7 @@ fun DirectMessage(directMessage: Boolean) {
                 },
                 leadingIcon = {
                     Image(
-                        modifier = Modifier.height(PaddingSize2),
+                        modifier = Modifier.height(dim.paddingSize2),
                         painter = painterResource(R.drawable.mail),
                         contentDescription = "",
                         colorFilter = ColorFilter.tint(colorScheme.onPrimary),

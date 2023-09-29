@@ -30,6 +30,7 @@ import androidx.annotation.VisibleForTesting
 import androidx.compose.material3.ColorScheme
 import androidx.compose.ui.text.AnnotatedString
 import androidx.core.net.toUri
+import com.hadilq.mastan.theme.Dimension
 import com.hadilq.mastan.timeline.ui.model.CardUI
 import com.hadilq.mastan.timeline.ui.model.PollHashUI
 import com.hadilq.mastan.timeline.ui.model.PollUI
@@ -90,7 +91,10 @@ fun Status.toStatusDb(feedType: FeedType = FeedType.Home): StatusDB {
     )
 }
 
-fun StatusDB.mapStatus(colorScheme: ColorScheme): UI {
+fun StatusDB.mapStatus(
+    colorScheme: ColorScheme,
+    dim: Dimension,
+): UI {
     val status = this
 
     val createdAt = Instant.fromEpochMilliseconds(status.createdAt)
@@ -179,14 +183,16 @@ fun StatusDB.mapStatus(colorScheme: ColorScheme): UI {
             status.mentions,
             status.tags,
             status.emoji,
-            colorScheme
+            colorScheme,
+            dim,
         ),
         accountEmojiText = emojiText(
             status.displayName,
             emptyList(),
             emptyList(),
             status.accountEmojis,
-            colorScheme
+            colorScheme,
+            dim,
         ),
         boostedEmojiText = status.boostedBy?.let {
             emojiText(
@@ -194,7 +200,8 @@ fun StatusDB.mapStatus(colorScheme: ColorScheme): UI {
                 emptyList(),
                 emptyList(),
                 status.boostedEmojis,
-                colorScheme
+                colorScheme,
+                dim
             )
         },
         attachments = status.attachments,

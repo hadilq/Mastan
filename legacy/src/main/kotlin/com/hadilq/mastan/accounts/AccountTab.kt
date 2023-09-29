@@ -34,8 +34,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.items
-import com.hadilq.mastan.theme.PaddingSize1
-import com.hadilq.mastan.theme.PaddingSize7
+import com.hadilq.mastan.theme.LocalThemeOutput
 import com.hadilq.mastan.timeline.data.Account
 import com.hadilq.mastan.timeline.ui.AvatarImage
 import com.hadilq.mastan.ui.util.emojiText
@@ -76,11 +75,12 @@ private fun content(
     goToProfile: (String) -> Unit,
     it: Account
 ) {
+    val dim = LocalThemeOutput.current.dim
     Row(modifier = Modifier
         .clickable { goToProfile(it.id) }
-        .padding(PaddingSize1)) {
-        AvatarImage(PaddingSize7, it.avatar, onClick = { goToProfile(it.id) })
-        Column(Modifier.padding(start = PaddingSize1)) {
+        .padding(dim.paddingSize1)) {
+        AvatarImage(dim.paddingSize7, it.avatar, onClick = { goToProfile(it.id) })
+        Column(Modifier.padding(start = dim.paddingSize1)) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -90,7 +90,8 @@ private fun content(
                     emptyList(),
                     emptyList(),
                     it.emojis,
-                    colorScheme
+                    colorScheme,
+                    dim,
                 )
                 Text(
                     maxLines = 1,

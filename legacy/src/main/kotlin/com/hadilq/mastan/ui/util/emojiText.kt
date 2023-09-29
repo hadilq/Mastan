@@ -19,6 +19,7 @@ import android.text.Spanned
 import androidx.compose.foundation.text.InlineTextContent
 import androidx.compose.material3.ColorScheme
 import androidx.compose.ui.text.AnnotatedString
+import com.hadilq.mastan.theme.Dimension
 import com.hadilq.mastan.timeline.data.Emoji
 import com.hadilq.mastan.timeline.data.Mention
 import com.hadilq.mastan.timeline.data.Tag
@@ -32,7 +33,8 @@ fun emojiText(
     mentions: List<Mention>,
     tags: List<Tag>,
     emojis: List<Emoji>?,
-    colorScheme: ColorScheme
+    colorScheme: ColorScheme,
+    dim: Dimension,
 ): EmojiText {
     val parseAsMastodonHtml: Spanned = content.parseAsMastodonHtml()
     println(parseAsMastodonHtml)
@@ -46,10 +48,11 @@ fun emojiText(
     val mapping = mutableMapOf<String, InlineTextContent>()
     val linkColor = colorScheme.primary
     val text= prettyText.toAnnotatedString(
-            linkColor,
-            emojis,
-            mapping
-        )
+        linkColor,
+        emojis,
+        mapping,
+        dim,
+    )
     return EmojiText(mapping, text)
 }
 

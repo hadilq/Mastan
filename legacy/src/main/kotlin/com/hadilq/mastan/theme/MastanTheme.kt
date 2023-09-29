@@ -14,6 +14,7 @@ fun MastanTheme(
     isDynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
+    val themeOutput = LocalThemeOutput.current
     val dynamicColor = isDynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
     val myColorScheme = when {
         dynamicColor && isDarkTheme -> {
@@ -22,8 +23,8 @@ fun MastanTheme(
         dynamicColor && !isDarkTheme -> {
             dynamicLightColorScheme(LocalContext.current)
         }
-        isDarkTheme -> DarkColors
-        else -> LightColors
+        isDarkTheme -> themeOutput.darkColors
+        else -> themeOutput.lightColors
     }
 
     MaterialTheme(
