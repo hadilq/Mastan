@@ -23,6 +23,7 @@ val LocalThemeOutput = compositionLocalOf<ThemeOutput> { error("No component fou
 
 /**
  * This is the output of `theme` module. Its implementation is available in the `:theme:impl` module.
+ * This indicates the functionality that `theme` module provides for other modules.
  */
 interface ThemeOutput {
     val lightColors: ColorScheme
