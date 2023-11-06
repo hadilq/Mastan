@@ -36,26 +36,25 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.hadilq.mastan.theme.LocalThemeOutput
-import com.hadilq.mastan.timeline.data.Emoji
+import com.hadilq.mastan.theme.LocalMastanThemeUiIo
+import com.hadilq.mastan.network.dto.Emoji
 import com.hadilq.mastan.ui.util.EmojiText
 import com.hadilq.mastan.ui.util.emojiText
 
-@OptIn(ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun Boosted(
     boostedBy: String?,
     boostedAvatar: String?,
     boostedEmojis: List<Emoji>?,
     drawable: Int?,
-    modifier: Modifier? = null,
+    modifier: Modifier = Modifier,
     containerColor: Color = colorScheme.surface,
     onClick: () -> Unit = {}
 ) {
-    val dim = LocalThemeOutput.current.dim
+    val dim = LocalMastanThemeUiIo.current.dim
     boostedBy?.let {
         AssistChip(
-            modifier = modifier ?: Modifier
+            modifier = modifier
                 .height(24.dp)
                 .wrapContentWidth()
                 .padding(horizontal = dim.paddingSize0_5),
@@ -103,20 +102,18 @@ fun Boosted(
     }
 }
 
-@OptIn(ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun Boosted(
     boosted: EmojiText?,
     drawable: Int?,
-    boostedAvatar: String?,
-    modifier: Modifier? = null,
+    modifier: Modifier = Modifier,
     containerColor: Color = colorScheme.surface,
     onClick: () -> Unit = {}
 ) {
-    val dim = LocalThemeOutput.current.dim
+    val dim = LocalMastanThemeUiIo.current.dim
     boosted?.let {
         AssistChip(
-            modifier = modifier ?: Modifier
+            modifier = modifier
                 .height(24.dp)
                 .wrapContentWidth()
                 .padding(horizontal = dim.paddingSize0_5),
@@ -127,12 +124,11 @@ fun Boosted(
             shape = RoundedCornerShape(25, 25, 25, 25),
             onClick = onClick,
             label = {
-                val myColorScheme = colorScheme
-                val emojiText = boosted
+                colorScheme
                 Text(
-                    text = emojiText.text,
+                    text = boosted.text,
                     style = MaterialTheme.typography.labelSmall.copy(color = colorScheme.primary),
-                    inlineContent = emojiText.mapping,
+                    inlineContent = boosted.mapping,
                     maxLines = 1
                 )
             },

@@ -32,14 +32,14 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.hadilq.mastan.legacy.R
-import com.hadilq.mastan.theme.LocalThemeOutput
+import com.hadilq.mastan.theme.LocalMastanThemeUiIo
 
 @Composable
 fun BottomBar(
     goToMentions: () -> Unit,
     goToNotifications: () -> Unit,
 ) {
-    val dim = LocalThemeOutput.current.dim
+    val dim = LocalMastanThemeUiIo.current.dim
     val size = 24
     Row(
         horizontalArrangement = Arrangement.SpaceEvenly,

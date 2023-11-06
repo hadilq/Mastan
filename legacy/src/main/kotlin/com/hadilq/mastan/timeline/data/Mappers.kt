@@ -30,6 +30,13 @@ import androidx.annotation.VisibleForTesting
 import androidx.compose.material3.ColorScheme
 import androidx.compose.ui.text.AnnotatedString
 import androidx.core.net.toUri
+import com.hadilq.mastan.network.dto.Card
+import com.hadilq.mastan.network.dto.Mention
+import com.hadilq.mastan.network.dto.Poll
+import com.hadilq.mastan.network.dto.PollHash
+import com.hadilq.mastan.network.dto.Privacy
+import com.hadilq.mastan.network.dto.Status
+import com.hadilq.mastan.network.dto.Tag
 import com.hadilq.mastan.theme.Dimension
 import com.hadilq.mastan.timeline.ui.model.CardUI
 import com.hadilq.mastan.timeline.ui.model.PollHashUI

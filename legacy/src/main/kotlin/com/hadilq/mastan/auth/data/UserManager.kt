@@ -16,6 +16,7 @@
 package com.hadilq.mastan.auth.data
 
 import com.hadilq.mastan.*
+import com.hadilq.mastan.auth.AccessTokenRequest
 import com.squareup.anvil.annotations.ContributesBinding
 import com.squareup.anvil.annotations.ContributesTo
 import org.mobilenativefoundation.store.cache5.CacheBuilder

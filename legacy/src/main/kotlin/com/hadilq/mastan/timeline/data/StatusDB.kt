@@ -17,6 +17,12 @@ package com.hadilq.mastan.timeline.data
 
 import androidx.paging.PagingSource
 import androidx.room.*
+import com.hadilq.mastan.network.dto.Attachment
+import com.hadilq.mastan.network.dto.Card
+import com.hadilq.mastan.network.dto.Emoji
+import com.hadilq.mastan.network.dto.Mention
+import com.hadilq.mastan.network.dto.Poll
+import com.hadilq.mastan.network.dto.Tag
 import kotlinx.coroutines.flow.Flow
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.Json

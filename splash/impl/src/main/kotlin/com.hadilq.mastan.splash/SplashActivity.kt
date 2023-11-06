@@ -20,8 +20,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.constraintlayout.motion.widget.MotionLayout
-import com.hadilq.mastan.splash.R
-import com.hadilq.mastan.splash.di.splashInput
+import com.hadilq.mastan.splash.di.splashDependencies
+import com.hadilq.mastan.splash.impl.R
 
 class SplashActivity : Activity() {
 
@@ -33,7 +33,7 @@ class SplashActivity : Activity() {
             MotionLayout.TransitionListener {
             override fun onTransitionCompleted(p0: MotionLayout?, p1: Int) {
 
-                startActivity(Intent(this@SplashActivity, splashInput.mainActivityClass())
+                startActivity(Intent(this@SplashActivity, splashDependencies.mainActivityClass())
                     .addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION))
             }
 

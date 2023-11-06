@@ -37,29 +37,21 @@ import coil.ImageLoader
 import coil.decode.GifDecoder
 import coil.decode.ImageDecoderDecoder
 import coil.decode.VideoFrameDecoder
-import com.hadilq.mastan.AuthOptionalScope
-import com.hadilq.mastan.AuthRequiredScope
-import com.hadilq.mastan.auth.ui.SignInPresenter
-import com.hadilq.mastan.search.SearchPresenter
-import com.hadilq.mastan.theme.*
-import com.hadilq.mastan.timeline.data.ProfilePresenter
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.accompanist.navigation.material.BottomSheetNavigator
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import com.google.accompanist.navigation.material.ModalBottomSheetLayout
 import com.hadilq.mastan.AuthOptionalParentComponentProvider
-import com.hadilq.mastan.di.legacyInput
+import com.hadilq.mastan.AuthRequiredScope
+import com.hadilq.mastan.di.legacyDependencies
+import com.hadilq.mastan.navigation.NavigationLogicIo
+import com.hadilq.mastan.search.SearchPresenter
+import com.hadilq.mastan.theme.*
+import com.hadilq.mastan.timeline.data.ProfilePresenter
 import com.squareup.anvil.annotations.ContributesTo
 import javax.inject.Provider
 
 
-@OptIn(ExperimentalMaterial3Api::class)
-@ContributesTo(AuthOptionalScope::class)
-interface AuthOptionalInjector {
-    fun signInPresenter(): SignInPresenter
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
 @ContributesTo(AuthRequiredScope::class)
 interface AuthRequiredInjector {
     fun avatarPresenter(): AvatarPresenter
@@ -93,25 +85,31 @@ class MainActivity : ComponentActivity() {
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(legacyInput.splashOutput.splashActivityRes)
+        setContentView(legacyDependencies.splashUiIo.splashActivityRes)
 
-        findViewById<MotionLayout>(legacyInput.splashOutput.motionLayoutRes).setTransitionListener(object :
-            MotionLayout.TransitionListener {
-            override fun onTransitionCompleted(p0: MotionLayout?, p1: Int) {
-                content()
-            }
+        findViewById<MotionLayout>(legacyDependencies.splashUiIo.motionLayoutRes).setTransitionListener(
+            object :
+                MotionLayout.TransitionListener {
+                override fun onTransitionCompleted(p0: MotionLayout?, p1: Int) {
+                    content()
+                }
 
-            override fun onTransitionChange(p0: MotionLayout?, p1: Int, p2: Int, p3: Float) {}
+                override fun onTransitionChange(p0: MotionLayout?, p1: Int, p2: Int, p3: Float) {}
 
-            override fun onTransitionStarted(p0: MotionLayout?, p1: Int, p2: Int) {}
+                override fun onTransitionStarted(p0: MotionLayout?, p1: Int, p2: Int) {}
 
-            override fun onTransitionTrigger(p0: MotionLayout?, p1: Int, p2: Boolean, p3: Float) {}
-        })
+                override fun onTransitionTrigger(
+                    p0: MotionLayout?,
+                    p1: Int,
+                    p2: Boolean,
+                    p3: Float,
+                ) {
+                }
+            })
 
 
     }
 
-    @OptIn(ExperimentalMaterialNavigationApi::class)
     fun content() =
         setContent {
             val loader = ImageLoader.Builder(this)
@@ -125,24 +123,31 @@ class MainActivity : ComponentActivity() {
                 }
                 .build()
 
-            CompositionLocalProvider(LocalImageLoader provides loader) {
-                CompositionLocalProvider(LocalThemeOutput provides legacyInput.themeOutput) {
-                    MainContent()
+            CompositionLocalProvider(
+                LocalImageLoader provides loader,
+            ) {
+                legacyDependencies.rootUiIo.rootUi {
+                    MainContent(legacyDependencies.navigationLogicIo)
                 }
             }
         }
 
     @Composable
     @OptIn(ExperimentalMaterialNavigationApi::class)
-    private fun MainContent() {
-        var isDynamicTheme by remember { mutableStateOf(true) }
-        MastanTheme(isDynamicColor = isDynamicTheme) {
+    private fun MainContent(
+        navigationLogicIo: NavigationLogicIo
+    ) {
+        var isDynamicColor by remember { mutableStateOf(true) }
+        val themeOutput = LocalMastanThemeUiIo.current
+        LaunchedEffect(isDynamicColor) {
+            themeOutput.eventSink(UpdateDynamicColorThemeEvent(isDynamicColor))
+        }
+        themeOutput.mastanThemeUi {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
                     .background(MaterialTheme.colorScheme.surface)
             ) {
-                val scope = rememberCoroutineScope()
                 val sheetState = rememberModalBottomSheetState(
                     ModalBottomSheetValue.Hidden,
                     SwipeableDefaults.AnimationSpec,
@@ -154,19 +159,14 @@ class MainActivity : ComponentActivity() {
 
                 val navController = rememberAnimatedNavController(bottomSheetNavigator)
                 ModalBottomSheetLayout(bottomSheetNavigator) {
-                    Navigator(
-                        navController, scope,
-                    ) {
-                        isDynamicTheme = !isDynamicTheme
+                    Navigator(navController, navigationLogicIo) {
+                        isDynamicColor = !isDynamicColor
                     }
                 }
             }
         }
     }
 
-
-    fun noAuthComponent() =
-        (applicationContext as AuthOptionalParentComponentProvider).authOptionalParentComponent.createAuthOptionalComponent()
 
     fun AuthComponent() =
         (applicationContext as AuthOptionalParentComponentProvider).authOptionalParentComponent.createAuthOptionalComponent()

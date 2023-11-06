@@ -17,8 +17,8 @@ package com.hadilq.mastan.timeline.data
 
 import com.hadilq.mastan.SingleIn
 import com.hadilq.mastan.UserScope
-import com.hadilq.mastan.auth.data.OauthRepository
-import com.hadilq.mastan.shared.UserApi
+import com.hadilq.mastan.network.UserApi
+import com.hadilq.mastan.network.dto.Account
 import com.squareup.anvil.annotations.ContributesBinding
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.mapNotNull
@@ -42,12 +42,10 @@ interface AccountRepository {
 @SingleIn(UserScope::class)
 class RealAccountRepository @Inject constructor(
     val api: UserApi,
-    val oauthRepository: OauthRepository,
 ) : AccountRepository {
     private val fetcher = Fetcher.of { accountId: String ->
-        val token = oauthRepository.getAuthHeader()
-        val account = api.account(authHeader = token, accountId = accountId)
-        val relationships = api.relationships(token, listOf(account.id))
+        val account = api.account(accountId = accountId)
+        val relationships = api.relationships(listOf(account.id))
         val relationship = relationships.firstOrNull()
         account.copy(
             isFollowed = relationship?.following == true,
@@ -80,7 +78,7 @@ class RealAccountRepository @Inject constructor(
     override suspend fun getCurrent(): Account? {
         return currentAccount.get() ?: run {
             val result = kotlin.runCatching {
-                api.accountVerifyCredentials(authHeader = oauthRepository.getAuthHeader())
+                api.accountVerifyCredentials()
             }
             result.getOrNull()?.let {
                 currentAccount.set(get(it.id))

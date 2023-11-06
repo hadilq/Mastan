@@ -33,12 +33,12 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.hadilq.mastan.legacy.R
-import com.hadilq.mastan.theme.LocalThemeOutput
+import com.hadilq.mastan.theme.LocalMastanThemeUiIo
 
 @OptIn(ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun DirectMessage(directMessage: Boolean) {
-    val dim = LocalThemeOutput.current.dim
+    val dim = LocalMastanThemeUiIo.current.dim
     if (directMessage) {
         Row(
             horizontalArrangement = Arrangement.Center,

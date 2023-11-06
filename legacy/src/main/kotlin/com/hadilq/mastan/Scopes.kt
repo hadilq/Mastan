@@ -1,8 +1,8 @@
 package com.hadilq.mastan
 
-import com.hadilq.mastan.auth.data.AccessTokenRequest
-import com.hadilq.mastan.auth.data.OauthRepository
-import com.hadilq.mastan.shared.UserApi
+import com.hadilq.mastan.auth.AccessTokenRequest
+import com.hadilq.mastan.auth.User
+import com.hadilq.mastan.network.UserApi
 import com.hadilq.mastan.timeline.ui.UrlHandlerMediator
 import com.squareup.anvil.annotations.ContributesSubcomponent
 import com.squareup.anvil.annotations.ContributesTo
@@ -24,9 +24,8 @@ interface UserComponent {
         ): UserComponent
     }
 
-    fun oauthRepository(): OauthRepository
     fun api(): UserApi
-    fun request(): AccessTokenRequest
+    fun accessTokenRequest(): AccessTokenRequest
     fun urlHandlerMediator(): UrlHandlerMediator
 }
 

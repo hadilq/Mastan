@@ -83,7 +83,7 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.hadilq.mastan.timeline.data.Account
+import com.hadilq.mastan.network.dto.Account
 import com.hadilq.mastan.timeline.data.FeedType
 import com.hadilq.mastan.timeline.data.LinkListener
 import com.hadilq.mastan.timeline.ui.model.PollHashUI
@@ -94,7 +94,7 @@ import com.google.accompanist.placeholder.material3.placeholder
 import com.google.accompanist.placeholder.shimmer
 import me.saket.swipe.SwipeAction
 import com.hadilq.mastan.legacy.R
-import com.hadilq.mastan.theme.LocalThemeOutput
+import com.hadilq.mastan.theme.LocalMastanThemeUiIo
 import java.lang.Integer.min
 import java.net.URI
 
@@ -118,7 +118,7 @@ fun TimelineCard(
     onOpenURI: (URI, FeedType) -> Unit,
 ) {
 
-    val dim = LocalThemeOutput.current.dim
+    val dim = LocalMastanThemeUiIo.current.dim
     val urlHandlerMediator = LocalUserComponent.current.urlHandlerMediator()
 
     val cardModifier = if (
@@ -260,9 +260,7 @@ fun TimelineCard(
                         )
                     }
 
-                    ContentImage(ui?.attachments?.mapNotNull { it.url } ?: emptyList()) {
-                        clicked = !clicked
-                    }
+                    ContentImage(url = ui?.attachments?.mapNotNull { it.url } ?: emptyList())
                     val toolbarHeight = dim.paddingSize6
                     val toolbarHeightPx =
                         with(LocalDensity.current) {
@@ -316,7 +314,7 @@ fun TimelineCard(
                                 )
                             }
                             UserInput(
-                                ui,
+                                status = ui,
                                 account = account,
                                 connection = nestedScrollConnection,
                                 goToBottomSheet = goToBottomSheet,
@@ -403,7 +401,7 @@ fun UserInfo(
     goToProfile: (String) -> Unit,
     onProfileClick: (accountId: String, isCurrent: Boolean) -> Unit = { a, b -> }
 ) {
-    val dim = LocalThemeOutput.current.dim
+    val dim = LocalMastanThemeUiIo.current.dim
     Row(
         Modifier
             .fillMaxWidth()
@@ -423,12 +421,12 @@ fun UserInfo(
             DirectMessage(ui.directMessage)
         }
         if (ui?.boostedBy != null)
-            Boosted(ui.boostedEmojiText, R.drawable.rocket3,
-                ui.boostedAvatar,
-                containerColor = colorScheme.surface,
-                onClick = {
-                    onProfileClick(ui.boostedById!!, true)
-                })
+            Boosted(
+                ui.boostedEmojiText, R.drawable.rocket3,
+                containerColor = colorScheme.surface
+            ) {
+                onProfileClick(ui.boostedById!!, true)
+            }
 
     }
     Row(
@@ -512,7 +510,7 @@ fun UserInfo(
 fun rocket() = SwipeAction(
     icon = {
         androidx.compose.foundation.Image(
-            modifier = Modifier.size(LocalThemeOutput.current.dim.paddingSize10),
+            modifier = Modifier.size(LocalMastanThemeUiIo.current.dim.paddingSize10),
             painter = painterResource(R.drawable.rocket3),
             contentDescription = "",
             colorFilter = ColorFilter.tint(colorScheme.tertiary)
@@ -526,7 +524,7 @@ fun rocket() = SwipeAction(
 fun reply() = SwipeAction(
     icon = {
         androidx.compose.foundation.Image(
-            modifier = Modifier.size(LocalThemeOutput.current.dim.paddingSize10),
+            modifier = Modifier.size(LocalMastanThemeUiIo.current.dim.paddingSize10),
             painter = painterResource(R.drawable.reply),
             contentDescription = "",
             colorFilter = ColorFilter.tint(colorScheme.tertiary)
@@ -540,7 +538,7 @@ fun reply() = SwipeAction(
 fun replyAll() = SwipeAction(
     icon = {
         androidx.compose.foundation.Image(
-            modifier = Modifier.size(LocalThemeOutput.current.dim.paddingSize10),
+            modifier = Modifier.size(LocalMastanThemeUiIo.current.dim.paddingSize10),
             painter = painterResource(R.drawable.reply_all),
             contentDescription = "",
             colorFilter = ColorFilter.tint(colorScheme.tertiary)
@@ -651,7 +649,7 @@ private fun MultipleChoicePollVoter(
     disabled: Boolean,
     onClick: (List<Int>) -> Unit,
 ) {
-    val dim = LocalThemeOutput.current.dim
+    val dim = LocalMastanThemeUiIo.current.dim
     val selected = remember {
         mutableStateListOf(*List(options.size) { index -> ownVotes.contains(index) }.toTypedArray())
     }
@@ -737,7 +735,7 @@ private fun SingleChoicePollVoter(
     disabled: Boolean,
     onClick: (Int) -> Unit,
 ) {
-    val dim = LocalThemeOutput.current.dim
+    val dim = LocalMastanThemeUiIo.current.dim
     val selected = remember {
         mutableStateListOf(*List(options.size) { index -> ownVote == index }.toTypedArray())
     }
@@ -780,7 +778,7 @@ private fun MultiChoicePollOptionVoter(
     selected: Boolean,
     onClick: (Boolean) -> Unit,
 ) {
-    val dim = LocalThemeOutput.current.dim
+    val dim = LocalMastanThemeUiIo.current.dim
     Row(
         modifier = modifier
             .fillMaxWidth(),
@@ -838,7 +836,7 @@ private fun SingleChoicePollOptionVoter(
         modifier = modifier
             .fillMaxWidth(),
     ) {
-        val dim = LocalThemeOutput.current.dim
+        val dim = LocalMastanThemeUiIo.current.dim
         RadioButton(
             selected = selected,
             modifier = Modifier

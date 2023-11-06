@@ -18,11 +18,9 @@ package com.hadilq.mastan.timeline.ui
 import com.hadilq.mastan.AuthRequiredScope
 import com.hadilq.mastan.SingleIn
 import com.hadilq.mastan.UserScope
-import com.hadilq.mastan.auth.data.OauthRepository
-import com.hadilq.mastan.shared.UserApi
-import com.hadilq.mastan.timeline.data.Account
+import com.hadilq.mastan.network.dto.Account
 import com.hadilq.mastan.timeline.data.AccountRepository
-import com.hadilq.mastan.timeline.data.Notification
+import com.hadilq.mastan.network.dto.Notification
 import com.hadilq.mastan.timeline.data.StatusDao
 import com.hadilq.mastan.timeline.data.toStatusDb
 import com.hadilq.mastan.timeline.data.updateOldStatus
@@ -89,15 +87,13 @@ interface NotificationsRepository {
 @ContributesBinding(UserScope::class)
 @SingleIn(UserScope::class)
 class RealNotificationsRepository @Inject constructor(
-    userApi: UserApi,
+    userApi: com.hadilq.mastan.network.UserApi,
     statusDao: StatusDao,
-    oauthRepository: OauthRepository
 ) :
     NotificationsRepository {
     val store = StoreBuilder.from(
         Fetcher.of { key: Unit ->
             val notification = userApi.notifications(
-                authHeader = oauthRepository.getAuthHeader(),
                 offset = null
             )
             notification.forEach { notif ->

@@ -73,11 +73,11 @@ import me.saket.telephoto.zoomable.ZoomableState
 import me.saket.telephoto.zoomable.coil.ZoomableAsyncImage
 import me.saket.telephoto.zoomable.rememberZoomableState
 import com.hadilq.mastan.legacy.R
-import com.hadilq.mastan.theme.LocalThemeOutput
+import com.hadilq.mastan.theme.LocalMastanThemeUiIo
 
 @Composable
 fun AvatarImage(
-    size: Dp = LocalThemeOutput.current.dim.paddingSize4,
+    size: Dp = LocalMastanThemeUiIo.current.dim.paddingSize4,
     url: String?,
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {}
@@ -113,12 +113,10 @@ fun AvatarImage(
 
 }
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ContentImage(
-    url: List<String> = emptyList(),
     modifier: Modifier = Modifier,
-    onClick: () -> Unit = {},
+    url: List<String> = emptyList(),
 ) {
     val coroutineScope = rememberCoroutineScope()
 

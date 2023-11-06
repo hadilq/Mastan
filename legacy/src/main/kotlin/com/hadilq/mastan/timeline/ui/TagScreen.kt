@@ -38,7 +38,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.hadilq.mastan.theme.LocalThemeOutput
+import com.hadilq.mastan.theme.LocalMastanThemeUiIo
 import com.hadilq.mastan.timeline.data.FeedType
 import com.hadilq.mastan.timeline.ui.model.UI
 import kotlinx.coroutines.delay
@@ -55,7 +55,7 @@ fun TagScreen(
     goToProfile: (String) -> Unit,
     goToTag: (String) -> Unit
 ) {
-    val dim = LocalThemeOutput.current.dim
+    val dim = LocalMastanThemeUiIo.current.dim
     val component = LocalAuthComponent.current
 
     val homePresenter by remember(key1 = tag) {
@@ -83,7 +83,7 @@ fun TagScreen(
     LaunchedEffect(key1 = tag) {
         uriPresenter.start()
     }
-    OpenHandledUri(uriPresenter, navController, code)
+    OpenHandledUri(uriPresenter, navController)
 
     val pullRefreshState = rememberPullRefreshState(false, {
         homePresenter.handle(TimelinePresenter.Load(feedType, colorScheme = colorScheme, dim = dim))

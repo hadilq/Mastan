@@ -15,8 +15,8 @@
  */
 package com.hadilq.mastan.conversation
 
-import com.hadilq.mastan.timeline.data.Account
-import com.hadilq.mastan.timeline.data.Status
+import com.hadilq.mastan.network.dto.Account
+import com.hadilq.mastan.network.dto.Status
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -25,5 +25,5 @@ data class Conversation(
     val id:String,
     val unread:Boolean,
     val accounts:List<Account>,
-    @SerialName("last_status") val lastStatus:Status
+    @SerialName("last_status") val lastStatus: Status
 )

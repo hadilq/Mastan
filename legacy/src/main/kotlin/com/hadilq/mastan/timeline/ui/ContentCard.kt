@@ -26,7 +26,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.sp
-import com.hadilq.mastan.theme.LocalThemeOutput
+import com.hadilq.mastan.theme.LocalMastanThemeUiIo
 import com.hadilq.mastan.timeline.data.FeedType
 import com.hadilq.mastan.timeline.ui.model.CardUI
 import java.net.URI
@@ -38,7 +38,7 @@ fun ContentCard(
     feedType: FeedType,
     onOpenURI: (URI, FeedType) -> Unit,
 ) {
-    val dim = LocalThemeOutput.current.dim
+    val dim = LocalMastanThemeUiIo.current.dim
     Surface(
         modifier = Modifier
             .padding(top = dim.paddingSize1)

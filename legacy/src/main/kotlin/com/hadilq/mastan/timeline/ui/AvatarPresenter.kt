@@ -18,11 +18,12 @@ package com.hadilq.mastan.timeline.ui
 import android.app.Application
 import com.hadilq.mastan.AuthRequiredScope
 import com.hadilq.mastan.SingleIn
-import com.hadilq.mastan.auth.data.AccessTokenRequest
-import com.hadilq.mastan.auth.data.OauthRepository
+import com.hadilq.mastan.auth.AccessTokenRequest
+import com.hadilq.mastan.auth.LoggedInAccountsState
 import com.hadilq.mastan.auth.data.UserManager
-import com.hadilq.mastan.shared.UserApi
-import com.hadilq.mastan.timeline.data.Account
+import com.hadilq.mastan.di.legacyDependencies
+import com.hadilq.mastan.network.UserApi
+import com.hadilq.mastan.network.dto.Account
 import com.hadilq.mastan.ui.util.Presenter
 import com.squareup.anvil.annotations.ContributesBinding
 import kotlinx.coroutines.CoroutineScope
@@ -40,7 +41,7 @@ abstract class AvatarPresenter :
 
     data class AvatarModel(
         val loading: Boolean,
-        val accounts: List<Account>? = null
+        val accounts: List<Account>? = null,
     )
 
     sealed interface AvatarEffect
@@ -51,39 +52,37 @@ abstract class AvatarPresenter :
 class RealAvatarPresenter @Inject constructor(
     val api: UserApi,
     val application: Application,
-    val oauthRepository: OauthRepository,
     val userManager: UserManager,
-    val accessTokenRequest: AccessTokenRequest
 ) :
     AvatarPresenter() {
 
-    override suspend fun eventHandler(event: AvatarEvent, scope: CoroutineScope) = withContext(Dispatchers.IO) {
-        when (event) {
-            is Load -> {
-                val touch = oauthRepository.getCurrent() // touch it to make sure we save it
-                val accountTokens: List<AccessTokenRequest> = application.baseContext.getAccounts()
-                val accounts = accountTokens.map { accountTokenRequest ->
-                    val account: Result<Account?> =
-                        kotlin.runCatching {
-                            val userComponent =
-                                userManager.userComponentFor(accessTokenRequest = accountTokenRequest)
-                            val credentials = userComponent.api()
-                                .accountVerifyCredentials(
-                                    userComponent.oauthRepository().getAuthHeader()
-                                )
-                            credentials
-                        }
+    override suspend fun eventHandler(event: AvatarEvent, scope: CoroutineScope) =
+        withContext(Dispatchers.IO) {
+            when (event) {
+                is Load -> {
+                    val loggedInAccountsState = legacyDependencies.authLogicIo.state as LoggedInAccountsState
+                    val accountTokens: List<AccessTokenRequest> = loggedInAccountsState
+                            .servers.values.flatMap { server -> server.users.values.map { it.accessTokenRequest } }
+                    val accounts = accountTokens.map { accountTokenRequest ->
+                        val account: Result<Account?> =
+                            kotlin.runCatching {
+                                val userComponent =
+                                    userManager.userComponentFor(accessTokenRequest = accountTokenRequest)
+                                val credentials = userComponent.api()
+                                    .accountVerifyCredentials()
+                                credentials
+                            }
 
-                    account.getOrNull()
-                        ?.copy(
-                            domain = accountTokenRequest.domain
-                        )
-                }.filterNotNull()
+                        account.getOrNull()
+                            ?.copy(
+                                domain = accountTokenRequest.domain
+                            )
+                    }.filterNotNull()
 
-                model =
-                    model.copy(accounts = accounts.sortedBy { if (it.domain == accessTokenRequest.domain) 0 else 1 })
+                    model =
+                        model.copy(accounts = accounts.sortedBy { if (it.domain == loggedInAccountsState.currentUser.domain) 0 else 1 })
 
+                }
             }
         }
-    }
 }

@@ -81,10 +81,27 @@ tasks.withType(KaptGenerateStubs).configureEach {
 
 dependencies {
     implementation(projects.legacy)
+    implementation(projects.logicTreeArchitecture.io)
+    implementation(projects.logicTreeArchitecture.impl)
+    implementation(projects.log.io)
+    implementation(projects.log.impl)
     implementation(projects.theme.io)
     implementation(projects.theme.impl)
+    implementation(projects.datastore.io)
+    implementation(projects.datastore.impl)
     implementation(projects.splash.io)
     implementation(projects.splash.impl)
+    implementation(projects.root.io)
+    implementation(projects.root.impl)
+    implementation(projects.navigation.io)
+    implementation(projects.navigation.impl)
+    implementation(projects.auth.io)
+    implementation(projects.auth.impl)
+    implementation(projects.loginFlow.io)
+    implementation(projects.loginFlow.impl)
+    implementation(projects.network.io)
+    implementation(projects.network.impl)
+
     implementation(platform(libs.androidx.compose.bom))
     implementation(platform(libs.google.firebase.bom))
     implementation(libs.androidx.constraintlayout)
@@ -151,4 +168,5 @@ dependencies {
     implementation libs.coil.gif
     implementation libs.coil.video
     implementation libs.patrykandpatrick
+    implementation libs.cash.molecule
 }

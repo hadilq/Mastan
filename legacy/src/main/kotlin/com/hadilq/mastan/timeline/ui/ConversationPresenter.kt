@@ -18,10 +18,8 @@ package com.hadilq.mastan.timeline.ui
 import androidx.compose.material3.ColorScheme
 import com.hadilq.mastan.AuthRequiredScope
 import com.hadilq.mastan.SingleIn
-import com.hadilq.mastan.auth.data.OauthRepository
-import com.hadilq.mastan.shared.UserApi
 import com.hadilq.mastan.theme.Dimension
-import com.hadilq.mastan.timeline.data.Account
+import com.hadilq.mastan.network.dto.Account
 import com.hadilq.mastan.timeline.data.AccountRepository
 import com.hadilq.mastan.timeline.data.FeedStoreRequest
 import com.hadilq.mastan.timeline.data.FeedType
@@ -58,8 +56,7 @@ abstract class ConversationPresenter :
 @ContributesBinding(AuthRequiredScope::class, boundType = ConversationPresenter::class)
 @SingleIn(AuthRequiredScope::class)
 class RealConversationPresenter @Inject constructor(
-    val api: UserApi,
-    val repository: OauthRepository,
+    val api: com.hadilq.mastan.network.UserApi,
     val statusRepository: StatusRepository,
     val accountRepository: AccountRepository,
     val conversationReplyRearrangerMediator: ConversationReplyRearrangerMediator,
@@ -72,7 +69,6 @@ class RealConversationPresenter @Inject constructor(
             when (event) {
                 is Load -> {
                     model = model.copy(account = accountRepository.getCurrent())
-                    val token = repository.getAuthHeader()
                     var currentConvo = model.conversations.getOrDefault(event.statusId, ConvoUI())
 
                     val status = kotlin.runCatching {
@@ -96,7 +92,6 @@ class RealConversationPresenter @Inject constructor(
 
                     val conversation = kotlin.runCatching {
                         api.conversation(
-                            authHeader = token,
                             statusId = event.statusId
                         )
                     }

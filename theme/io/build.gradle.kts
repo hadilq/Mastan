@@ -1,6 +1,7 @@
 plugins {
     kotlin("multiplatform")
     id("com.android.library")
+    id("kotlinx-serialization")
 }
 
 kotlin {
@@ -15,11 +16,14 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
+                implementation(projects.logicTreeArchitecture.io)
+
                 implementation(libs.androidx.annotation)
                 implementation(libs.androidx.compose.runtime)
                 implementation(libs.androidx.compose.ui)
                 implementation(libs.androidx.compose.foundation)
                 implementation(libs.androidx.compose.material3)
+                implementation(libs.kotlinx.serialization.json)
             }
         }
         val commonTest by getting
@@ -28,7 +32,7 @@ kotlin {
 }
 
 android {
-    namespace = "com.hadilq.mastan.theme"
+    namespace = "com.hadilq.mastan.theme.io"
     compileSdk = 33
     defaultConfig {
         minSdk = 24
@@ -36,5 +40,11 @@ android {
     compileOptions {
         sourceCompatibility(JavaVersion.VERSION_17)
         targetCompatibility(JavaVersion.VERSION_17)
+    }
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.androidxComposeCompiler.get()
     }
 }

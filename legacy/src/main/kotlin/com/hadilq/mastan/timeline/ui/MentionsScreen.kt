@@ -39,7 +39,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.hadilq.mastan.theme.LocalThemeOutput
+import com.hadilq.mastan.theme.LocalMastanThemeUiIo
 import com.hadilq.mastan.timeline.data.FeedType
 import com.hadilq.mastan.timeline.data.mapStatus
 import com.hadilq.mastan.timeline.data.toStatusDb
@@ -61,23 +61,23 @@ fun MentionsScreen(
     val mentionsPresenter = component.mentionsPresenter()
     val submitPresenter = component.submitPresenter()
     val uriPresenter = remember { component.urlPresenter().get() }
-    LaunchedEffect(key1 = userComponent.request()) {
+    LaunchedEffect(key1 = userComponent.accessTokenRequest()) {
         mentionsPresenter.start()
     }
-    LaunchedEffect(key1 = userComponent.request()) {
+    LaunchedEffect(key1 = userComponent.accessTokenRequest()) {
         mentionsPresenter.handle(MentionsPresenter.Load)
     }
-    val dim = LocalThemeOutput.current.dim
+    val dim = LocalMastanThemeUiIo.current.dim
     val statuses = mentionsPresenter.model.statuses.map {
         it.toStatusDb(FeedType.Home).mapStatus(MaterialTheme.colorScheme, dim)
     }
-    LaunchedEffect(key1 = userComponent.request()) {
+    LaunchedEffect(key1 = userComponent.accessTokenRequest()) {
         submitPresenter.start()
     }
-    LaunchedEffect(key1 = userComponent.request()) {
+    LaunchedEffect(key1 = userComponent.accessTokenRequest()) {
         uriPresenter.start()
     }
-    OpenHandledUri(uriPresenter, navController, code)
+    OpenHandledUri(uriPresenter, navController)
 
     val pullRefreshState = rememberPullRefreshState(false, {
         component.mentionsPresenter().handle(MentionsPresenter.Load)
@@ -157,7 +157,7 @@ private fun ScaffoldParent(
                 .padding(top = 0.dp)
         ) {
             items(statuses, key = { it.remoteId }) {
-                card(
+                ConversationCard(
                     modifier = Modifier.background(Color.Transparent),
                     status = it,
                     account = mentionsPresenter.model.account,

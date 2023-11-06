@@ -34,8 +34,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.items
-import com.hadilq.mastan.theme.LocalThemeOutput
-import com.hadilq.mastan.timeline.data.Account
+import com.hadilq.mastan.theme.LocalMastanThemeUiIo
+import com.hadilq.mastan.network.dto.Account
 import com.hadilq.mastan.timeline.ui.AvatarImage
 import com.hadilq.mastan.ui.util.emojiText
 
@@ -52,7 +52,7 @@ fun AccountTab(
         if (results != null)
             items(results, key = { it.id }) {
                 Column {
-                    content(goToProfile, it)
+                    AccountTableContent(goToProfile, it)
                 }
                 Divider()
             }
@@ -62,7 +62,7 @@ fun AccountTab(
                 key = { it.id }) {
                 if (it != null)
                     Column {
-                        content(goToProfile, it)
+                        AccountTableContent(goToProfile, it)
                     }
                 Divider()
             }
@@ -71,11 +71,11 @@ fun AccountTab(
 }
 
 @Composable
-private fun content(
+private fun AccountTableContent(
     goToProfile: (String) -> Unit,
     it: Account
 ) {
-    val dim = LocalThemeOutput.current.dim
+    val dim = LocalMastanThemeUiIo.current.dim
     Row(modifier = Modifier
         .clickable { goToProfile(it.id) }
         .padding(dim.paddingSize1)) {

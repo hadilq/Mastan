@@ -19,9 +19,10 @@ import androidx.compose.material3.ColorScheme
 import androidx.paging.*
 import com.hadilq.mastan.AuthRequiredScope
 import com.hadilq.mastan.SingleIn
-import com.hadilq.mastan.auth.data.OauthRepository
-import com.hadilq.mastan.shared.UserApi
-import com.hadilq.mastan.shared.headerLinks
+import com.hadilq.mastan.network.UserApi
+import com.hadilq.mastan.network.dto.Account
+import com.hadilq.mastan.network.dto.Status
+import com.hadilq.mastan.network.headerLinks
 import com.hadilq.mastan.theme.Dimension
 import com.hadilq.mastan.timeline.data.*
 import com.hadilq.mastan.timeline.ui.model.UI
@@ -41,7 +42,6 @@ class RealTimelinePresenter @Inject constructor(
     val hashtagRemoteMediatorFactory: HashtagRemoteMediatorFactory,
     val statusDao: StatusDao,
     val api: UserApi,
-    val oauthRepository: OauthRepository,
     val accountRepository: AccountRepository,
 ) : TimelinePresenter() {
     val scope = CoroutineScope(Dispatchers.Main)
@@ -92,14 +92,14 @@ class RealTimelinePresenter @Inject constructor(
     val bookmarksFlow: Flow<PagingData<Status>> = Pager(
         config = pagingConfig,
     ) {
-        BookmarksPagingSource(userApi = api, oauthRepository = oauthRepository)
+        BookmarksPagingSource(userApi = api)
     }
         .flow.cachedIn(scope)
 
     val favoritesFlow: Flow<PagingData<Status>> = Pager(
         config = pagingConfig,
     ) {
-        FavoritesPagingSource(userApi = api, oauthRepository = oauthRepository)
+        FavoritesPagingSource(userApi = api)
     }
         .flow.cachedIn(scope)
 
@@ -276,7 +276,6 @@ abstract class TimelinePresenter :
 
 class BookmarksPagingSource(
     val userApi: UserApi,
-    val oauthRepository: OauthRepository,
 ) : PagingSource<String, Status>() {
     override suspend fun load(
         params: LoadParams<String>
@@ -288,18 +287,15 @@ class BookmarksPagingSource(
             //we loaded all values
 //            if (nextPageNumber == "end") return LoadResult.Error(NoSuchElementException())
             val response = if (nextPageNumber == null) {
-                userApi.bookmarkedStatuses(
-                    authHeader = oauthRepository.getAuthHeader(),
-                )
+                userApi.bookmarkedStatuses()
             } else {
                 userApi.bookmarkedStatuses(
-                    authHeader = oauthRepository.getAuthHeader(),
                     url = nextPageNumber
                 )
 
             }
 
-            val data = response.body()!!
+            val data = response.body
             val links = headerLinks(response)
             return LoadResult.Page(
                 data = data,
@@ -331,7 +327,6 @@ class BookmarksPagingSource(
 
 class FavoritesPagingSource(
     val userApi: UserApi,
-    val oauthRepository: OauthRepository
 ) : PagingSource<String, Status>() {
     override suspend fun load(
         params: LoadParams<String>
@@ -340,18 +335,15 @@ class FavoritesPagingSource(
             // Start refresh at page 1 if undefined.
             val nextPageNumber = params.key
             val response = if (nextPageNumber == null) {
-                userApi.favorites(
-                    authHeader = oauthRepository.getAuthHeader(),
-                )
+                userApi.favorites()
             } else {
                 userApi.favorites(
-                    authHeader = oauthRepository.getAuthHeader(),
                     url = nextPageNumber
                 )
 
             }
 
-            val data = response.body()!!
+            val data = response.body
             val links = headerLinks(response)
             return LoadResult.Page(
                 data = data,

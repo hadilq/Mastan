@@ -47,19 +47,19 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.hadilq.mastan.accounts.AccountTab
 import com.hadilq.mastan.search.SearchPresenter
-import com.hadilq.mastan.timeline.data.Account
+import com.hadilq.mastan.network.dto.Account
 import com.hadilq.mastan.timeline.data.FeedType
-import com.hadilq.mastan.timeline.data.Tag
+import com.hadilq.mastan.network.dto.Tag
 import com.hadilq.mastan.timeline.ui.LocalAuthComponent
 import com.hadilq.mastan.timeline.ui.SheetContentState
 import com.hadilq.mastan.timeline.ui.SubmitPresenter
-import com.hadilq.mastan.timeline.ui.card
+import com.hadilq.mastan.timeline.ui.ConversationCard
 import com.hadilq.mastan.timeline.ui.model.UI
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.pagerTabIndicatorOffset
 import com.google.accompanist.pager.rememberPagerState
-import com.hadilq.mastan.theme.LocalThemeOutput
+import com.hadilq.mastan.theme.LocalMastanThemeUiIo
 import com.patrykandpatrick.vico.compose.chart.Chart
 import com.patrykandpatrick.vico.compose.chart.line.lineChart
 import com.patrykandpatrick.vico.compose.m3.style.m3ChartStyle
@@ -194,7 +194,7 @@ private fun StatusTab(
             .fillMaxSize()
     ) {
         items(results, key = { it.remoteId }) {
-            card(
+            ConversationCard(
                 modifier = Modifier.background(Color.Transparent),
                 status = it,
                 account = account,
@@ -214,7 +214,7 @@ private fun HashTagTab(
     results: List<Tag>,
     submitPresenter: SubmitPresenter
 ) {
-    val dim = LocalThemeOutput.current.dim
+    val dim = LocalMastanThemeUiIo.current.dim
     LazyColumn(Modifier.fillMaxSize()) {
         items(results, key = { it.name }) {
             Row(

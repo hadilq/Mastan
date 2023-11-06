@@ -23,14 +23,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import com.hadilq.mastan.timeline.data.Account
+import com.hadilq.mastan.network.dto.Account
 import com.hadilq.mastan.timeline.data.FeedType
 import com.hadilq.mastan.timeline.ui.model.UI
 import kotlinx.coroutines.flow.MutableSharedFlow
 import java.net.URI
 
 @Composable
-fun card(
+fun ConversationCard(
     modifier: Modifier,
     status: UI,
     mainConversationStatusId: String? = null,

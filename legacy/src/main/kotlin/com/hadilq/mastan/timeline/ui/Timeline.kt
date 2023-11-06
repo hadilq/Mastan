@@ -46,9 +46,9 @@ import androidx.paging.compose.items
 import coil.ImageLoader
 import com.hadilq.mastan.AuthRequiredComponent
 import com.hadilq.mastan.UserComponent
-import com.hadilq.mastan.auth.data.AccessTokenRequest
+import com.hadilq.mastan.auth.AccessTokenRequest
 import com.hadilq.mastan.tabselector.Tab
-import com.hadilq.mastan.timeline.data.Account
+import com.hadilq.mastan.network.dto.Account
 import com.hadilq.mastan.timeline.data.FeedType
 import com.hadilq.mastan.timeline.ui.model.UI
 import dev.marcellogalhardo.retained.compose.retainInActivity
@@ -56,7 +56,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 import com.hadilq.mastan.legacy.R
-import com.hadilq.mastan.theme.LocalThemeOutput
+import com.hadilq.mastan.theme.LocalMastanThemeUiIo
 import java.net.URI
 
 val LocalAuthComponent = compositionLocalOf<AuthRequiredInjector> { error("No component found!") }
@@ -81,7 +81,7 @@ fun TimelineScreen(
     goToProfile: (String) -> Unit,
     goToTag: (String) -> Unit,
 ) {
-    val dim = LocalThemeOutput.current.dim
+    val dim = LocalMastanThemeUiIo.current.dim
     val component =
         retainInActivity(
             owner = LocalContext.current as ViewModelStoreOwner,
@@ -105,7 +105,7 @@ fun TimelineScreen(
         LaunchedEffect(key1 = accessTokenRequest) {
             uriPresenter.start()
         }
-        OpenHandledUri(uriPresenter, navController, accessTokenRequest.code)
+        OpenHandledUri(uriPresenter, navController)
 
         val bottomState: ModalBottomSheetState =
             rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
@@ -185,7 +185,7 @@ private fun ScaffoldParent(
     goToProfile: (String) -> Unit,
     goToTag: (String) -> Unit,
 ) {
-    val dim = LocalThemeOutput.current.dim
+    val dim = LocalMastanThemeUiIo.current.dim
     var tabToLoad: FeedType by rememberSaveable { mutableStateOf(FeedType.Home) }
     var refresh: Boolean by remember { mutableStateOf(false) }
     var expanded: Boolean by remember { mutableStateOf(false) }
@@ -294,14 +294,14 @@ private fun ScaffoldParent(
         isFloatingActionButtonDocked = true,
         floatingActionButton = {
             val scope = rememberCoroutineScope()
-                FAB(visible = !isReplying, MaterialTheme.colorScheme) {
-                    scope.launch {
-                        homePresenter.model.currentAccount?.let {
-                            bottomSheetContentProvider.showContent(SheetContentState.UserInput(it))
-                        }
+            FAB(visible = !isReplying, MaterialTheme.colorScheme) {
+                scope.launch {
+                    homePresenter.model.currentAccount?.let {
+                        bottomSheetContentProvider.showContent(SheetContentState.UserInput(it))
                     }
-                    isReplying = true
                 }
+                isReplying = true
+            }
         }
     ) { padding ->
         Box {
@@ -309,7 +309,7 @@ private fun ScaffoldParent(
 
             when (tabToLoad) {
                 FeedType.Home -> {
-                    timelineTab(
+                    TimelineTab(
                         goToBottomSheet = bottomSheetContentProvider::showContent,
                         goToProfile = goToProfile,
                         goToTag = goToTag,
@@ -331,7 +331,7 @@ private fun ScaffoldParent(
                 }
 
                 FeedType.Local -> {
-                    timelineTab(
+                    TimelineTab(
                         goToBottomSheet = bottomSheetContentProvider::showContent,
                         goToProfile = goToProfile,
                         goToTag = goToTag,
@@ -353,7 +353,7 @@ private fun ScaffoldParent(
                 }
 
                 FeedType.Federated -> {
-                    timelineTab(
+                    TimelineTab(
                         goToBottomSheet = bottomSheetContentProvider::showContent,
                         goToProfile = goToProfile,
                         goToTag = goToTag,
@@ -375,7 +375,7 @@ private fun ScaffoldParent(
                 }
 
                 FeedType.Trending -> {
-                    timelineTab(
+                    TimelineTab(
                         goToBottomSheet = bottomSheetContentProvider::showContent,
                         goToProfile = goToProfile,
                         goToTag = goToTag,
@@ -399,7 +399,7 @@ private fun ScaffoldParent(
                 FeedType.UserWithMedia -> {}
                 FeedType.UserWithReplies -> {}
                 FeedType.Bookmarks -> {
-                    timelineTab(
+                    TimelineTab(
                         goToBottomSheet = bottomSheetContentProvider::showContent,
                         goToProfile = goToProfile,
                         goToTag = goToTag,
@@ -421,7 +421,7 @@ private fun ScaffoldParent(
                 }
 
                 FeedType.Favorites -> {
-                    timelineTab(
+                    TimelineTab(
                         goToBottomSheet = bottomSheetContentProvider::showContent,
                         goToProfile = goToProfile,
                         goToTag = goToTag,
@@ -443,7 +443,7 @@ private fun ScaffoldParent(
                 }
 
                 FeedType.Hashtag -> {
-                    timelineTab(
+                    TimelineTab(
                         goToBottomSheet = bottomSheetContentProvider::showContent,
                         goToProfile = goToProfile,
                         goToTag = goToTag,
@@ -470,7 +470,7 @@ private fun ScaffoldParent(
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-private fun timelineTab(
+private fun TimelineTab(
     goToBottomSheet: suspend (SheetContentState) -> Unit,
     goToProfile: (String) -> Unit,
     goToTag: (String) -> Unit,
@@ -487,7 +487,7 @@ private fun timelineTab(
     doneRefreshing: () -> Unit,
     onOpenURI: (URI, FeedType) -> Unit,
 ) {
-    val dim = LocalThemeOutput.current.dim
+    val dim = LocalMastanThemeUiIo.current.dim
     val colorScheme = MaterialTheme.colorScheme
     LaunchedEffect(key1 = tabToLoad, key2 = domain, key3 = tabToLoad.tagName) {
         events.tryEmit(TimelinePresenter.Load(tabToLoad, colorScheme = colorScheme, dim = dim))
@@ -582,7 +582,7 @@ fun TimelineRows(
     onVote: (statusId: String, pollId: String, choices: List<Int>) -> Unit,
     onOpenURI: (URI, FeedType) -> Unit,
 ) {
-    val dim = LocalThemeOutput.current.dim
+    val dim = LocalMastanThemeUiIo.current.dim
     Crossfade(targetState = ui, label = "") { item ->
 
         if (item.itemCount == 0) {

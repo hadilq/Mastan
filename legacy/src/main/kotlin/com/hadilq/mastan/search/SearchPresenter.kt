@@ -19,13 +19,11 @@ import androidx.compose.material3.ColorScheme
 import androidx.paging.ExperimentalPagingApi
 import com.hadilq.mastan.AuthRequiredScope
 import com.hadilq.mastan.SingleIn
-import com.hadilq.mastan.auth.data.OauthRepository
-import com.hadilq.mastan.shared.UserApi
 import com.hadilq.mastan.theme.Dimension
-import com.hadilq.mastan.timeline.data.Account
+import com.hadilq.mastan.network.dto.Account
 import com.hadilq.mastan.timeline.data.AccountRepository
 import com.hadilq.mastan.timeline.data.FeedType
-import com.hadilq.mastan.timeline.data.Tag
+import com.hadilq.mastan.network.dto.Tag
 import com.hadilq.mastan.timeline.data.mapStatus
 import com.hadilq.mastan.timeline.data.toStatusDb
 import com.hadilq.mastan.timeline.ui.model.UI
@@ -77,11 +75,10 @@ abstract class SearchPresenter :
 @SingleIn(AuthRequiredScope::class)
 class RealSearchPresenter @Inject constructor(
     private val searchRepository: SearchRepository,
-    private val userApi: UserApi,
-    private val oauthRepository: OauthRepository,
+    private val userApi: com.hadilq.mastan.network.UserApi,
     private val accountRepository: AccountRepository,
 
-) : SearchPresenter() {
+    ) : SearchPresenter() {
     //Drop 1 keeps from emitting the initial value
     private val searchInput: MutableStateFlow<String> = MutableStateFlow("")
 
@@ -110,11 +107,10 @@ class RealSearchPresenter @Inject constructor(
                         )
                             model = SearchModel(error = "Sorry no results found")
                         else {
-                            val authHeader = oauthRepository.getAuthHeader()
                             val searchResults = results.requireData()
                             val userTags =
                                 kotlin.runCatching {
-                                    userApi.followedTags(authHeader = authHeader)
+                                    userApi.followedTags()
 
                                 }
                             val tags =

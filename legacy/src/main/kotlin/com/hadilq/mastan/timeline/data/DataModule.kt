@@ -17,7 +17,8 @@ package com.hadilq.mastan.timeline.data
 
 import com.hadilq.mastan.AppScope
 import com.hadilq.mastan.SingleIn
-import com.hadilq.mastan.shared.Api
+import com.hadilq.mastan.di.BuildConfigDetails
+import com.hadilq.mastan.network.RealApi
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.squareup.anvil.annotations.ContributesTo
 import dagger.Module
@@ -27,7 +28,6 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import com.hadilq.mastan.di.BuildConfigDetails
 import java.util.concurrent.TimeUnit
 
 @ContributesTo(AppScope::class)
@@ -57,8 +57,8 @@ class DataModule {
     @Provides
     @SingleIn(AppScope::class)
     fun providesRetrofit(
-        httpClient: OkHttpClient
-    ): Api {
+        httpClient: OkHttpClient,
+    ): RealApi {
         val json = Json { ignoreUnknownKeys = true }
         val contentType = "application/json".toMediaType()
         return Retrofit
@@ -66,6 +66,6 @@ class DataModule {
             .baseUrl("https://androiddev.social")
             .client(httpClient)
             .addConverterFactory(json.asConverterFactory(contentType))
-            .build().create(Api::class.java)
+            .build().create(com.hadilq.mastan.network.RealApi::class.java)
     }
 }

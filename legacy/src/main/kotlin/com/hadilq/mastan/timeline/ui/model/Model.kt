@@ -35,12 +35,12 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.sp
 import androidx.core.text.parseAsHtml
 import com.hadilq.mastan.theme.Dimension
-import com.hadilq.mastan.timeline.data.Attachment
-import com.hadilq.mastan.timeline.data.Emoji
+import com.hadilq.mastan.network.dto.Attachment
+import com.hadilq.mastan.network.dto.Emoji
 import com.hadilq.mastan.timeline.data.FeedType
-import com.hadilq.mastan.timeline.data.Mention
-import com.hadilq.mastan.timeline.data.Status
-import com.hadilq.mastan.timeline.data.Tag
+import com.hadilq.mastan.network.dto.Mention
+import com.hadilq.mastan.network.dto.Status
+import com.hadilq.mastan.network.dto.Tag
 import com.hadilq.mastan.timeline.ui.AvatarImage
 import com.hadilq.mastan.ui.util.EmojiText
 

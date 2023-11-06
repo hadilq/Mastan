@@ -41,11 +41,11 @@ import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import com.hadilq.mastan.tabselector.Tab
 import com.hadilq.mastan.tabselector.TabSelectorDetail
-import com.hadilq.mastan.theme.LocalThemeOutput
+import com.hadilq.mastan.theme.LocalMastanThemeUiIo
 
 @Composable
 fun TabSelector(items: MutableList<Tab>, selectedIndex: Int, expanded:Boolean, expand: (Boolean) -> Unit) {
-    val dim = LocalThemeOutput.current.dim
+    val dim = LocalMastanThemeUiIo.current.dim
     Row(
         modifier = Modifier.clickable(onClick = {
             expand(true)

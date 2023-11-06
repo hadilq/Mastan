@@ -1,14 +1,14 @@
 package com.hadilq.mastan.di
 
-import com.hadilq.mastan.LegacyInput
+import com.hadilq.mastan.LegacyDependencies
 import kotlin.reflect.KProperty0
 
-val legacyInput: LegacyInput
+val legacyDependencies: LegacyDependencies
     get() = dependencyProvider()
 
-private lateinit var dependencyProvider: () -> LegacyInput
+private lateinit var dependencyProvider: () -> LegacyDependencies
 
-fun setLegacyInputProvider(provider: KProperty0<LegacyInput>) {
+fun setLegacyDependenciesProvider(provider: KProperty0<LegacyDependencies>) {
     if (::dependencyProvider.isInitialized) {
         /**
          * This is not gonna happen in the production, because the initialization of dependencies

@@ -39,7 +39,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.hadilq.mastan.theme.LocalThemeOutput
+import com.hadilq.mastan.theme.LocalMastanThemeUiIo
 
 
 data class Tab(val name: String, val image: Int, val onClick: () -> Unit)
@@ -102,7 +102,7 @@ private const val CategoryTextProportion = 0.55f
 private fun TabContent(
     tab: Tab
 ) {
-    val dim = LocalThemeOutput.current.dim
+    val dim = LocalMastanThemeUiIo.current.dim
     AssistChip(
         modifier =  Modifier
             .height(80.dp)

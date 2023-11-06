@@ -43,7 +43,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.hadilq.mastan.theme.LocalThemeOutput
+import com.hadilq.mastan.theme.LocalMastanThemeUiIo
 import com.hadilq.mastan.timeline.data.FeedType
 import com.hadilq.mastan.timeline.ui.model.UI
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -53,7 +53,6 @@ import java.net.URI
 @Composable
 fun ConversationScreen(
     navController: NavHostController, statusId: String, type: String,
-    code: String,
     goToConversation: (UI) -> Unit,
     goToProfile: (String) -> Unit,
     goToTag: (String) -> Unit,
@@ -64,13 +63,13 @@ fun ConversationScreen(
     val submitPresenter = component.submitPresenter()
     val presenter by remember { mutableStateOf(component.conversationPresenter().get()) }
 
-    LaunchedEffect(key1 = userComponent.request()) {
+    LaunchedEffect(key1 = userComponent.accessTokenRequest()) {
         presenter.start()
     }
-    LaunchedEffect(key1 = userComponent.request()) {
+    LaunchedEffect(key1 = userComponent.accessTokenRequest()) {
         submitPresenter.start()
     }
-    val dim = LocalThemeOutput.current.dim
+    val dim = LocalMastanThemeUiIo.current.dim
     val colorScheme = MaterialTheme.colorScheme
     LaunchedEffect(key1 = statusId, type) {
         presenter.handle(
@@ -83,7 +82,7 @@ fun ConversationScreen(
     LaunchedEffect(key1 = statusId, type) {
         uriPresenter.start()
     }
-    OpenHandledUri(uriPresenter, navController, code)
+    OpenHandledUri(uriPresenter, navController)
 
     val conversation = presenter.model.conversations.get(statusId)
     val after = conversation?.after ?: emptyList()
@@ -176,7 +175,7 @@ private fun ScaffoldParent(
     ) {
         val state = rememberLazyListState(initialFirstVisibleItemIndex = before.size)
 
-        statuses.render(
+        statuses.Render(
             mutableSharedFlow = submitPresenter.events,
             goToBottomSheet = goToBottomSheet,
             mainConversationStatusId = mainConversationStatusId,
@@ -197,7 +196,7 @@ private fun ScaffoldParent(
 }
 
 @Composable
-private fun List<UI>.render(
+private fun List<UI>.Render(
     mutableSharedFlow: MutableSharedFlow<SubmitPresenter.SubmitEvent>,
     goToBottomSheet: suspend (SheetContentState) -> Unit,
     mainConversationStatusId: String,
@@ -218,7 +217,7 @@ private fun List<UI>.render(
             .fillMaxSize()
     ) {
         items(statuses, key = { it.remoteId }) {
-            card(
+            ConversationCard(
                 modifier = Modifier,
                 status = it,
                 account = presenter.model.account,

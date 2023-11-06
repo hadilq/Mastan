@@ -17,8 +17,7 @@ package com.hadilq.mastan.timeline.data
 
 import com.hadilq.mastan.SingleIn
 import com.hadilq.mastan.UserScope
-import com.hadilq.mastan.auth.data.OauthRepository
-import com.hadilq.mastan.shared.UserApi
+import com.hadilq.mastan.network.dto.Status
 import com.squareup.anvil.annotations.ContributesBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -36,12 +35,11 @@ interface StatusRepository {
 @SingleIn(UserScope::class)
 class RealStatusRepository @Inject constructor(
     val statusDao: StatusDao,
-    val api: UserApi,
-    val oauthRepository: OauthRepository,
+    val api: com.hadilq.mastan.network.UserApi,
 ) : StatusRepository {
 
     private val fetcher = Fetcher.of { status: FeedStoreRequest ->
-        api.getStatus(oauthRepository.getAuthHeader(), status.remoteId)
+        api.getStatus(status.remoteId)
     }
 
     private val sourceOfTruth = SourceOfTruth.of<FeedStoreRequest, Status, StatusDB>(

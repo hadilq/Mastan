@@ -37,13 +37,13 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.hadilq.mastan.timeline.data.Account
+import com.hadilq.mastan.network.dto.Account
 import com.hadilq.mastan.timeline.ui.model.UI
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import com.hadilq.mastan.legacy.R
-import com.hadilq.mastan.theme.LocalThemeOutput
+import com.hadilq.mastan.theme.LocalMastanThemeUiIo
 
 @OptIn(ExperimentalMaterialApi::class)
 class BottomSheetContentProvider(
@@ -79,7 +79,7 @@ sealed interface SheetContentState {
     data class UserInput(
         val account: Account,
 
-    ) : SheetContentState
+        ) : SheetContentState
 }
 
 @Composable
@@ -127,7 +127,7 @@ fun StatusMenu(
     onMuteAccount: (accountId: String) -> Unit,
     onBlockAccount: (accountId: String) -> Unit,
 ) {
-    val dim = LocalThemeOutput.current.dim
+    val dim = LocalMastanThemeUiIo.current.dim
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -163,7 +163,7 @@ fun OwnedStatusMenu(
     onShareStatus: (UI) -> Unit,
     onDelete: (statusId: String) -> Unit,
 ) {
-    val dim = LocalThemeOutput.current.dim
+    val dim = LocalMastanThemeUiIo.current.dim
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -191,7 +191,7 @@ private fun BottomSheetMenuButton(
     text: String,
     onClick: () -> Unit,
 ) {
-    val dim = LocalThemeOutput.current.dim
+    val dim = LocalMastanThemeUiIo.current.dim
     val coroutineScope = rememberCoroutineScope()
     TextButton(
         modifier = Modifier
@@ -237,9 +237,9 @@ fun UserInputSheetContent(
     goToTag: (String) -> Unit
 ) {
     UserInput(
+        modifier = Modifier.padding(bottom = 0.dp),
         status = null,
         account = state.account,
-        modifier = Modifier.padding(bottom = 0.dp),
         goToBottomSheet = bottomSheetContentProvider::showContent,
         onMessageSent = onMessageSent,
         participants = "",

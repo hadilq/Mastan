@@ -20,13 +20,9 @@ import android.net.Uri
 import android.webkit.MimeTypeMap
 import com.hadilq.mastan.AuthRequiredScope
 import com.hadilq.mastan.SingleIn
-import com.hadilq.mastan.auth.data.OauthRepository
-import com.hadilq.mastan.shared.UserApi
 import com.hadilq.mastan.timeline.data.AccountRepository
 import com.hadilq.mastan.timeline.data.FeedType
-import com.hadilq.mastan.timeline.data.NewPoll
-import com.hadilq.mastan.timeline.data.NewStatus
-import com.hadilq.mastan.timeline.data.Status
+import com.hadilq.mastan.network.dto.Status
 import com.hadilq.mastan.timeline.data.StatusDao
 import com.hadilq.mastan.timeline.data.toStatusDb
 import com.hadilq.mastan.timeline.data.updateOldStatus
@@ -41,6 +37,9 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okio.BufferedSink
 import com.hadilq.mastan.legacy.R
+import com.hadilq.mastan.network.UserApi
+import com.hadilq.mastan.network.dto.NewPoll
+import com.hadilq.mastan.network.dto.NewStatus
 import java.io.IOException
 import java.io.InputStream
 import java.util.Date
@@ -101,7 +100,6 @@ abstract class SubmitPresenter :
 class RealSubmitPresenter @Inject constructor(
     val statusDao: StatusDao,
     val api: UserApi,
-    val oauthRepository: OauthRepository,
     val context: android.app.Application,
     val accountRepository: AccountRepository,
 ) : SubmitPresenter() {
@@ -140,8 +138,7 @@ class RealSubmitPresenter @Inject constructor(
 
                         val uploadResult = kotlin.runCatching {
                             api.upload(
-                                authHeader = oauthRepository.getAuthHeader(),
-                                file = body
+                                fileMultipartBodyPart = body
                             )
                         }
                         return@map uploadResult.getOrNull()
@@ -166,10 +163,7 @@ class RealSubmitPresenter @Inject constructor(
                             replyStatusId = event.replyStatusId,
                             poll = poll,
                         )
-                        api.newStatus(
-                            authHeader = oauthRepository.getAuthHeader(),
-                            status = status
-                        )
+                        api.newStatus(status = status)
                     }
                     when {
                         result.isSuccess -> {
@@ -187,15 +181,9 @@ class RealSubmitPresenter @Inject constructor(
                 is FavoriteMessage -> {
                     val result = kotlin.runCatching {
                         if (event.favourited) {
-                            api.unfavouriteStatus(
-                                authHeader = oauthRepository.getAuthHeader(),
-                                id = event.statusId
-                            )
+                            api.unfavouriteStatus(id = event.statusId)
                         } else {
-                            api.favouriteStatus(
-                                authHeader = oauthRepository.getAuthHeader(),
-                                id = event.statusId
-                            )
+                            api.favouriteStatus(id = event.statusId)
                         }
                     }
                     when {
@@ -211,10 +199,7 @@ class RealSubmitPresenter @Inject constructor(
 
                 is BookmarkMessage -> {
                     val result = kotlin.runCatching {
-                        api.bookmarkStatus(
-                            authHeader = oauthRepository.getAuthHeader(),
-                            id = event.statusId
-                        )
+                        api.bookmarkStatus(id = event.statusId)
                     }
                     when {
                         result.isSuccess -> {
@@ -230,15 +215,9 @@ class RealSubmitPresenter @Inject constructor(
                 is BoostMessage -> {
                     val result = kotlin.runCatching {
                         if (event.boosted) {
-                            api.unBoostStatus(
-                                authHeader = oauthRepository.getAuthHeader(),
-                                id = event.statusId
-                            )
+                            api.unBoostStatus(id = event.statusId)
                         } else {
-                            api.boostStatus(
-                                authHeader = oauthRepository.getAuthHeader(),
-                                id = event.statusId
-                            )
+                            api.boostStatus(id = event.statusId)
                         }
                     }
                     when {
@@ -256,17 +235,11 @@ class RealSubmitPresenter @Inject constructor(
                     val result =
                         if (event.unfollow) {
                             kotlin.runCatching {
-                                api.unfollowAccount(
-                                    authHeader = oauthRepository.getAuthHeader(),
-                                    event.accountId
-                                )
+                                api.unfollowAccount(event.accountId)
                             }
                         } else {
                             kotlin.runCatching {
-                                api.followAccount(
-                                    authHeader = oauthRepository.getAuthHeader(),
-                                    accountId = event.accountId
-                                )
+                                api.followAccount(accountId = event.accountId)
                             }
 
                         }
@@ -283,28 +256,18 @@ class RealSubmitPresenter @Inject constructor(
                     val result =
                         if (event.unfollow) {
                             kotlin.runCatching {
-                                api.unfollowTag(
-                                    authHeader = oauthRepository.getAuthHeader(),
-                                    name = event.tagName
-                                )
+                                api.unfollowTag(name = event.tagName)
                             }
                         } else {
                             kotlin.runCatching {
-                                api.followTag(
-                                    authHeader = oauthRepository.getAuthHeader(),
-                                    name = event.tagName
-                                )
+                                api.followTag(name = event.tagName)
                             }
                         }
                 }
 
                 is VotePoll -> {
                     val result = kotlin.runCatching {
-                        api.votePoll(
-                            authHeader = oauthRepository.getAuthHeader(),
-                            id = event.pollId,
-                            choices = event.choices,
-                        )
+                        api.votePoll(id = event.pollId, choices = event.choices)
                     }
                     when {
                         result.isSuccess -> {
@@ -317,10 +280,7 @@ class RealSubmitPresenter @Inject constructor(
 
                 is DeleteStatus -> {
                     val result = kotlin.runCatching {
-                        api.deleteStatus(
-                            authHeader = oauthRepository.getAuthHeader(),
-                            id = event.statusId,
-                        )
+                        api.deleteStatus(id = event.statusId)
                     }
                     when {
                         result.isSuccess -> {
@@ -334,15 +294,9 @@ class RealSubmitPresenter @Inject constructor(
                 is BlockAccount -> {
                     val result = kotlin.runCatching {
                         if (event.block) {
-                            api.blockAccount(
-                                authHeader = oauthRepository.getAuthHeader(),
-                                id = event.accountId,
-                            )
+                            api.blockAccount(id = event.accountId)
                         } else {
-                            api.unblockAccount(
-                                authHeader = oauthRepository.getAuthHeader(),
-                                id = event.accountId,
-                            )
+                            api.unblockAccount(id = event.accountId)
                         }
                     }
                     when {
@@ -357,15 +311,9 @@ class RealSubmitPresenter @Inject constructor(
                 is MuteAccount -> {
                     val result = kotlin.runCatching {
                         if (event.mute) {
-                            api.muteAccount(
-                                authHeader = oauthRepository.getAuthHeader(),
-                                id = event.accountId,
-                            )
+                            api.muteAccount(id = event.accountId)
                         } else {
-                            api.unMuteAccount(
-                                authHeader = oauthRepository.getAuthHeader(),
-                                id = event.accountId,
-                            )
+                            api.unMuteAccount(id = event.accountId)
                         }
                     }
                     when {

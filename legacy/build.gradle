@@ -22,6 +22,12 @@ android {
         }
     }
 
+    lintOptions {
+        // Legacy, remember!! We should respect lint in new modules though.
+        checkReleaseBuilds false
+        abortOnError false
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
@@ -49,6 +55,13 @@ tasks.withType(KaptGenerateStubs).configureEach {
 dependencies {
     implementation(projects.theme.io)
     implementation(projects.splash.io)
+    implementation(projects.root.io)
+    implementation(projects.navigation.io)
+    implementation(projects.auth.io)
+    implementation(projects.loginFlow.io)
+    implementation(projects.network.io)
+    implementation(projects.network.impl)
+
     implementation(platform(libs.androidx.compose.bom))
     implementation(platform(libs.google.firebase.bom))
     implementation(libs.androidx.constraintlayout)
@@ -63,6 +76,7 @@ dependencies {
     implementation(libs.androidx.compose.foundation)
     implementation(libs.me.saket.swipe)
     implementation(libs.androidx.activity.activity.compose)
+    implementation(libs.androidx.compose.material)
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.core.core.ktx)
     implementation(libs.androidx.datastore)

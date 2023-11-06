@@ -77,8 +77,7 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.hadilq.mastan.theme.MastanTheme
-import com.hadilq.mastan.timeline.data.Account
+import com.hadilq.mastan.network.dto.Account
 import com.hadilq.mastan.timeline.data.FeedType
 import com.hadilq.mastan.timeline.data.ProfilePresenter
 import com.hadilq.mastan.timeline.ui.model.UI
@@ -91,7 +90,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 import com.hadilq.mastan.legacy.R
-import com.hadilq.mastan.theme.LocalThemeOutput
+import com.hadilq.mastan.theme.LocalMastanThemeUiIo
 import java.net.URI
 
 @SuppressLint("CoroutineCreationDuringComposition")
@@ -105,7 +104,7 @@ fun ProfileScreen(
     goToFollowers: () -> Unit,
     goToFollowing: () -> Unit,
 ) {
-    val dim = LocalThemeOutput.current.dim
+    val dim = LocalMastanThemeUiIo.current.dim
     val homePresenter by remember(key1 = accountId) {
         mutableStateOf(
             component.homePresenter()
@@ -132,7 +131,7 @@ fun ProfileScreen(
     LaunchedEffect(key1 = accountId) {
         uriPresenter.start()
     }
-    OpenHandledUri(uriPresenter, navController, code)
+    OpenHandledUri(uriPresenter, navController)
 
     val bottomState: ModalBottomSheetState =
         rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
@@ -200,8 +199,9 @@ private fun ScaffoldParent(
     goToBottomSheet: suspend (SheetContentState) -> Unit,
     scope: CoroutineScope
 ) {
-    val dim = LocalThemeOutput.current.dim
-    MastanTheme {
+    val themeOutput = LocalMastanThemeUiIo.current
+    val dim = themeOutput.dim
+    themeOutput.mastanThemeUi {
         val scaffoldState = rememberBackdropScaffoldState(BackdropValue.Concealed)
         BackdropScaffold(
             scaffoldState = scaffoldState,
@@ -293,7 +293,7 @@ private fun ScaffoldParent(
 
                 val events: MutableSharedFlow<SubmitPresenter.SubmitEvent> =
                     submitPresenter.events
-                posts(
+                Posts(
                     navController = navController,
                     statuses = pagingListUserStatus,
                     withReplies = pagingListWithReplies,
@@ -327,7 +327,7 @@ private fun ScaffoldParent(
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-private fun posts(
+private fun Posts(
     navController: NavHostController,
     statuses: LazyPagingItems<UI>?,
     withReplies: LazyPagingItems<UI>?,
@@ -465,7 +465,7 @@ private fun profile(
     onMute: (Boolean) -> Unit,
     onBlock: (Boolean) -> Unit,
 ) {
-    val dim = LocalThemeOutput.current.dim
+    val dim = LocalMastanThemeUiIo.current.dim
     Box(
         Modifier
             .fillMaxSize()
@@ -509,11 +509,11 @@ private fun profile(
                 )
 
                 ContentImage(
-                    listOf(account.avatar),
                     modifier = Modifier
                         .height(200.dp)
                         .aspectRatio(1f)
-                        .align(Alignment.CenterHorizontally)
+                        .align(Alignment.CenterHorizontally),
+                    url = listOf(account.avatar),
                 )
                 Text(
                     style = MaterialTheme.typography.titleMedium,
@@ -611,7 +611,7 @@ private fun ProfileSecondaryButton(
 ) {
     var clicked by remember { mutableStateOf(on) }
     val scope = rememberCoroutineScope()
-    val dim = LocalThemeOutput.current.dim
+    val dim = LocalMastanThemeUiIo.current.dim
 
     TextButton(
         colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.secondary),

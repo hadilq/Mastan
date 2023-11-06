@@ -20,9 +20,9 @@ import androidx.compose.foundation.text.InlineTextContent
 import androidx.compose.material3.ColorScheme
 import androidx.compose.ui.text.AnnotatedString
 import com.hadilq.mastan.theme.Dimension
-import com.hadilq.mastan.timeline.data.Emoji
-import com.hadilq.mastan.timeline.data.Mention
-import com.hadilq.mastan.timeline.data.Tag
+import com.hadilq.mastan.network.dto.Emoji
+import com.hadilq.mastan.network.dto.Mention
+import com.hadilq.mastan.network.dto.Tag
 import com.hadilq.mastan.timeline.data.setClickableText
 import com.hadilq.mastan.timeline.ui.empty
 import com.hadilq.mastan.timeline.ui.model.parseAsMastodonHtml

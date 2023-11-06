@@ -17,14 +17,10 @@ package com.hadilq.mastan.search
 
 import com.hadilq.mastan.SingleIn
 import com.hadilq.mastan.UserScope
-import com.hadilq.mastan.auth.data.OauthRepository
-import com.hadilq.mastan.shared.UserApi
-import com.hadilq.mastan.timeline.data.Account
-import com.hadilq.mastan.timeline.data.Status
-import com.hadilq.mastan.timeline.data.Tag
+import com.hadilq.mastan.network.UserApi
+import com.hadilq.mastan.network.dto.SearchResult
 import com.squareup.anvil.annotations.ContributesBinding
 import kotlinx.coroutines.flow.Flow
-import kotlinx.serialization.Serializable
 import org.mobilenativefoundation.store.store5.Fetcher
 import org.mobilenativefoundation.store.store5.StoreBuilder
 import org.mobilenativefoundation.store.store5.StoreRequest
@@ -34,14 +30,11 @@ import javax.inject.Inject
 @SingleIn(UserScope::class)
 class RealSearchRepository @Inject constructor(
     private val userApi: UserApi,
-    private val oauthRepository: OauthRepository
-
 ) : SearchRepository {
 
     val store = StoreBuilder.from(
         Fetcher.of { searchTerm: String ->
             userApi.search(
-                authHeader = oauthRepository.getAuthHeader(),
                 searchTerm = searchTerm
             )
         }
@@ -60,10 +53,3 @@ interface SearchRepository {
 
     fun data(searchTerm: String): Flow<StoreResponse<SearchResult>>
 }
-
-@Serializable
-data class SearchResult(
-    val accounts: List<Account>,
-    val hashtags: List<Tag>,
-    val statuses: List<Status>
-)

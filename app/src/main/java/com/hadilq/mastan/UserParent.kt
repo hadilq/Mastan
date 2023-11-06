@@ -17,15 +17,22 @@ package com.hadilq.mastan
 
 
 import android.app.Application
-import com.hadilq.mastan.di.AppInput
-import com.hadilq.mastan.di.setLegacyInputProvider
-import com.hadilq.mastan.splash.di.setSplashInputProvider
+import com.hadilq.mastan.di.AppDependencies
+import com.hadilq.mastan.di.BuildConfigDetails
+import com.hadilq.mastan.di.RealAppDependencies
+import com.hadilq.mastan.di.setLegacyDependenciesProvider
+import com.hadilq.mastan.network.Api
+import com.hadilq.mastan.root.setRootDependenciesProvider
+import com.hadilq.mastan.splash.di.setSplashDependenciesProvider
 import com.hadilq.mastan.timeline.ui.UrlHandlerMediator
 import com.squareup.anvil.annotations.ContributesSubcomponent
 import com.squareup.anvil.annotations.ContributesTo
 import com.squareup.anvil.annotations.MergeComponent
 import dagger.BindsInstance
 import dagger.Component
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.launchIn
+import okhttp3.OkHttpClient
 
 class UserParent : Application(), UserParentComponentProvider, AuthOptionalParentComponentProvider {
 
@@ -33,27 +40,41 @@ class UserParent : Application(), UserParentComponentProvider, AuthOptionalParen
      * Root of the dependency graph. It's a singleton. Btw, the lazy is not using thread safe mod
      * because the graph is created in the one thread, Main Tread.
      */
-    private val appInput by lazy(LazyThreadSafetyMode.NONE) {
-        AppInput(this)
+    private val appDependencies: AppDependencies by lazy(LazyThreadSafetyMode.NONE) {
+        RealAppDependencies(this)
     }
 
-    val component: AppComponent by lazy(LazyThreadSafetyMode.NONE) {
+    private val component: AppComponent by lazy(LazyThreadSafetyMode.NONE) {
         (DaggerSkeletonComponent.factory()
-            .create(this as Application, this, this, this) as AppComponent.AppParentComponent).appComponent()
+            .create(
+                this as Application,
+                this,
+                this,
+                this,
+                appDependencies.buildConfigDetails,
+                appDependencies.networkDependencies.okHttpClient,
+                appDependencies.networkLogicIo.api,
+            ) as AppComponent.AppParentComponent).appComponent(
+        )
     }
 
     override val userParentComponent: UserParentComponent by lazy(LazyThreadSafetyMode.NONE) {
         component as UserParentComponent
     }
 
-    override val authOptionalParentComponent: AuthOptionalComponent.AuthOptionalParentComponent by lazy(LazyThreadSafetyMode.NONE) {
+    override val authOptionalParentComponent: AuthOptionalComponent.AuthOptionalParentComponent by lazy(
+        LazyThreadSafetyMode.NONE
+    ) {
         component as AuthOptionalComponent.AuthOptionalParentComponent
     }
 
     override fun onCreate() {
         super.onCreate()
-        setLegacyInputProvider(appInput::legacyInput)
-        setSplashInputProvider(appInput::splashInput)
+        setLegacyDependenciesProvider(appDependencies::legacyDependencies)
+        setSplashDependenciesProvider(appDependencies::splashDependencies)
+        setRootDependenciesProvider(appDependencies::rootDependencies)
+
+        appDependencies.molecule
     }
 }
 
@@ -67,6 +88,9 @@ interface SkeletonComponent {
             @BindsInstance app: UserParent,
             @BindsInstance userParentComponentProvider: UserParentComponentProvider,
             @BindsInstance authOptionalParentComponentProvider: AuthOptionalParentComponentProvider,
+            @BindsInstance buildConfigDetails: BuildConfigDetails,
+            @BindsInstance okHttpClient: OkHttpClient,
+            @BindsInstance api: Api,
         ): SkeletonComponent
     }
 

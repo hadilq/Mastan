@@ -23,10 +23,9 @@ import androidx.paging.PagingState
 import androidx.paging.cachedIn
 import com.hadilq.mastan.AuthRequiredScope
 import com.hadilq.mastan.SingleIn
-import com.hadilq.mastan.auth.data.OauthRepository
-import com.hadilq.mastan.shared.UserApi
-import com.hadilq.mastan.shared.headerLinks
-import com.hadilq.mastan.timeline.data.Account
+import com.hadilq.mastan.network.UserApi
+import com.hadilq.mastan.network.dto.Account
+import com.hadilq.mastan.network.headerLinks
 import com.hadilq.mastan.ui.util.Presenter
 import com.squareup.anvil.annotations.ContributesBinding
 import kotlinx.coroutines.CoroutineScope
@@ -52,7 +51,6 @@ abstract class FollowerPresenter :
 @SingleIn(AuthRequiredScope::class)
 class RealFollowerPresenter @Inject constructor(
     val userApi: UserApi,
-    val oauthRepository: OauthRepository
 ) : FollowerPresenter() {
 
 
@@ -67,11 +65,9 @@ class RealFollowerPresenter @Inject constructor(
                     val followersPagingSource = if (event.following) FollowingPagingSource(
                         userApi = userApi,
                         accountId = event.accountId,
-                        oauthRepository = oauthRepository
                     ) else FollowersPagingSource(
                         userApi = userApi,
                         accountId = event.accountId,
-                        oauthRepository = oauthRepository
                     )
                     followersPagingSource
                 }
@@ -88,7 +84,6 @@ class RealFollowerPresenter @Inject constructor(
 class FollowersPagingSource(
     val userApi: UserApi,
     val accountId: String,
-    val oauthRepository: OauthRepository
 ) : PagingSource<String, Account>() {
     override suspend fun load(
         params: LoadParams<String>
@@ -98,18 +93,16 @@ class FollowersPagingSource(
             val nextPageNumber = params.key
             val response = if (nextPageNumber == null) {
                 userApi.followers(
-                    authHeader = oauthRepository.getAuthHeader(),
                     accountId = accountId, since = nextPageNumber
                 )
             } else {
                 userApi.followers(
-                    authHeader = oauthRepository.getAuthHeader(),
                     url = nextPageNumber
                 )
 
             }
 
-            val data = response.body()!!
+            val data = response.body
             val links = headerLinks(response)
             return LoadResult.Page(
                 data = data,
@@ -142,7 +135,6 @@ class FollowersPagingSource(
 class FollowingPagingSource(
     val userApi: UserApi,
     val accountId: String,
-    val oauthRepository: OauthRepository
 ) : PagingSource<String, Account>() {
     override suspend fun load(
         params: LoadParams<String>
@@ -152,18 +144,16 @@ class FollowingPagingSource(
             val nextPageNumber = params.key
             val response = if (nextPageNumber == null) {
                 userApi.following(
-                    authHeader = oauthRepository.getAuthHeader(),
                     accountId = accountId, since = nextPageNumber
                 )
             } else {
                 userApi.following(
-                    authHeader = oauthRepository.getAuthHeader(),
                     url = nextPageNumber
                 )
 
             }
 
-            val data = response.body()!!
+            val data = response.body
             val links = headerLinks(response)
             return LoadResult.Page(
                 data = data,

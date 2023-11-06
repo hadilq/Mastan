@@ -19,8 +19,7 @@ import androidx.paging.*
 import androidx.room.withTransaction
 import com.hadilq.mastan.SingleIn
 import com.hadilq.mastan.UserScope
-import com.hadilq.mastan.auth.data.OauthRepository
-import com.hadilq.mastan.shared.UserApi
+import com.hadilq.mastan.network.UserApi
 import com.hadilq.mastan.timeline.ui.TimelineReplyRearrangerMediator
 import com.squareup.anvil.annotations.ContributesMultibinding
 import kotlinx.coroutines.Dispatchers
@@ -45,7 +44,6 @@ class LocalTimelineRemoteMediator @Inject constructor(
     private val dao: StatusDao,
     private val database: AppDatabase,
     private val userApi: UserApi,
-    private val oauthRepository: OauthRepository,
     private val timelineReplyRearrangerMediator: TimelineReplyRearrangerMediator,
 ) : TimelineRemoteMediator() {
 
@@ -62,7 +60,6 @@ class LocalTimelineRemoteMediator @Inject constructor(
             }
 
             val response = userApi.getLocalTimeline(
-                authHeader = oauthRepository.getAuthHeader(),
                 since = loadKey
             )
 
@@ -95,7 +92,6 @@ class HomeTimelineRemoteMediator @Inject constructor(
     private val dao: StatusDao,
     private val database: AppDatabase,
     private val userApi: UserApi,
-    private val oauthRepository: OauthRepository,
     private val timelineReplyRearrangerMediator: TimelineReplyRearrangerMediator,
 ) : TimelineRemoteMediator() {
     override suspend fun initialize(): InitializeAction = InitializeAction.SKIP_INITIAL_REFRESH
@@ -111,7 +107,6 @@ class HomeTimelineRemoteMediator @Inject constructor(
             }
 
             val response = userApi.getHomeTimeline(
-                authHeader = oauthRepository.getAuthHeader(),
                 since = loadKey
             )
 
@@ -144,7 +139,6 @@ class FederatedTimelineRemoteMediator @Inject constructor(
     private val dao: StatusDao,
     private val database: AppDatabase,
     private val userApi: UserApi,
-    private val oauthRepository: OauthRepository,
     private val timelineReplyRearrangerMediator: TimelineReplyRearrangerMediator,
 ) : TimelineRemoteMediator() {
 
@@ -161,7 +155,6 @@ class FederatedTimelineRemoteMediator @Inject constructor(
             }
 
             val response = userApi.getLocalTimeline(
-                authHeader = oauthRepository.getAuthHeader(),
                 since = loadKey,
                 localOnly = false
             )
@@ -194,7 +187,6 @@ class TrendingRemoteMediator @Inject constructor(
     private val dao: StatusDao,
     private val database: AppDatabase,
     private val userApi: UserApi,
-    private val oauthRepository: OauthRepository,
     private val timelineReplyRearrangerMediator: TimelineReplyRearrangerMediator,
 ) : TimelineRemoteMediator() {
     override suspend fun initialize(): InitializeAction = InitializeAction.SKIP_INITIAL_REFRESH
@@ -211,7 +203,6 @@ class TrendingRemoteMediator @Inject constructor(
 
             val response =
                 userApi.getTrending(
-                    authHeader = oauthRepository.getAuthHeader(),
                     offset = loadKey.toString()
                 )
 
@@ -244,8 +235,6 @@ class UserRemoteMediator @Inject constructor(
     private val dao: StatusDao,
     private val database: AppDatabase,
     private val userApi: UserApi,
-    private val oauthRepository: OauthRepository,
-    private val accountRepository: AccountRepository,
     private val timelineReplyRearrangerMediator: TimelineReplyRearrangerMediator,
 ) : TimelineRemoteMediator() {
     override suspend fun initialize(): InitializeAction = InitializeAction.SKIP_INITIAL_REFRESH
@@ -262,7 +251,6 @@ class UserRemoteMediator @Inject constructor(
 
             val response =
                 userApi.accountStatuses(
-                    authHeader = oauthRepository.getAuthHeader(),
                     accountId = accountId,
                     since = loadKey,
                     excludeReplies = true
@@ -300,7 +288,6 @@ class UserWithMediaRemoteMediator @Inject constructor(
     private val dao: StatusDao,
     private val database: AppDatabase,
     private val userApi: UserApi,
-    private val oauthRepository: OauthRepository,
     private val accountRepository: AccountRepository,
     private val timelineReplyRearrangerMediator: TimelineReplyRearrangerMediator,
 ) : TimelineRemoteMediator() {
@@ -319,7 +306,6 @@ class UserWithMediaRemoteMediator @Inject constructor(
 
             val response =
                 userApi.accountStatuses(
-                    authHeader = oauthRepository.getAuthHeader(),
                     accountId = accountRepository.get(accountId).id,
                     onlyMedia = true,
                     since = loadKey
@@ -357,7 +343,6 @@ class UserWithRepliesRemoteMediator @Inject constructor(
     private val dao: StatusDao,
     private val database: AppDatabase,
     private val userApi: UserApi,
-    private val oauthRepository: OauthRepository,
     private val accountRepository: AccountRepository,
     private val timelineReplyRearrangerMediator: TimelineReplyRearrangerMediator,
 ) : TimelineRemoteMediator() {
@@ -376,7 +361,6 @@ class UserWithRepliesRemoteMediator @Inject constructor(
 
             val response =
                 userApi.accountStatuses(
-                    authHeader = oauthRepository.getAuthHeader(),
                     accountId = accountRepository.get(accountId).id,
                     since = loadKey,
                     excludeReplies = false
@@ -412,7 +396,6 @@ class HashtagRemoteMediatorFactory @Inject constructor(
     private val dao: StatusDao,
     private val database: AppDatabase,
     private val userApi: UserApi,
-    private val oauthRepository: OauthRepository,
     private val timelineReplyRearrangerMediator: TimelineReplyRearrangerMediator,
 ) {
 
@@ -422,7 +405,6 @@ class HashtagRemoteMediatorFactory @Inject constructor(
             dao,
             database,
             userApi,
-            oauthRepository,
             timelineReplyRearrangerMediator,
             hashtag
         )
@@ -434,7 +416,6 @@ class HashtagRemoteMediator(
     private val dao: StatusDao,
     private val database: AppDatabase,
     private val userApi: UserApi,
-    private val oauthRepository: OauthRepository,
     private val timelineReplyRearrangerMediator: TimelineReplyRearrangerMediator,
     private val hashtag: String,
 ) : TimelineRemoteMediator() {
@@ -452,7 +433,6 @@ class HashtagRemoteMediator(
             }
 
             val response = userApi.getTagTimeline(
-                authHeader = oauthRepository.getAuthHeader(),
                 since = loadKey,
                 tag = hashtag
             )

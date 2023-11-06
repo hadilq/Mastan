@@ -17,8 +17,7 @@ package com.hadilq.mastan.timeline.ui
 
 import com.hadilq.mastan.AuthRequiredScope
 import com.hadilq.mastan.SingleIn
-import com.hadilq.mastan.auth.data.OauthRepository
-import com.hadilq.mastan.shared.UserApi
+import com.hadilq.mastan.network.UserApi
 import com.hadilq.mastan.timeline.data.FeedType
 import com.hadilq.mastan.ui.util.Presenter
 import com.squareup.anvil.annotations.ContributesBinding
@@ -65,7 +64,6 @@ abstract class UriPresenter :
 @SingleIn(AuthRequiredScope::class)
 class RealUriPresenter @Inject constructor(
     private val userApi: UserApi,
-    private val oauthRepository: OauthRepository,
 ) : UriPresenter() {
 
     override suspend fun eventHandler(event: UrlEvent, scope: CoroutineScope) =
@@ -74,7 +72,6 @@ class RealUriPresenter @Inject constructor(
                 is Open -> {
                     val searchResult = kotlin.runCatching {
                         userApi.search(
-                            authHeader = oauthRepository.getAuthHeader(),
                             searchTerm = event.uri.toASCIIString(),
                             limit = 1.toString(),
                             resolve = true,

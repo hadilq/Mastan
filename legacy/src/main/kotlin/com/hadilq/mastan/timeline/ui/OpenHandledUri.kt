@@ -26,19 +26,18 @@ import androidx.navigation.NavController
 fun OpenHandledUri(
     uriPresenter: UriPresenter,
     navController: NavController,
-    code: String,
 ) {
     val uriHandler = LocalUriHandler.current
     LaunchedEffect(uriPresenter.model.handledUri) {
         Log.d("QQQ", "handledUri: ${uriPresenter.model.handledUri}")
         when (val handledUri = uriPresenter.model.handledUri) {
             is UriPresenter.ConversationHandledUri -> {
-                navController.navigate("conversation/$code/${handledUri.statusId}/${handledUri.type}")
+                navController.navigate("conversation/${handledUri.statusId}/${handledUri.type}")
                 uriPresenter.handle(UriPresenter.Reset)
             }
 
             is UriPresenter.ProfileHandledUri -> {
-                navController.navigate("profile/$code/${handledUri.accountId}")
+                navController.navigate("profile/${handledUri.accountId}")
                 uriPresenter.handle(UriPresenter.Reset)
             }
 

@@ -5,11 +5,11 @@ androidx-material = "1.4.0"
 androidx-arch-core = "2.1.0"
 androidxComposeBom = "2023.06.01"
 androidxComposeCompiler = "1.4.3"
-androidx-compose-animation = "1.4.3"
 androidx-compose-foundation = "1.4.3"
 androidx-compose-runtime = "1.4.3"
 androidx-compose-material3= "1.1.1"
 androidx-core = "1.8.0"
+androidx-appcompat = "1.6.1"
 androidx-nav-compose = "2.5.3"
 androidx-paging-compose = "1.0.0-alpha18"
 androidx-datastore = "1.0.0"
@@ -23,12 +23,12 @@ com-squareup-anvil = "2.4.4"
 com-squareup-okhttp3 = "4.10.0"
 com-squareup-okio = "3.2.0"
 constraintlayout = "2.1.4"
-coroutines-test = "1.6.4"
+coroutines = "1.7.1"
 dagger-compiler = "2.44.2"
 espresso = "3.4.0"
 gradle-plugin = "8.0.2"
 jw-converter = "0.8.0"
-kotlinx-serialization-json = "1.5.0-RC"
+kotlinx-serialization-json = "1.6.0"
 kotlinx-datetime = "0.4.0"
 kotlinx-collections = "0.3.5"
 kotlin = "1.8.10"
@@ -44,22 +44,26 @@ store = "5.0.0-alpha03"
 swipe = "1.0.0"
 room = "2.5.0"
 me-saket-zoomable = "0.3.0"
+cash-molecule = "0.8.0"
 
 [libraries]
 androidx-activity-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity" }
 androidx-browser = { module = "androidx.browser:browser", version.ref = "browser" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "androidxComposeBom" }
 androidx-compose-ui = { module = "androidx.compose.ui:ui", version.ref = "androidx-compose-foundation" }
-androidx-compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
+androidx-compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "androidx-compose-foundation" }
 androidx-compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
 androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
 androidx-compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
 androidx-compose-runtime = { module = "androidx.compose.runtime:runtime", version.ref = "androidx-compose-runtime" }
 androidx-compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "androidx-compose-foundation" }
 androidx-compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "androidx-compose-material3" }
+androidx-compose-material = { module = "androidx.compose.material:material", version.ref = "androidx-compose-foundation" }
+androidx-compose-animation = { module = "androidx.compose.animation:animation", version.ref = "androidx-compose-foundation" }
 androidx-material = { module = "com.google.android.material:material", version.ref="androidx-material" }
 androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout" }
 androidx-core-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
 androidx-lifecycle-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle-runtime-ktx" }
 androidx-lifecycle-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycle-runtime-ktx" }
 androidx-nav-compose = { module = "androidx.navigation:navigation-compose", version.ref = "androidx-nav-compose" }
@@ -81,7 +85,8 @@ com-jakewharton-retrofit = { module = "com.jakewharton.retrofit:retrofit2-kotlin
 com-squareup-okhttp3-logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "com-squareup-okhttp3" }
 com-squareup-okhttp3-okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "com-squareup-okhttp3" }
 com-squareup-retrofit2-retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines-test"}
+coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines"}
+coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines"}
 dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger-compiler" }
 de-charlex-compose-revealswipe = { module = "de.charlex.compose:revealswipe", version.ref = "revealswipe" }
 espresso = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
@@ -106,6 +111,9 @@ androidx-room-testing = { module = "androidx.room:room-testing", version.ref = "
 kotlin-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
 patrykandpatrick = "com.patrykandpatrick.vico:compose-m3:1.6.4"
 exoplayer = "com.google.android.exoplayer:exoplayer:2.18.4"
+assertk = "com.willowtreeapps.assertk:assertk:0.27.0"
+cash-molecule = { module = "app.cash.molecule:molecule-runtime", version.ref = "cash-molecule" }
+robolectric = { module = "org.robolectric:robolectric", version = "4.10.3" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "gradle-plugin" }
@@ -117,3 +125,4 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 compose = { id = "org.jetbrains.compose", version.ref = "androidxComposeCompiler" }
 firebase-crashlytics = "com.google.firebase.crashlytics:2.9.4"
 gms-googleServices = "com.google.gms.google-services:4.3.15"
+cash-molecule = {  id = "app.cash.molecule", version.ref = "cash-molecule" }

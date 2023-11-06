@@ -40,9 +40,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
-import com.hadilq.mastan.timeline.data.Account
+import com.hadilq.mastan.network.dto.Account
 import com.hadilq.mastan.legacy.R
-import com.hadilq.mastan.theme.LocalThemeOutput
+import com.hadilq.mastan.theme.LocalMastanThemeUiIo
 
 @Composable
 fun AccountChooser(
@@ -51,7 +51,7 @@ fun AccountChooser(
     onNewAccount: () -> Unit = {},
     model: AvatarPresenter.AvatarModel
 ) {
-    val dim = LocalThemeOutput.current.dim
+    val dim = LocalMastanThemeUiIo.current.dim
     var expanded by remember { mutableStateOf(false) }
 
     Row(modifier = Modifier) {

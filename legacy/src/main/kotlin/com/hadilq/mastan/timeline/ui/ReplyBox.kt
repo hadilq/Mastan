@@ -81,7 +81,7 @@ import coil.compose.AsyncImage
 import coil.compose.AsyncImagePainter
 import coil.compose.LocalImageLoader
 import com.hadilq.mastan.theme.*
-import com.hadilq.mastan.timeline.data.Account
+import com.hadilq.mastan.network.dto.Account
 import com.hadilq.mastan.timeline.ui.model.UI
 import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
@@ -124,10 +124,10 @@ data class PostNewMessageUI(
 @OptIn(ExperimentalFoundationApi::class, ExperimentalComposeUiApi::class)
 @Composable
 fun UserInput(
+    modifier: Modifier = Modifier,
     status: UI?,
     account: Account?,
     connection: NestedScrollConnection? = null,
-    modifier: Modifier = Modifier,
     goToBottomSheet: suspend (SheetContentState) -> Unit,
     onMessageSent: (PostNewMessageUI) -> Unit,
     resetScroll: () -> Unit = {},
@@ -139,7 +139,7 @@ fun UserInput(
     goToProfile: (String) -> Unit,
     goToTag: (String) -> Unit
 ) {
-    val dim = LocalThemeOutput.current.dim
+    val dim = LocalMastanThemeUiIo.current.dim
     var currentInputSelector by rememberSaveable { mutableStateOf(InputSelector.NONE) }
     val dismissKeyboard = { currentInputSelector = InputSelector.NONE }
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -349,7 +349,7 @@ private fun PollOption(
     option: String,
     pollOptions: SnapshotStateList<String>
 ) {
-    val dim = LocalThemeOutput.current.dim
+    val dim = LocalMastanThemeUiIo.current.dim
     Row(
         modifier = modifier
             .fillMaxWidth(),
@@ -418,7 +418,7 @@ private fun SelectorExpanded(
     goToProfile: (String) -> Unit,
     goToTag: (String) -> Unit
 ) {
-    val dim = LocalThemeOutput.current.dim
+    val dim = LocalMastanThemeUiIo.current.dim
     if (currentSelector == InputSelector.NONE) return
 
     // Request focus to force the TextField to lose it
@@ -500,7 +500,7 @@ private fun PollCreator(
     focusRequester: FocusRequester,
     pollOptionAdded: (String) -> Unit,
 ) {
-    val dim = LocalThemeOutput.current.dim
+    val dim = LocalMastanThemeUiIo.current.dim
     var option: TextFieldValue by remember { mutableStateOf(TextFieldValue("")) }
 
     Row(
@@ -565,7 +565,7 @@ private fun UserInputSelector(
     currentInputSelector: InputSelector,
     modifier: Modifier = Modifier,
 ) {
-    val dim = LocalThemeOutput.current.dim
+    val dim = LocalMastanThemeUiIo.current.dim
     Row(
         modifier = modifier
             .wrapContentHeight()
@@ -677,7 +677,7 @@ private fun InputSelectorButton(
     description: String,
     selected: Boolean
 ) {
-    val dim = LocalThemeOutput.current.dim
+    val dim = LocalMastanThemeUiIo.current.dim
     val backgroundModifier = if (selected) {
         Modifier.background(
             color = colorScheme.primary.copy(alpha = .5f),
@@ -738,7 +738,7 @@ private fun UserInputText(
             },
         horizontalArrangement = Arrangement.End
     ) {
-        val dim = LocalThemeOutput.current.dim
+        val dim = LocalMastanThemeUiIo.current.dim
         Surface {
             Row(modifier = Modifier.background(colorScheme.surfaceVariant.copy(alpha = .9f))) {
 
@@ -814,7 +814,7 @@ fun EmojiSelector(
     focusRequester: FocusRequester,
     connection: NestedScrollConnection?
 ) {
-    val dim = LocalThemeOutput.current.dim
+    val dim = LocalMastanThemeUiIo.current.dim
     var selected by remember { mutableStateOf(EmojiStickerSelector.EMOJI) }
 
     val a11yLabel = "description"
@@ -859,7 +859,7 @@ fun ExtendedSelectorInnerButton(
     selected: Boolean,
     modifier: Modifier = Modifier
 ) {
-    val dim = LocalThemeOutput.current.dim
+    val dim = LocalMastanThemeUiIo.current.dim
     val colors = ButtonDefaults.buttonColors(
         containerColor = if (selected) colorScheme.onSurface.copy(alpha = 0.08f)
         else Color.Transparent,
@@ -899,7 +899,7 @@ private fun PollExpireAt(
     expireAt: LocalDateTime,
     onClick: (LocalDateTime) -> Unit,
 ) {
-    val dim = LocalThemeOutput.current.dim
+    val dim = LocalMastanThemeUiIo.current.dim
     val datetime = remember { mutableStateOf(expireAt) }
 
     val showTimePicker = showTimePicker(
@@ -996,7 +996,7 @@ private fun PollProperty(
     selected: Boolean,
     onClick: (Boolean) -> Unit,
 ) {
-    val dim = LocalThemeOutput.current.dim
+    val dim = LocalMastanThemeUiIo.current.dim
     Row(
         modifier = modifier
             .fillMaxWidth(),
@@ -1031,7 +1031,7 @@ fun EmojiTable(
     onTextAdded: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val dim = LocalThemeOutput.current.dim
+    val dim = LocalMastanThemeUiIo.current.dim
     Column(
         modifier
             .fillMaxWidth()

@@ -18,6 +18,7 @@ package com.hadilq.mastan.timeline.data
 import app.cash.molecule.AndroidUiDispatcher
 import com.hadilq.mastan.AuthRequiredScope
 import com.hadilq.mastan.SingleIn
+import com.hadilq.mastan.network.dto.Account
 import com.hadilq.mastan.ui.util.Presenter
 import com.squareup.anvil.annotations.ContributesBinding
 import kotlinx.coroutines.CoroutineScope

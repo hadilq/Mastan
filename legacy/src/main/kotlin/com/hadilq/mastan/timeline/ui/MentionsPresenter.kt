@@ -18,13 +18,10 @@ package com.hadilq.mastan.timeline.ui
 import com.hadilq.mastan.AuthRequiredScope
 import com.hadilq.mastan.SingleIn
 import com.hadilq.mastan.UserScope
-import com.hadilq.mastan.auth.data.OauthRepository
-import com.hadilq.mastan.shared.UserApi
-import com.hadilq.mastan.timeline.data.Account
+import com.hadilq.mastan.network.dto.Account
 import com.hadilq.mastan.timeline.data.AccountRepository
-import com.hadilq.mastan.timeline.data.Notification
-import com.hadilq.mastan.timeline.data.Status
-import com.hadilq.mastan.timeline.data.StatusDao
+import com.hadilq.mastan.network.dto.Notification
+import com.hadilq.mastan.network.dto.Status
 import com.hadilq.mastan.ui.util.Presenter
 import com.squareup.anvil.annotations.ContributesBinding
 import kotlinx.coroutines.CoroutineScope
@@ -84,17 +81,13 @@ interface MentionRepository {
 @ContributesBinding(UserScope::class)
 @SingleIn(UserScope::class)
 class RealMentionRepository @Inject constructor(
-    userApi: UserApi,
-    oauthRepository: OauthRepository,
-    statusDao: StatusDao
+    userApi: com.hadilq.mastan.network.UserApi,
 ) :
     MentionRepository {
 
     val store = StoreBuilder.from(
         Fetcher.of { key: Unit ->
-            userApi.conversations(
-                authHeader = oauthRepository.getAuthHeader(),
-            )
+            userApi.conversations()
         }
     ).build()
 

@@ -41,11 +41,11 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.hadilq.mastan.timeline.data.Account
+import com.hadilq.mastan.network.dto.Account
 import com.hadilq.mastan.timeline.ui.model.UI
 import kotlinx.coroutines.launch
 import com.hadilq.mastan.legacy.R
-import com.hadilq.mastan.theme.LocalThemeOutput
+import com.hadilq.mastan.theme.LocalMastanThemeUiIo
 
 @Composable
 fun ButtonBar(
@@ -65,7 +65,7 @@ fun ButtonBar(
     bookmarked: Boolean,
     onBookmark: () -> Unit
 ) {
-    val dim = LocalThemeOutput.current.dim
+    val dim = LocalMastanThemeUiIo.current.dim
     Column {
         Row(horizontalArrangement = Arrangement.SpaceEvenly, modifier = Modifier.fillMaxWidth()) {
             TextButton(
@@ -164,7 +164,7 @@ private fun MoreMenu(
     account: Account?,
     goToBottomSheet: suspend (SheetContentState) -> Unit,
 ) {
-    val dim = LocalThemeOutput.current.dim
+    val dim = LocalMastanThemeUiIo.current.dim
     val coroutineScope = rememberCoroutineScope()
     TextButton(
         colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.secondary),
@@ -183,7 +183,7 @@ private fun MoreMenu(
             }
         }
     ) {
-        val dim = LocalThemeOutput.current.dim
+        val dim = LocalMastanThemeUiIo.current.dim
         Image(
             modifier = Modifier.size(dim.paddingSize3),
             painter = painterResource(R.drawable.more_vert),
@@ -200,10 +200,10 @@ private fun SpringyButton(
     @DrawableRes onIcon: Int,
     @DrawableRes offIcon: Int,
     count: Int?,
-    iconSize:Dp = LocalThemeOutput.current.dim.paddingSize3
+    iconSize:Dp = LocalMastanThemeUiIo.current.dim.paddingSize3
 ) {
 
-    val dim = LocalThemeOutput.current.dim
+    val dim = LocalMastanThemeUiIo.current.dim
     var clicked by remember { mutableStateOf(on) }
     var localCount by remember { mutableStateOf(count) }
 
@@ -222,7 +222,7 @@ private fun SpringyButton(
             }
         }
     ) {
-        val dim = LocalThemeOutput.current.dim
+        val dim = LocalMastanThemeUiIo.current.dim
         Image(
             modifier = Modifier
                 .padding(end = dim.paddingSize0_5)

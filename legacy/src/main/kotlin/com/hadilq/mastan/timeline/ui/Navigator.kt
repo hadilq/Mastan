@@ -15,7 +15,6 @@
  */
 package com.hadilq.mastan.timeline.ui
 
-import android.content.Context
 import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.fadeIn
@@ -31,38 +30,35 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
 import androidx.paging.PagingData
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.hadilq.mastan.AuthRequiredComponent
-import com.hadilq.mastan.UserComponent
-import com.hadilq.mastan.accounts.AccountTab
-import com.hadilq.mastan.auth.data.AccessTokenRequest
-import com.hadilq.mastan.auth.data.UserManagerProvider
-import com.hadilq.mastan.search.SearchPresenter
-import com.hadilq.mastan.search.SearchScreen
-import com.hadilq.mastan.timeline.data.Account
-import com.hadilq.mastan.timeline.data.dataStore
-import com.hadilq.mastan.timeline.ui.model.UI
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.navigation
+import com.hadilq.mastan.AuthRequiredComponent
+import com.hadilq.mastan.UserComponent
 import com.hadilq.mastan.UserParentComponentProvider
-import com.hadilq.mastan.theme.LocalThemeOutput
+import com.hadilq.mastan.accounts.AccountTab
+import com.hadilq.mastan.auth.AccessTokenRequest
+import com.hadilq.mastan.auth.LocalAuthLogicIo
+import com.hadilq.mastan.auth.LoggedInAccountsState
+import com.hadilq.mastan.auth.data.UserManagerProvider
+import com.hadilq.mastan.navigation.LocalNavigationLogicIo
+import com.hadilq.mastan.navigation.NavigationLogicIo
+import com.hadilq.mastan.navigation.SelectServerNavigationEvent
+import com.hadilq.mastan.network.dto.Account
+import com.hadilq.mastan.search.SearchPresenter
+import com.hadilq.mastan.search.SearchScreen
+import com.hadilq.mastan.theme.LocalMastanThemeUiIo
+import com.hadilq.mastan.timeline.ui.model.UI
 import dev.marcellogalhardo.retained.compose.retain
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 
 @Composable
@@ -74,22 +70,24 @@ fun getUserComponent(accessTokenRequest: AccessTokenRequest): UserComponent {
 
 @Composable
 fun AuthScoped(
-    accessTokenRequestState: MutableState<AccessTokenRequest?>,
-    navBackStackEntry: NavBackStackEntry,
     content: @Composable (
         userComponent: UserComponent,
         component: AuthRequiredInjector,
         accessTokenRequest: AccessTokenRequest,
-    ) -> Unit
+    ) -> Unit,
 ) {
-    val accessTokenRequest = accessTokenRequestState.value ?: run {
-        accessTokenRequest(navBackStackEntry)
-            .also { accessTokenRequestState.value = it }
+    val authOutput = LocalAuthLogicIo.current
+
+    val state = authOutput.state
+    val accessTokenRequest = if (state is LoggedInAccountsState) {
+        state.currentUser.accessTokenRequest
+    } else {
+        error("User must be logged in in this place!")
     }
     val userComponent = getUserComponent(accessTokenRequest)
     CompositionLocalProvider(LocalUserComponent provides userComponent) {
         val component = retain(
-            key = userComponent.request().code
+            key = accessTokenRequest.code
         ) { (userComponent as AuthRequiredComponent.ParentComponent).createAuthRequiredComponent() } as AuthRequiredInjector
         CompositionLocalProvider(LocalAuthComponent provides component) {
             content(userComponent, component, accessTokenRequest)
@@ -103,306 +101,268 @@ fun AuthScoped(
 @Composable
 fun Navigator(
     navController: NavHostController,
-    scope: CoroutineScope,
+    navigation: NavigationLogicIo,
     onChangeTheme: () -> Unit,
 ) {
 
-    val dim = LocalThemeOutput.current.dim
-    // It must be non-null as soon as `splash` navigates to `home`.
-    val accessTokenRequestState = remember { mutableStateOf<AccessTokenRequest?>(null) }
-
+    val dim = LocalMastanThemeUiIo.current.dim
+    val scope = rememberCoroutineScope()
     AnimatedNavHost(
         navController = navController,
-        startDestination = "splash",
+        startDestination = "home",
         enterTransition = { slideIntoContainer(AnimatedContentScope.SlideDirection.Start) },
         exitTransition = { slideOutOfContainer(AnimatedContentScope.SlideDirection.End) },
         modifier = Modifier,
     ) {
         navigation(
             startDestination = "timeline",
-            route = "home/{server}/{clientId}/{clientSecret}/{redirectUri}/{code}"
+            route = "home"
         ) {
             composable("timeline", enterTransition = { fadeIn() }, exitTransition = { fadeOut() }) {
-                AuthScoped(accessTokenRequestState, it) { userComponent, _, accessTokenRequest ->
-                    val code = accessTokenRequest.code
+                AuthScoped { userComponent, _, accessTokenRequest ->
                     CompositionLocalProvider(LocalUserComponent provides userComponent) {
                         TimelineScreen(
                             navController = navController,
                             accessTokenRequest = accessTokenRequest,
                             userComponent,
                             onChangeTheme,
-                            onNewAccount = { navController.navigate("selectServer") },
+                            onNewAccount = {
+                                scope.launch { navigation.eventSink(SelectServerNavigationEvent) }
+                            },
                             onProfileClick = { accountId, isCurrent ->
                                 if (isCurrent)
                                     navController.navigate(
-                                        "profile/$code/${accountId}"
+                                        "profile/${accountId}"
                                     )
                                 else
                                     navController.navigate("login/${it.arguments?.getString("server")}")
                             },
                             goToMentions = {
-                                navController.navigate("mentions/$code")
+                                navController.navigate("mentions")
                             },
                             goToNotifications = {
-                                navController.navigate("notifications/$code")
+                                navController.navigate("notifications")
                             },
                             goToSearch = {
-                                navController.navigate("search/$code")
+                                navController.navigate("search")
                             },
                             goToConversation = { status: UI ->
-                                navController.navigate("conversation/$code/${status.remoteId}/${status.type.type}")
+                                navController.navigate("conversation/${status.remoteId}/${status.type.type}")
                             },
                             goToProfile =
                             { accountId: String ->
-                                navController.navigate("profile/$code/${accountId}")
+                                navController.navigate("profile/${accountId}")
                             },
                             goToTag = { tag: String ->
-                                navController.navigate("tag/$code/${tag}")
+                                navController.navigate("tag/${tag}")
                             },
                         )
                     }
                 }
             }
             composable(
-                route = "mentions/{code}",
+                route = "mentions",
             ) {
-                it.arguments?.getString("code")?.let { code ->
-                    AuthScoped(accessTokenRequestState, it) { userComponent, _, _ ->
-                        MentionsScreen(
-                            navController = navController,
-                            code = code,
-                            goToConversation = { status ->
-                                navController.navigate("conversation/$code/${status.remoteId}/${status.type.type}")
-                            },
-                            showBackBar = true,
-                            goToProfile = { accountId: String ->
-                                navController.navigate("profile/$code/${accountId}")
-                            },
-                            goToTag = { tag: String ->
-                                navController.navigate("tag/$code/${tag}")
-                            },
-                        )
-                    }
-                }
-            }
-            composable(
-                route = "tag/{code}/{tag}",
-            ) {
-                it.arguments?.getString("code")?.let { code ->
-                    AuthScoped(accessTokenRequestState, it) { userComponent, _, _ ->
-                        TagScreen(
-                            navController,
-                            code = code,
-                            tag = it.arguments?.getString("tag")!!,
-                            goToConversation = { status ->
-                                navController.navigate("conversation/$code/${status.remoteId}/${status.type.type}")
-                            },
-                            showBackBar = true,
-                            goToProfile = { accountId: String ->
-                                navController.navigate("profile/$code/${accountId}")
-                            },
-                            goToTag = { tag: String ->
-                                navController.navigate("tag/$code/${tag}")
-                            },
-                        )
-                    }
-                }
-            }
-        }
-
-
-        composable(
-            route = "profile/{code}/{accountId}",
-        ) {
-            val accountId = it.arguments?.getString("accountId")!!
-            it.arguments?.getString("code")?.let { code ->
-                AuthScoped(accessTokenRequestState, it) { userComponent, component, _ ->
-                    ProfileScreen(
-                        component = component,
+                AuthScoped { _, _, accessTokenRequest ->
+                    val code = accessTokenRequest.code
+                    MentionsScreen(
                         navController = navController,
                         code = code,
-                        accountId = accountId,
-                        goToFollowers = {
-                            navController.navigate("followers/$code/$accountId")
+                        goToConversation = { status ->
+                            navController.navigate("conversation/${status.remoteId}/${status.type.type}")
                         },
-                        goToFollowing = {
-                            navController.navigate("following/$code/$accountId")
-                        },
-                    )
-                }
-            }
-
-        }
-
-        composable(
-            route = "following/{code}/{accountId}",
-        ) {
-            val accountId = it.arguments?.getString("accountId")!!
-            it.arguments?.getString("code")?.let { code ->
-                AuthScoped(accessTokenRequestState, it) { _, component, _ ->
-                    val followerPresenter = component.followerPresenter()
-
-                    LaunchedEffect(key1 = accountId) {
-                        followerPresenter.start()
-                    }
-                    LaunchedEffect(key1 = accountId) {
-                        followerPresenter.handle(FollowerPresenter.Load(accountId, true))
-                    }
-
-                    followerPresenter.model.accounts?.let { account ->
-                        FollowerScreen(account, navController = navController, code)
-                    }
-
-                }
-            }
-
-        }
-
-        composable(
-            route = "followers/{code}/{accountId}",
-        ) {
-            val accountId = it.arguments?.getString("accountId")!!
-            it.arguments?.getString("code")?.let { code ->
-                AuthScoped(accessTokenRequestState, it) { _, component, _ ->
-                    val followerPresenter = component.followerPresenter()
-
-                    LaunchedEffect(key1 = accountId) {
-                        followerPresenter.start()
-                    }
-                    LaunchedEffect(key1 = accountId) {
-                        followerPresenter.handle(
-                            FollowerPresenter.Load(
-                                accountId,
-                                following = false
-                            )
-                        )
-                    }
-
-                    followerPresenter.model.accounts?.let { account ->
-                        FollowerScreen(account, navController = navController, code)
-                    }
-                }
-            }
-
-        }
-
-        composable(
-            route = "search/{code}",
-        ) {
-            it.arguments?.getString("code")?.let { code ->
-                AuthScoped(accessTokenRequestState, it) { userComponent, component: AuthRequiredInjector, _ ->
-                    val searchPresenter = component.searchPresenter()
-                    val searchScope = rememberCoroutineScope()
-                    LaunchedEffect(key1 = code) {
-                        searchPresenter.start(searchScope)
-                    }
-                    val colorScheme = MaterialTheme.colorScheme
-                    LaunchedEffect(key1 = code) {
-                        searchPresenter.handle(SearchPresenter.Init(colorScheme, dim))
-                    }
-                    val uriPresenter = remember { component.urlPresenter().get() }
-                    LaunchedEffect(key1 = code) {
-                        uriPresenter.start()
-                    }
-                    OpenHandledUri(uriPresenter, navController, code)
-
-                    SearchScreen(
-                        searchPresenter.model,
-                        navController = navController,
-                        uriPresenter = uriPresenter,
-                        onQueryChange = { searchTerm: String ->
-                            searchPresenter.onQueryTextChange(searchTerm)
-                        },
+                        showBackBar = true,
                         goToProfile = { accountId: String ->
-                            navController.navigate("profile/$code/${accountId}")
+                            navController.navigate("profile/${accountId}")
                         },
                         goToTag = { tag: String ->
-                            navController.navigate("tag/$code/${tag}")
-                        },
-                        goToConversation = { status ->
-                            navController.navigate("conversation/$code/${status.remoteId}/${status.type.type}")
+                            navController.navigate("tag/${tag}")
                         },
                     )
                 }
             }
-
-        }
-
-        composable(
-            route = "conversation/{code}/{statusId}/{type}",
-        ) {
-            it.arguments?.getString("code")?.let { code ->
-                val statusId = it.arguments?.getString("statusId")!!
-                val type = it.arguments?.getString("type")!!
-                AuthScoped(accessTokenRequestState, it) { userComponent, _, _ ->
-                    ConversationScreen(
-                        navController = navController,
+            composable(
+                route = "tag/{tag}",
+            ) {
+                AuthScoped { _, _, accessTokenRequest ->
+                    val code = accessTokenRequest.code
+                    TagScreen(
+                        navController,
                         code = code,
-                        statusId = statusId,
-                        type = type,
+                        tag = it.arguments?.getString("tag")!!,
                         goToConversation = { status ->
-                            if (statusId != status.remoteId) {
-                                navController.navigate("conversation/$code/${status.remoteId}/${status.type.type}")
-                            }
+                            navController.navigate("conversation/${status.remoteId}/${status.type.type}")
                         },
-                        goToProfile = { accountId ->
-                            navController.navigate("profile/$code/${accountId}")
-                        },
-                        goToTag = { tag ->
-                            navController.navigate("tag/$code/${tag}")
-                        },
-                    )
-                }
-            }
-        }
-        composable(
-            route = "notifications/{code}",
-        ) {
-            it.arguments?.getString("code")?.let { code ->
-                AuthScoped(accessTokenRequestState, it) { userComponent, _, _ ->
-                    NotificationsScreen(
-                        navController = navController,
-                        code = code,
-                        goToConversation = { status: UI ->
-                            navController.navigate("conversation/${code}/${status.remoteId}/${status.type}") {
-                            }
-                        },
+                        showBackBar = true,
                         goToProfile = { accountId: String ->
-                            navController.navigate("profile/$code/${accountId}")
+                            navController.navigate("profile/${accountId}")
                         },
-                        goToTag = { tag ->
-                            navController.navigate("tag/$code/${tag}")
+                        goToTag = { tag: String ->
+                            navController.navigate("tag/${tag}")
                         },
                     )
                 }
             }
         }
-        composable(
-            "splash",
-            enterTransition = { fadeIn() },
-            exitTransition = { fadeOut() }
 
+
+        composable(
+            route = "profile/{accountId}",
         ) {
-            SplashScreen(navController, accessTokenRequestState)
+            val accountId = it.arguments?.getString("accountId")!!
+            AuthScoped { _, component, accessTokenRequest ->
+                val code = accessTokenRequest.code
+                ProfileScreen(
+                    component = component,
+                    navController = navController,
+                    code = code,
+                    accountId = accountId,
+                    goToFollowers = {
+                        navController.navigate("followers/$accountId")
+                    },
+                    goToFollowing = {
+                        navController.navigate("following/$accountId")
+                    },
+                )
+            }
+
         }
 
-        composable("selectServer",
-            enterTransition = { fadeIn() },
-            exitTransition = { fadeOut() }
+        composable(
+            route = "following/{accountId}",
         ) {
-            ServerSelectScreen { server ->
-                scope.launch {
-                    navController.navigate("login/$server")
+            val accountId = it.arguments?.getString("accountId")!!
+            AuthScoped { _, component, accessTokenRequest ->
+                val code = accessTokenRequest.code
+                val followerPresenter = component.followerPresenter()
+
+                LaunchedEffect(key1 = accountId) {
+                    followerPresenter.start()
+                }
+                LaunchedEffect(key1 = accountId) {
+                    followerPresenter.handle(FollowerPresenter.Load(accountId, true))
+                }
+
+                followerPresenter.model.accounts?.let { account ->
+                    FollowerScreen(account, navController = navController, code)
+                }
+
+            }
+
+        }
+
+        composable(
+            route = "followers/{accountId}",
+        ) {
+            val accountId = it.arguments?.getString("accountId")!!
+            AuthScoped { _, component, accessTokenRequest ->
+                val code = accessTokenRequest.code
+                val followerPresenter = component.followerPresenter()
+
+                LaunchedEffect(key1 = accountId) {
+                    followerPresenter.start()
+                }
+                LaunchedEffect(key1 = accountId) {
+                    followerPresenter.handle(
+                        FollowerPresenter.Load(
+                            accountId,
+                            following = false
+                        )
+                    )
+                }
+
+                followerPresenter.model.accounts?.let { account ->
+                    FollowerScreen(account, navController = navController, code)
                 }
             }
 
         }
 
-        composable("login/{server}",
-            enterTransition = { fadeIn() },
-            exitTransition = { fadeOut() }) {
-            val server = it.arguments?.getString("server")!!
-            SignInScreen(navController, scope, server)
+        composable(
+            route = "search",
+        ) {
+            AuthScoped { _, component: AuthRequiredInjector, accessTokenRequest ->
+                val code = accessTokenRequest.code
+                val searchPresenter = component.searchPresenter()
+                val searchScope = rememberCoroutineScope()
+                LaunchedEffect(key1 = code) {
+                    searchPresenter.start(searchScope)
+                }
+                val colorScheme = MaterialTheme.colorScheme
+                LaunchedEffect(key1 = code) {
+                    searchPresenter.handle(SearchPresenter.Init(colorScheme, dim))
+                }
+                val uriPresenter = remember { component.urlPresenter().get() }
+                LaunchedEffect(key1 = code) {
+                    uriPresenter.start()
+                }
+                OpenHandledUri(uriPresenter, navController)
+
+                SearchScreen(
+                    searchPresenter.model,
+                    navController = navController,
+                    uriPresenter = uriPresenter,
+                    onQueryChange = { searchTerm: String ->
+                        searchPresenter.onQueryTextChange(searchTerm)
+                    },
+                    goToProfile = { accountId: String ->
+                        navController.navigate("profile/${accountId}")
+                    },
+                    goToTag = { tag: String ->
+                        navController.navigate("tag/${tag}")
+                    },
+                    goToConversation = { status ->
+                        navController.navigate("conversation/${status.remoteId}/${status.type.type}")
+                    },
+                )
+            }
+
+        }
+
+        composable(
+            route = "conversation/{statusId}/{type}",
+        ) {
+            val statusId = it.arguments?.getString("statusId")!!
+            val type = it.arguments?.getString("type")!!
+            AuthScoped { _, _, _ ->
+                ConversationScreen(
+                    navController = navController,
+                    statusId = statusId,
+                    type = type,
+                    goToConversation = { status ->
+                        if (statusId != status.remoteId) {
+                            navController.navigate("conversation/${status.remoteId}/${status.type.type}")
+                        }
+                    },
+                    goToProfile = { accountId ->
+                        navController.navigate("profile/${accountId}")
+                    },
+                    goToTag = { tag ->
+                        navController.navigate("tag/${tag}")
+                    },
+                )
+            }
+        }
+        composable(
+            route = "notifications",
+        ) {
+            AuthScoped { _, _, accessTokenRequest ->
+                val code = accessTokenRequest.code
+                NotificationsScreen(
+                    navController = navController,
+                    code = code,
+                    goToConversation = { status: UI ->
+                        navController.navigate("conversation/${status.remoteId}/${status.type}") {
+                        }
+                    },
+                    goToProfile = { accountId: String ->
+                        navController.navigate("profile/${accountId}")
+                    },
+                    goToTag = { tag ->
+                        navController.navigate("tag/${tag}")
+                    },
+                )
+            }
         }
     }
 }
@@ -439,30 +399,10 @@ fun FollowerScreen(
             results = null,
             resultsPaging = pagingItems,
             goToProfile = { accountId: String ->
-                navController.navigate("profile/$code/$accountId")
+                navController.navigate("profile/$accountId")
             })
 
     }
 
 
 }
-
-suspend fun Context.getAccounts(): List<AccessTokenRequest> = withContext(Dispatchers.IO) {
-    buildList {
-        val current = dataStore.data.first()
-        current.servers.values.forEach {
-            it.users.values.forEach { user ->
-                add(user.accessTokenRequest)
-            }
-        }
-    }
-}
-
-@Composable
-fun accessTokenRequest(navBackStackEntry: NavBackStackEntry) = AccessTokenRequest(
-    code = navBackStackEntry.arguments?.getString("code")!!,
-    clientId = navBackStackEntry.arguments?.getString("clientId")!!,
-    clientSecret = navBackStackEntry.arguments?.getString("clientSecret")!!,
-    redirectUri = navBackStackEntry.arguments?.getString("redirectUri")!!,
-    domain = navBackStackEntry.arguments?.getString("server")!!
-)

@@ -52,13 +52,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.hadilq.mastan.timeline.data.FeedType
-import com.hadilq.mastan.timeline.data.Notification
-import com.hadilq.mastan.timeline.data.Type
+import com.hadilq.mastan.network.dto.Notification
+import com.hadilq.mastan.network.dto.Type
 import com.hadilq.mastan.timeline.data.mapStatus
 import com.hadilq.mastan.timeline.data.toStatusDb
 import com.hadilq.mastan.timeline.ui.model.UI
 import com.hadilq.mastan.legacy.R
-import com.hadilq.mastan.theme.LocalThemeOutput
+import com.hadilq.mastan.theme.LocalMastanThemeUiIo
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -69,7 +69,7 @@ fun NotificationsScreen(
     goToProfile: (String) -> Unit,
     goToTag: (String) -> Unit,
 ) {
-    val dim = LocalThemeOutput.current.dim
+    val dim = LocalMastanThemeUiIo.current.dim
     val component = LocalAuthComponent.current
     val userComponent = LocalUserComponent.current
 
@@ -77,21 +77,21 @@ fun NotificationsScreen(
     val submitPresenter = component.submitPresenter()
     val scope = rememberCoroutineScope()
 
-    LaunchedEffect(key1 = userComponent.request()) {
+    LaunchedEffect(key1 = userComponent.accessTokenRequest()) {
         notificationPresenter.start(scope)
     }
-    LaunchedEffect(key1 = userComponent.request()) {
+    LaunchedEffect(key1 = userComponent.accessTokenRequest()) {
         notificationPresenter.handle(NotificationPresenter.Load)
     }
     val statuses = notificationPresenter.model.statuses
-    LaunchedEffect(key1 = userComponent.request()) {
+    LaunchedEffect(key1 = userComponent.accessTokenRequest()) {
         submitPresenter.start()
     }
     val uriPresenter = remember { component.urlPresenter().get() }
-    LaunchedEffect(key1 = userComponent.request()) {
+    LaunchedEffect(key1 = userComponent.accessTokenRequest()) {
         uriPresenter.start()
     }
-    OpenHandledUri(uriPresenter, navController, code)
+    OpenHandledUri(uriPresenter, navController)
 
     val pullRefreshState = rememberPullRefreshState(false, {
         notificationPresenter.handle(NotificationPresenter.Load)
@@ -157,7 +157,7 @@ private fun ScaffoldParent(
     goToTag: (String) -> Unit,
     navController: NavHostController,
 ) {
-    val dim = LocalThemeOutput.current.dim
+    val dim = LocalMastanThemeUiIo.current.dim
     Box(
         Modifier
             .background(colorScheme.surface)
@@ -198,7 +198,7 @@ private fun ScaffoldParent(
                             drawable = R.drawable.rocket3
                         )
                     }
-                    card(
+                    ConversationCard(
                         modifier = Modifier.background(Color.Transparent),
                         status = it.status!!.toStatusDb(FeedType.Home).mapStatus(colorScheme, dim),
                         account = notificationPresenter.model.account,
