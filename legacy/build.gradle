@@ -53,14 +53,14 @@ tasks.withType(KaptGenerateStubs).configureEach {
 }
 
 dependencies {
-    implementation(projects.theme.io)
-    implementation(projects.splash.io)
-    implementation(projects.root.io)
-    implementation(projects.navigation.io)
-    implementation(projects.auth.io)
-    implementation(projects.loginFlow.io)
-    implementation(projects.network.io)
-    implementation(projects.network.impl)
+    implementation(projects.modules.theme.io)
+    implementation(projects.modules.splash.io)
+    implementation(projects.modules.root.io)
+    implementation(projects.modules.navigation.io)
+    implementation(projects.modules.auth.io)
+    implementation(projects.modules.loginFlow.io)
+    implementation(projects.modules.network.io)
+    implementation(projects.modules.network.impl)
 
     implementation(platform(libs.androidx.compose.bom))
     implementation(platform(libs.google.firebase.bom))
