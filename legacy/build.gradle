@@ -22,11 +22,6 @@ android {
         }
     }
 
-    lintOptions {
-        // Legacy, remember!! We should respect lint in new modules though.
-        checkReleaseBuilds false
-        abortOnError false
-    }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
@@ -43,6 +38,11 @@ android {
         resources {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
+    }
+    lint {
+        // Legacy, remember!! We should respect lint in new modules though.
+        abortOnError false
+        checkReleaseBuilds false
     }
 }
 

@@ -2,7 +2,7 @@ let
   # fetchGit { url = "/home/hadi/dev/nixpkgs"; rev = "cafee7500dc2f5a26b499598144e2762aa4b6a0f"; }
   pkgs = import
     (
-      fetchTarball https://github.com/nixos/nixpkgs/tarball/30cb7ed401952396df992a52813702c9bbf338c3
+      fetchTarball https://github.com/nixos/nixpkgs/tarball/1809b328770806f94d306799147cc1a847d5328f
     )
     {
       config.android_sdk.accept_license = true;
@@ -15,7 +15,7 @@ let
       buildTools = [
         "30.0.3"
         "31.0.0"
-        "33.0.0"
+        "33.0.1"
       ];
       cmdLine = "8.0";
       emulator = "32.1.12";
