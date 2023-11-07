@@ -1,11 +1,15 @@
 [versions]
+compileSdk = "33"
+minSdk = "24"
+targetSdk = "33"
+jvmTarget = "17"
 androidx-activity = "1.3.1"
 accompanist = "0.28.0"
 androidx-material = "1.4.0"
 androidx-arch-core = "2.1.0"
 androidxComposeBom = "2023.06.01"
 androidxComposeCompiler = "1.4.3"
-androidx-compose-foundation = "1.4.3"
+androidx-compose = "1.4.3"
 androidx-compose-runtime = "1.4.3"
 androidx-compose-material3= "1.1.1"
 androidx-core = "1.8.0"
@@ -33,6 +37,7 @@ kotlinx-datetime = "0.4.0"
 kotlinx-collections = "0.3.5"
 kotlin = "1.8.10"
 kotlin-android-plugin = "1.6.21"
+kotlinx-api-compatibility = "0.13.2"
 junit4 = "4.13.2"
 junit-ext = "1.1.3"
 lifecycle-runtime-ktx = "2.3.1"
@@ -47,19 +52,25 @@ me-saket-zoomable = "0.3.0"
 cash-molecule = "0.8.0"
 
 [libraries]
+kotlin-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+android-plugin = { module  = "com.android.tools.build:gradle", version.ref = "gradle-plugin" }
+compose-plugin = { module = "org.jetbrains.compose:compose-gradle-plugin", version.ref = "androidx-compose" }
+kapt-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+kotlinx-serialization-plugin = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kotlin" }
+kotlinx-api-compatibility = { module = "org.jetbrains.kotlinx:binary-compatibility-validator", version.ref = "kotlinx-api-compatibility" }
 androidx-activity-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity" }
 androidx-browser = { module = "androidx.browser:browser", version.ref = "browser" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "androidxComposeBom" }
-androidx-compose-ui = { module = "androidx.compose.ui:ui", version.ref = "androidx-compose-foundation" }
-androidx-compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "androidx-compose-foundation" }
+androidx-compose-ui = { module = "androidx.compose.ui:ui", version.ref = "androidx-compose" }
+androidx-compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "androidx-compose" }
 androidx-compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
 androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
 androidx-compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
 androidx-compose-runtime = { module = "androidx.compose.runtime:runtime", version.ref = "androidx-compose-runtime" }
-androidx-compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "androidx-compose-foundation" }
+androidx-compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "androidx-compose" }
 androidx-compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "androidx-compose-material3" }
-androidx-compose-material = { module = "androidx.compose.material:material", version.ref = "androidx-compose-foundation" }
-androidx-compose-animation = { module = "androidx.compose.animation:animation", version.ref = "androidx-compose-foundation" }
+androidx-compose-material = { module = "androidx.compose.material:material", version.ref = "androidx-compose" }
+androidx-compose-animation = { module = "androidx.compose.animation:animation", version.ref = "androidx-compose" }
 androidx-material = { module = "com.google.android.material:material", version.ref="androidx-material" }
 androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout" }
 androidx-core-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
@@ -116,7 +127,9 @@ cash-molecule = { module = "app.cash.molecule:molecule-runtime", version.ref = "
 robolectric = { module = "org.robolectric:robolectric", version = "4.10.3" }
 
 [plugins]
-android-application = { id = "com.android.application", version.ref = "gradle-plugin" }
+module-io = { id = "module-io-plugin" }
+module-impl = { id = "module-impl-plugin" }
+module-impl-with-compose = { id = "module-impl-with-compose-plugin" }
 android-library = { id = "com.android.library", version.ref = "gradle-plugin" }
 anvil = { id = "com.squareup.anvil", version.ref = "anvil" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin-android-plugin" }

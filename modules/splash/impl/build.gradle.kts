@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 plugins {
-    id(libs.plugins.module.io.get().pluginId)
+    id(libs.plugins.module.impl.with.compose.get().pluginId)
 }
 
 kotlin {
@@ -22,16 +22,21 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(projects.modules.logicTreeArchitecture.io)
+                implementation(projects.modules.splash.io)
 
                 implementation(libs.androidx.compose.runtime)
-                implementation(libs.kotlinx.serialization.json)
             }
         }
         val commonTest by getting
-        val androidMain by getting
+        val androidMain by getting {
+            dependencies {
+                implementation(libs.androidx.constraintlayout)
+                implementation(libs.androidx.material)
+            }
+        }
     }
 }
 
 android {
-    namespace = "com.hadilq.mastan.log.io"
+    namespace = "com.hadilq.mastan.splash.impl"
 }

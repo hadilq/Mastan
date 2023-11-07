@@ -14,41 +14,37 @@
  * limitations under the License.
  */
 plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.kotlin.android)
+    id(libs.plugins.module.impl.asProvider().get().pluginId)
+    alias(libs.plugins.kotlin.serialization)
+}
+
+kotlin {
+    sourceSets {
+        val commonMain by getting {
+            dependencies {
+                implementation(projects.modules.datastore.io)
+                implementation(projects.modules.logicTreeArchitecture.io)
+                implementation(projects.modules.log.io)
+                implementation(projects.modules.root.io)
+                implementation(projects.modules.auth.io)
+                implementation(projects.modules.navigation.io)
+                implementation(projects.modules.theme.io)
+            }
+        }
+        val commonTest by getting
+        val androidMain by getting
+    }
 }
 
 android {
-    namespace 'com.hadilq.mastan.splash.impl'
-    compileSdk 33
-
-    defaultConfig {
-        minSdk 24
-        targetSdk 33
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary true
-        }
-    }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
-    }
-    packagingOptions {
-        resources {
-            excludes += '/META-INF/{AL2.0,LGPL2.1}'
-        }
-    }
+    namespace = "com.hadilq.mastan.datastore.impl"
 }
 
 dependencies {
-    implementation(projects.modules.logicTreeArchitecture.io)
-    implementation(projects.modules.splash.io)
-
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.material)
+    implementation(libs.androidx.datastore)
+    implementation(libs.kotlinx.serialization.json)
 
     testImplementation(libs.coroutines.test)
     testImplementation(libs.junit)

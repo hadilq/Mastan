@@ -14,14 +14,10 @@
  * limitations under the License.
  */
 plugins {
-    kotlin("multiplatform")
-    id("com.android.library")
-    id("org.jetbrains.compose")
+    id(libs.plugins.module.impl.with.compose.get().pluginId)
 }
 
 kotlin {
-    android()
-
     sourceSets {
         val commonMain by getting {
             dependencies {
@@ -50,29 +46,6 @@ kotlin {
 
 android {
     namespace = "com.hadilq.mastan.auth.impl"
-    compileSdk = 33
-    defaultConfig {
-        minSdk = 24
-    }
-    compileOptions {
-        sourceCompatibility(JavaVersion.VERSION_17)
-        targetCompatibility(JavaVersion.VERSION_17)
-    }
-    kotlin {
-        jvmToolchain(17)
-    }
-    buildFeatures {
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.androidxComposeCompiler.get()
-    }
-    testOptions {
-        unitTests {
-            isReturnDefaultValues = true
-            isIncludeAndroidResources = true
-        }
-    }
     dependencies {
         testImplementation(libs.robolectric)
         testImplementation(libs.androidx.compose.ui.test.junit4)

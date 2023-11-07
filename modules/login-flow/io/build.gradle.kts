@@ -1,18 +1,8 @@
 plugins {
-    kotlin("multiplatform")
-    id("com.android.library")
-    id("kotlinx-serialization")
+    id(libs.plugins.module.io.get().pluginId)
 }
 
 kotlin {
-    android {
-        compilations.all {
-            kotlinOptions {
-                jvmTarget = JavaVersion.VERSION_17.toString()
-            }
-        }
-    }
-
     sourceSets {
         val commonMain by getting {
             dependencies {
@@ -33,18 +23,4 @@ kotlin {
 
 android {
     namespace = "com.hadilq.mastan.navigation.io"
-    compileSdk = 33
-    defaultConfig {
-        minSdk = 24
-    }
-    compileOptions {
-        sourceCompatibility(JavaVersion.VERSION_17)
-        targetCompatibility(JavaVersion.VERSION_17)
-    }
-    buildFeatures {
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.androidxComposeCompiler.get()
-    }
 }

@@ -13,13 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import org.jetbrains.kotlin.gradle.tasks.KaptGenerateStubs
-
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
+    id("android-app-plugin")
     alias(libs.plugins.anvil)
-    alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.firebase.crashlytics)
 }
@@ -31,19 +27,11 @@ android {
         }
     }
     namespace 'com.hadilq.mastan'
-    compileSdk 33
 
     defaultConfig {
         applicationId "com.hadilq.mastan"
-        minSdk 24
-        targetSdk 33
         versionCode 17
         versionName "0.0.17"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary true
-        }
     }
 
     buildTypes {
@@ -52,32 +40,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
-    }
-    kotlinOptions {
-        jvmTarget = '11'
-    }
-    buildFeatures {
-        compose true
-        buildConfig true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.androidxComposeCompiler.get()
-    }
-    packagingOptions {
-        resources {
-            excludes += '/META-INF/{AL2.0,LGPL2.1}'
-        }
-    }
 }
 
-tasks.withType(KaptGenerateStubs).configureEach {
-    kotlinOptions {
-        jvmTarget = "11"
-    }
-}
 
 dependencies {
     implementation(projects.legacy)

@@ -13,25 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-plugins {
-    id(libs.plugins.module.io.get().pluginId)
-}
-
-kotlin {
-    sourceSets {
-        val commonMain by getting {
-            dependencies {
-                implementation(projects.modules.logicTreeArchitecture.io)
-
-                implementation(libs.androidx.compose.runtime)
-                implementation(libs.kotlinx.serialization.json)
-            }
-        }
-        val commonTest by getting
-        val androidMain by getting
+pluginManagement {
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+        google()
     }
 }
 
-android {
-    namespace = "com.hadilq.mastan.log.io"
+dependencyResolutionManagement {
+    versionCatalogs {
+        create("libs") {
+            from(files("../gradle/libs.versions.toml"))
+        }
+    }
 }

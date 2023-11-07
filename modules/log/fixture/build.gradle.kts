@@ -14,23 +14,13 @@
  * limitations under the License.
  */
 plugins {
-    kotlin("multiplatform")
-    id("com.android.library")
+    id(libs.plugins.module.impl.asProvider().get().pluginId)
 }
 
 kotlin {
-    android {
-        compilations.all {
-            kotlinOptions {
-                jvmTarget = JavaVersion.VERSION_17.toString()
-            }
-        }
-    }
-
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(projects.modules.logicTreeArchitecture.io)
                 implementation(projects.modules.log.io)
             }
         }
@@ -41,12 +31,4 @@ kotlin {
 
 android {
     namespace = "com.hadilq.mastan.log.fixture"
-    compileSdk = 33
-    defaultConfig {
-        minSdk = 24
-    }
-    compileOptions {
-        sourceCompatibility(JavaVersion.VERSION_17)
-        targetCompatibility(JavaVersion.VERSION_17)
-    }
 }

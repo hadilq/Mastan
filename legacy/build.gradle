@@ -10,11 +10,11 @@ plugins {
 
 android {
     namespace 'com.hadilq.mastan.legacy'
-    compileSdk 33
+    compileSdk libs.versions.compileSdk.get().toInteger()
 
     defaultConfig {
-        minSdk 24
-        targetSdk 33
+        minSdk libs.versions.minSdk.get().toInteger()
+        targetSdk libs.versions.targetSdk.get().toInteger()
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -22,10 +22,15 @@ android {
         }
     }
 
-
+    def targetJvm = JavaVersion.VERSION_18
+    if (libs.versions.jvmTarget.get() == "11") {
+        targetJvm = JavaVersion.VERSION_11
+    } else if (libs.versions.jvmTarget.get() == "17") {
+        targetJvm = JavaVersion.VERSION_17
+    }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility targetJvm
+        targetCompatibility targetJvm
     }
 
     buildFeatures {
@@ -48,7 +53,7 @@ android {
 
 tasks.withType(KaptGenerateStubs).configureEach {
     kotlinOptions {
-        jvmTarget = "17"
+        jvmTarget = libs.versions.jvmTarget.get()
     }
 }
 

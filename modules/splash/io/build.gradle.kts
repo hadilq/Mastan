@@ -24,7 +24,6 @@ kotlin {
                 implementation(projects.modules.logicTreeArchitecture.io)
 
                 implementation(libs.androidx.compose.runtime)
-                implementation(libs.kotlinx.serialization.json)
             }
         }
         val commonTest by getting
@@ -33,5 +32,5 @@ kotlin {
 }
 
 android {
-    namespace = "com.hadilq.mastan.log.io"
+    namespace = "com.hadilq.mastan.splash.io"
 }
