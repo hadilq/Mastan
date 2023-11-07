@@ -1,0 +1,271 @@
+public final class com/hadilq/mastan/loginflow/BackSignInEvent : com/hadilq/mastan/loginflow/SignInEvent {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/hadilq/mastan/loginflow/BackSignInEvent;
+}
+
+public final class com/hadilq/mastan/loginflow/CreatedApplicationErrorRetrySignInEvent : com/hadilq/mastan/loginflow/SignInEvent {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/hadilq/mastan/loginflow/CreatedApplicationErrorRetrySignInEvent;
+}
+
+public final class com/hadilq/mastan/loginflow/CreatedApplicationErrorSignInState : com/hadilq/mastan/loginflow/SignInState {
+	public static final field $stable I
+	public static final field Companion Lcom/hadilq/mastan/loginflow/CreatedApplicationErrorSignInState$Companion;
+	public synthetic fun <init> (ILjava/lang/String;Ljava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;)Lcom/hadilq/mastan/loginflow/CreatedApplicationErrorSignInState;
+	public static synthetic fun copy$default (Lcom/hadilq/mastan/loginflow/CreatedApplicationErrorSignInState;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/hadilq/mastan/loginflow/CreatedApplicationErrorSignInState;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getError ()Ljava/lang/String;
+	public final fun getServerDomain ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final fun write$Self (Lcom/hadilq/mastan/loginflow/CreatedApplicationErrorSignInState;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class com/hadilq/mastan/loginflow/CreatedApplicationErrorSignInState$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/hadilq/mastan/loginflow/CreatedApplicationErrorSignInState$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/hadilq/mastan/loginflow/CreatedApplicationErrorSignInState;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/hadilq/mastan/loginflow/CreatedApplicationErrorSignInState;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/hadilq/mastan/loginflow/CreatedApplicationErrorSignInState$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/hadilq/mastan/loginflow/CreatedApplicationSignInState : com/hadilq/mastan/loginflow/SignInState {
+	public static final field $stable I
+	public static final field Companion Lcom/hadilq/mastan/loginflow/CreatedApplicationSignInState$Companion;
+	public synthetic fun <init> (ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lcom/hadilq/mastan/loginflow/CreatedApplicationSignInState;
+	public static synthetic fun copy$default (Lcom/hadilq/mastan/loginflow/CreatedApplicationSignInState;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/hadilq/mastan/loginflow/CreatedApplicationSignInState;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getClientId ()Ljava/lang/String;
+	public final fun getClientSecret ()Ljava/lang/String;
+	public final fun getDomain ()Ljava/lang/String;
+	public final fun getOauthAuthorizeUrl ()Ljava/lang/String;
+	public final fun getRedirectUri ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final fun write$Self (Lcom/hadilq/mastan/loginflow/CreatedApplicationSignInState;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class com/hadilq/mastan/loginflow/CreatedApplicationSignInState$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/hadilq/mastan/loginflow/CreatedApplicationSignInState$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/hadilq/mastan/loginflow/CreatedApplicationSignInState;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/hadilq/mastan/loginflow/CreatedApplicationSignInState;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/hadilq/mastan/loginflow/CreatedApplicationSignInState$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/hadilq/mastan/loginflow/InitialLoginFlowState : com/hadilq/mastan/loginflow/ServerSelectState {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/hadilq/mastan/loginflow/InitialLoginFlowState;
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public abstract interface class com/hadilq/mastan/loginflow/LoginFlowEvent {
+}
+
+public abstract interface class com/hadilq/mastan/loginflow/LoginFlowLogicIo {
+	public abstract fun getLoginFlowLogic ()Lkotlin/jvm/functions/Function5;
+}
+
+public final class com/hadilq/mastan/loginflow/LoginFlowLogicIoKt {
+	public static final fun getLocalLoginFlowLogicIo ()Landroidx/compose/runtime/ProvidableCompositionLocal;
+}
+
+public abstract interface class com/hadilq/mastan/loginflow/LoginFlowState {
+	public static final field Companion Lcom/hadilq/mastan/loginflow/LoginFlowState$Companion;
+}
+
+public final class com/hadilq/mastan/loginflow/LoginFlowState$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public abstract interface class com/hadilq/mastan/loginflow/LoginFlowUiIo {
+	public abstract fun getLoginFlowUi ()Lkotlin/jvm/functions/Function4;
+}
+
+public final class com/hadilq/mastan/loginflow/LoginFlowUiIoKt {
+	public static final fun getLocalLoginFlowUiIo ()Landroidx/compose/runtime/ProvidableCompositionLocal;
+}
+
+public final class com/hadilq/mastan/loginflow/NextPageServerSelectEvent : com/hadilq/mastan/loginflow/ServerSelectEvent {
+	public static final field $stable I
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lcom/hadilq/mastan/loginflow/NextPageServerSelectEvent;
+	public static synthetic fun copy$default (Lcom/hadilq/mastan/loginflow/NextPageServerSelectEvent;Ljava/lang/String;ILjava/lang/Object;)Lcom/hadilq/mastan/loginflow/NextPageServerSelectEvent;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDomain ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/hadilq/mastan/loginflow/NoLoginFlowEvent : com/hadilq/mastan/loginflow/LoginFlowEvent {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/hadilq/mastan/loginflow/NoLoginFlowEvent;
+}
+
+public final class com/hadilq/mastan/loginflow/OAuthFailedRetrySignInEvent : com/hadilq/mastan/loginflow/SignInEvent {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/hadilq/mastan/loginflow/OAuthFailedRetrySignInEvent;
+}
+
+public final class com/hadilq/mastan/loginflow/OAuthFailedToSignInState : com/hadilq/mastan/loginflow/SignInState {
+	public static final field $stable I
+	public static final field Companion Lcom/hadilq/mastan/loginflow/OAuthFailedToSignInState$Companion;
+	public synthetic fun <init> (ILjava/lang/String;Ljava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;)Lcom/hadilq/mastan/loginflow/OAuthFailedToSignInState;
+	public static synthetic fun copy$default (Lcom/hadilq/mastan/loginflow/OAuthFailedToSignInState;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/hadilq/mastan/loginflow/OAuthFailedToSignInState;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getError ()Ljava/lang/String;
+	public final fun getServerDomain ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final fun write$Self (Lcom/hadilq/mastan/loginflow/OAuthFailedToSignInState;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class com/hadilq/mastan/loginflow/OAuthFailedToSignInState$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/hadilq/mastan/loginflow/OAuthFailedToSignInState$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/hadilq/mastan/loginflow/OAuthFailedToSignInState;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/hadilq/mastan/loginflow/OAuthFailedToSignInState;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/hadilq/mastan/loginflow/OAuthFailedToSignInState$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/hadilq/mastan/loginflow/ResultUriSignInEvent : com/hadilq/mastan/loginflow/SignInEvent {
+	public static final field $stable I
+	public fun <init> (Ljava/net/URI;)V
+	public final fun component1 ()Ljava/net/URI;
+	public final fun copy (Ljava/net/URI;)Lcom/hadilq/mastan/loginflow/ResultUriSignInEvent;
+	public static synthetic fun copy$default (Lcom/hadilq/mastan/loginflow/ResultUriSignInEvent;Ljava/net/URI;ILjava/lang/Object;)Lcom/hadilq/mastan/loginflow/ResultUriSignInEvent;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getUri ()Ljava/net/URI;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/hadilq/mastan/loginflow/ServerErrorServerSelectState : com/hadilq/mastan/loginflow/ServerSelectState {
+	public static final field $stable I
+	public static final field Companion Lcom/hadilq/mastan/loginflow/ServerErrorServerSelectState$Companion;
+	public synthetic fun <init> (ILjava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lcom/hadilq/mastan/loginflow/ServerErrorServerSelectState;
+	public static synthetic fun copy$default (Lcom/hadilq/mastan/loginflow/ServerErrorServerSelectState;Ljava/lang/String;ILjava/lang/Object;)Lcom/hadilq/mastan/loginflow/ServerErrorServerSelectState;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getError ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final fun write$Self (Lcom/hadilq/mastan/loginflow/ServerErrorServerSelectState;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class com/hadilq/mastan/loginflow/ServerErrorServerSelectState$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/hadilq/mastan/loginflow/ServerErrorServerSelectState$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/hadilq/mastan/loginflow/ServerErrorServerSelectState;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/hadilq/mastan/loginflow/ServerErrorServerSelectState;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/hadilq/mastan/loginflow/ServerErrorServerSelectState$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public abstract interface class com/hadilq/mastan/loginflow/ServerSelectEvent : com/hadilq/mastan/loginflow/LoginFlowEvent {
+}
+
+public abstract interface class com/hadilq/mastan/loginflow/ServerSelectState : com/hadilq/mastan/loginflow/LoginFlowState {
+	public static final field Companion Lcom/hadilq/mastan/loginflow/ServerSelectState$Companion;
+}
+
+public final class com/hadilq/mastan/loginflow/ServerSelectState$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/hadilq/mastan/loginflow/ServerSignInState : com/hadilq/mastan/loginflow/SignInState {
+	public static final field $stable I
+	public static final field Companion Lcom/hadilq/mastan/loginflow/ServerSignInState$Companion;
+	public synthetic fun <init> (ILjava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lcom/hadilq/mastan/loginflow/ServerSignInState;
+	public static synthetic fun copy$default (Lcom/hadilq/mastan/loginflow/ServerSignInState;Ljava/lang/String;ILjava/lang/Object;)Lcom/hadilq/mastan/loginflow/ServerSignInState;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getServerDomain ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final fun write$Self (Lcom/hadilq/mastan/loginflow/ServerSignInState;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class com/hadilq/mastan/loginflow/ServerSignInState$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/hadilq/mastan/loginflow/ServerSignInState$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/hadilq/mastan/loginflow/ServerSignInState;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/hadilq/mastan/loginflow/ServerSignInState;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/hadilq/mastan/loginflow/ServerSignInState$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public abstract interface class com/hadilq/mastan/loginflow/SignInEvent : com/hadilq/mastan/loginflow/LoginFlowEvent {
+}
+
+public abstract interface class com/hadilq/mastan/loginflow/SignInState : com/hadilq/mastan/loginflow/LoginFlowState {
+	public static final field Companion Lcom/hadilq/mastan/loginflow/SignInState$Companion;
+}
+
+public final class com/hadilq/mastan/loginflow/SignInState$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/hadilq/mastan/loginflow/WebViewCancelSignInEvent : com/hadilq/mastan/loginflow/SignInEvent {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/hadilq/mastan/loginflow/WebViewCancelSignInEvent;
+}
+

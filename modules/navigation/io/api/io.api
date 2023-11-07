@@ -1,0 +1,121 @@
+public final class com/hadilq/mastan/navigation/LegacyMainContent : com/hadilq/mastan/navigation/NavigatorIndicator {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/hadilq/mastan/navigation/LegacyMainContent;
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/hadilq/mastan/navigation/LoginFlow : com/hadilq/mastan/navigation/NavigatorIndicator {
+	public static final field $stable I
+	public static final field Companion Lcom/hadilq/mastan/navigation/LoginFlow$Companion;
+	public synthetic fun <init> (ILcom/hadilq/mastan/loginflow/LoginFlowState;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (Lcom/hadilq/mastan/loginflow/LoginFlowState;)V
+	public final fun component1 ()Lcom/hadilq/mastan/loginflow/LoginFlowState;
+	public final fun copy (Lcom/hadilq/mastan/loginflow/LoginFlowState;)Lcom/hadilq/mastan/navigation/LoginFlow;
+	public static synthetic fun copy$default (Lcom/hadilq/mastan/navigation/LoginFlow;Lcom/hadilq/mastan/loginflow/LoginFlowState;ILjava/lang/Object;)Lcom/hadilq/mastan/navigation/LoginFlow;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getLoginState ()Lcom/hadilq/mastan/loginflow/LoginFlowState;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final fun write$Self (Lcom/hadilq/mastan/navigation/LoginFlow;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class com/hadilq/mastan/navigation/LoginFlow$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/hadilq/mastan/navigation/LoginFlow$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/hadilq/mastan/navigation/LoginFlow;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/hadilq/mastan/navigation/LoginFlow;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/hadilq/mastan/navigation/LoginFlow$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/hadilq/mastan/navigation/LoginFlowNavigationEvent : com/hadilq/mastan/navigation/NavigationEvent {
+	public static final field $stable I
+	public fun <init> (Lcom/hadilq/mastan/loginflow/LoginFlowEvent;)V
+	public final fun component1 ()Lcom/hadilq/mastan/loginflow/LoginFlowEvent;
+	public final fun copy (Lcom/hadilq/mastan/loginflow/LoginFlowEvent;)Lcom/hadilq/mastan/navigation/LoginFlowNavigationEvent;
+	public static synthetic fun copy$default (Lcom/hadilq/mastan/navigation/LoginFlowNavigationEvent;Lcom/hadilq/mastan/loginflow/LoginFlowEvent;ILjava/lang/Object;)Lcom/hadilq/mastan/navigation/LoginFlowNavigationEvent;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getLoginFlowEvent ()Lcom/hadilq/mastan/loginflow/LoginFlowEvent;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class com/hadilq/mastan/navigation/NavigationEvent {
+}
+
+public abstract interface class com/hadilq/mastan/navigation/NavigationLogicIo {
+	public abstract fun getEventSink ()Lkotlin/jvm/functions/Function2;
+	public abstract fun getNavigationLogic ()Lkotlin/jvm/functions/Function5;
+}
+
+public final class com/hadilq/mastan/navigation/NavigationLogicIoKt {
+	public static final fun getLocalNavigationLogicIo ()Landroidx/compose/runtime/ProvidableCompositionLocal;
+}
+
+public final class com/hadilq/mastan/navigation/NavigationState {
+	public static final field $stable I
+	public static final field Companion Lcom/hadilq/mastan/navigation/NavigationState$Companion;
+	public fun <init> ()V
+	public synthetic fun <init> (ILjava/util/List;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (Ljava/util/List;)V
+	public synthetic fun <init> (Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun copy (Ljava/util/List;)Lcom/hadilq/mastan/navigation/NavigationState;
+	public static synthetic fun copy$default (Lcom/hadilq/mastan/navigation/NavigationState;Ljava/util/List;ILjava/lang/Object;)Lcom/hadilq/mastan/navigation/NavigationState;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getStack ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final fun write$Self (Lcom/hadilq/mastan/navigation/NavigationState;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class com/hadilq/mastan/navigation/NavigationState$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/hadilq/mastan/navigation/NavigationState$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/hadilq/mastan/navigation/NavigationState;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/hadilq/mastan/navigation/NavigationState;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/hadilq/mastan/navigation/NavigationState$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public abstract interface class com/hadilq/mastan/navigation/NavigationUiIo {
+	public abstract fun getNavigationUi ()Lkotlin/jvm/functions/Function5;
+}
+
+public abstract interface class com/hadilq/mastan/navigation/NavigatorIndicator {
+	public static final field Companion Lcom/hadilq/mastan/navigation/NavigatorIndicator$Companion;
+}
+
+public final class com/hadilq/mastan/navigation/NavigatorIndicator$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/hadilq/mastan/navigation/NoNavigationEvent : com/hadilq/mastan/navigation/NavigationEvent {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/hadilq/mastan/navigation/NoNavigationEvent;
+}
+
+public final class com/hadilq/mastan/navigation/SelectServerNavigationEvent : com/hadilq/mastan/navigation/NavigationEvent {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/hadilq/mastan/navigation/SelectServerNavigationEvent;
+}
+
+public final class com/hadilq/mastan/navigation/TimeLineNavigationEvent : com/hadilq/mastan/navigation/NavigationEvent {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/hadilq/mastan/navigation/TimeLineNavigationEvent;
+}
+

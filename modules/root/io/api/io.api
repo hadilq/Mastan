@@ -1,0 +1,104 @@
+public final class com/hadilq/mastan/root/AuthRootEvent : com/hadilq/mastan/root/RootEvent {
+	public static final field $stable I
+	public fun <init> (Lcom/hadilq/mastan/auth/AuthEvent;)V
+	public final fun component1 ()Lcom/hadilq/mastan/auth/AuthEvent;
+	public final fun copy (Lcom/hadilq/mastan/auth/AuthEvent;)Lcom/hadilq/mastan/root/AuthRootEvent;
+	public static synthetic fun copy$default (Lcom/hadilq/mastan/root/AuthRootEvent;Lcom/hadilq/mastan/auth/AuthEvent;ILjava/lang/Object;)Lcom/hadilq/mastan/root/AuthRootEvent;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAuthEvent ()Lcom/hadilq/mastan/auth/AuthEvent;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/hadilq/mastan/root/InitialRootEvent : com/hadilq/mastan/root/RootEvent {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/hadilq/mastan/root/InitialRootEvent;
+}
+
+public final class com/hadilq/mastan/root/NavigationRootEvent : com/hadilq/mastan/root/RootEvent {
+	public static final field $stable I
+	public fun <init> (Lcom/hadilq/mastan/navigation/NavigationEvent;)V
+	public final fun component1 ()Lcom/hadilq/mastan/navigation/NavigationEvent;
+	public final fun copy (Lcom/hadilq/mastan/navigation/NavigationEvent;)Lcom/hadilq/mastan/root/NavigationRootEvent;
+	public static synthetic fun copy$default (Lcom/hadilq/mastan/root/NavigationRootEvent;Lcom/hadilq/mastan/navigation/NavigationEvent;ILjava/lang/Object;)Lcom/hadilq/mastan/root/NavigationRootEvent;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getNavigationEvent ()Lcom/hadilq/mastan/navigation/NavigationEvent;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/hadilq/mastan/root/NoRootEvent : com/hadilq/mastan/root/RootEvent {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/hadilq/mastan/root/NoRootEvent;
+}
+
+public abstract interface class com/hadilq/mastan/root/RootEvent {
+}
+
+public abstract interface class com/hadilq/mastan/root/RootLogicIo {
+	public abstract fun getRootLogic ()Lkotlin/jvm/functions/Function2;
+}
+
+public final class com/hadilq/mastan/root/RootLogicIoKt {
+	public static final fun getLocalRootLogicIo ()Landroidx/compose/runtime/ProvidableCompositionLocal;
+}
+
+public final class com/hadilq/mastan/root/RootState {
+	public static final field $stable I
+	public static final field Companion Lcom/hadilq/mastan/root/RootState$Companion;
+	public synthetic fun <init> (ILcom/hadilq/mastan/auth/AuthState;Lcom/hadilq/mastan/navigation/NavigationState;Lcom/hadilq/mastan/theme/MastanThemeState;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (Lcom/hadilq/mastan/auth/AuthState;Lcom/hadilq/mastan/navigation/NavigationState;Lcom/hadilq/mastan/theme/MastanThemeState;)V
+	public final fun component1 ()Lcom/hadilq/mastan/auth/AuthState;
+	public final fun component2 ()Lcom/hadilq/mastan/navigation/NavigationState;
+	public final fun component3 ()Lcom/hadilq/mastan/theme/MastanThemeState;
+	public final fun copy (Lcom/hadilq/mastan/auth/AuthState;Lcom/hadilq/mastan/navigation/NavigationState;Lcom/hadilq/mastan/theme/MastanThemeState;)Lcom/hadilq/mastan/root/RootState;
+	public static synthetic fun copy$default (Lcom/hadilq/mastan/root/RootState;Lcom/hadilq/mastan/auth/AuthState;Lcom/hadilq/mastan/navigation/NavigationState;Lcom/hadilq/mastan/theme/MastanThemeState;ILjava/lang/Object;)Lcom/hadilq/mastan/root/RootState;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAuthState ()Lcom/hadilq/mastan/auth/AuthState;
+	public final fun getNavigationState ()Lcom/hadilq/mastan/navigation/NavigationState;
+	public final fun getThemeState ()Lcom/hadilq/mastan/theme/MastanThemeState;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final fun write$Self (Lcom/hadilq/mastan/root/RootState;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class com/hadilq/mastan/root/RootState$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/hadilq/mastan/root/RootState$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/hadilq/mastan/root/RootState;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/hadilq/mastan/root/RootState;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/hadilq/mastan/root/RootState$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/hadilq/mastan/root/RootStateKt {
+	public static final fun getInitRootState ()Lcom/hadilq/mastan/root/RootState;
+}
+
+public abstract interface class com/hadilq/mastan/root/RootUiIo {
+	public abstract fun getRootUi ()Lkotlin/jvm/functions/Function3;
+}
+
+public final class com/hadilq/mastan/root/RootUiIoKt {
+	public static final fun getLocalRootUiIo ()Landroidx/compose/runtime/ProvidableCompositionLocal;
+}
+
+public final class com/hadilq/mastan/root/ThemeRootEvent : com/hadilq/mastan/root/RootEvent {
+	public static final field $stable I
+	public fun <init> (Lcom/hadilq/mastan/theme/MastanThemeEvent;)V
+	public final fun component1 ()Lcom/hadilq/mastan/theme/MastanThemeEvent;
+	public final fun copy (Lcom/hadilq/mastan/theme/MastanThemeEvent;)Lcom/hadilq/mastan/root/ThemeRootEvent;
+	public static synthetic fun copy$default (Lcom/hadilq/mastan/root/ThemeRootEvent;Lcom/hadilq/mastan/theme/MastanThemeEvent;ILjava/lang/Object;)Lcom/hadilq/mastan/root/ThemeRootEvent;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getThemeEvent ()Lcom/hadilq/mastan/theme/MastanThemeEvent;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+

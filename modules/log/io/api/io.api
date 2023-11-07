@@ -1,0 +1,23 @@
+public abstract interface class com/hadilq/mastan/log/LogLogicIo {
+	public abstract fun logDebug (Ljava/lang/String;)V
+	public abstract fun logDebug (Lkotlin/jvm/functions/Function0;)V
+	public abstract fun logWarning (Ljava/lang/String;)V
+	public abstract fun logWarning (Lkotlin/jvm/functions/Function0;)V
+	public abstract fun wrongState (Lkotlin/jvm/functions/Function0;)V
+}
+
+public final class com/hadilq/mastan/log/LogLogicIoKt {
+	public static final fun getLocalLogLogicIo ()Landroidx/compose/runtime/ProvidableCompositionLocal;
+}
+
+public abstract interface class com/hadilq/mastan/log/LogUiIo {
+	public abstract fun logDebug (Ljava/lang/String;)V
+	public abstract fun logDebug (Lkotlin/jvm/functions/Function0;)V
+	public abstract fun logWarning (Ljava/lang/String;)V
+	public abstract fun logWarning (Lkotlin/jvm/functions/Function0;)V
+}
+
+public final class com/hadilq/mastan/log/LogUiIoKt {
+	public static final fun getLocalLogUiIo ()Landroidx/compose/runtime/ProvidableCompositionLocal;
+}
+
