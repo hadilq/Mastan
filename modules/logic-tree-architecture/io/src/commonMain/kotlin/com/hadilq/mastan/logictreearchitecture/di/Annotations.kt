@@ -1,7 +1,8 @@
 package com.hadilq.mastan.logictreearchitecture.di
 
 /**
- * Each IO, `io` module, must have one interface that defines everything that module provides.
+ * Each IO, `io` Graddle module, can have one interface that defines everything that module provides
+ * for other components on the UI tree.
  */
 @MustBeDocumented
 @Target(AnnotationTarget.CLASS)
@@ -9,7 +10,8 @@ package com.hadilq.mastan.logictreearchitecture.di
 annotation class UiIoDefinition
 
 /**
- * Each IO, `io` module, must have one interface that defines everything that module provides.
+ * Each IO, `io` Gradle module, can have one interface that defines everything that module provides
+ * for other components on the logic tree.
  */
 @MustBeDocumented
 @Target(AnnotationTarget.CLASS)

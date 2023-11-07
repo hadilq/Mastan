@@ -21,7 +21,7 @@ import com.hadilq.mastan.logictreearchitecture.di.UiIoDefinition
 val LocalRootUiIo = compositionLocalOf<RootUiIo> { error("No component found!") }
 
 /**
- * This is the output of `root` module. Its implementation is available in the `:root:impl` module.
+ * This is the definition of `root` module. Its implementation is available in the `:root:impl` module.
  * This indicates the functionality that `root` module provides for other modules.
  */
 @UiIoDefinition

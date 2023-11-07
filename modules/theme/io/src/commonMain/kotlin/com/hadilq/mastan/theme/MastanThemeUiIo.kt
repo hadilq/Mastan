@@ -23,7 +23,7 @@ import com.hadilq.mastan.logictreearchitecture.di.UiIoDefinition
 val LocalMastanThemeUiIo = compositionLocalOf<MastanThemeUiIo> { error("No component found!") }
 
 /**
- * This is the output of `theme` module. Its implementation is available in the `:theme:impl` module.
+ * This is the definition of `theme` module. Its implementation is available in the `:theme:impl` module.
  * This indicates the functionality that `theme` module provides for other modules.
  */
 @UiIoDefinition

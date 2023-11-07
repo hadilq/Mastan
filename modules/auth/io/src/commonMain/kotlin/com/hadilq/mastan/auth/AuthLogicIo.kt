@@ -22,7 +22,7 @@ import kotlinx.coroutines.Dispatchers
 val LocalAuthLogicIo = compositionLocalOf<AuthLogicIo> { error("No component found!") }
 
 /**
- * This is the output of `auth` module. Its implementation is available in the `:auth:impl` module.
+ * This is the definition of `auth` module. Its implementation is available in the `:auth:impl` module.
  * This indicates the functionality that `auth` module provides for other modules.
  */
 @LogicIoDefinition

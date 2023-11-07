@@ -18,7 +18,7 @@ package com.hadilq.mastan.splash
 import com.hadilq.mastan.logictreearchitecture.di.UiIoDefinition
 
 /**
- * This is the output of `splash` module. Its implementation is available in the `:splash:impl` module.
+ * This is the definition of `splash` module. Its implementation is available in the `:splash:impl` module.
  * This indicates the functionality that `splash` module provides for other modules.
  */
 @UiIoDefinition

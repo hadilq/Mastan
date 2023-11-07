@@ -23,7 +23,7 @@ import kotlinx.coroutines.Dispatchers
 val LocalNavigationLogicIo = compositionLocalOf<NavigationLogicIo> { error("No component found!") }
 
 /**
- * This is the output of `navigation` module. Its implementation is available in the `:navigation:impl` module.
+ * This is the definition of `navigation` module. Its implementation is available in the `:navigation:impl` module.
  * This indicates the functionality that `navigation` module provides for other modules.
  */
 @LogicIoDefinition

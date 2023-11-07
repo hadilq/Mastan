@@ -5,6 +5,10 @@ import com.hadilq.mastan.logictreearchitecture.di.UiIoDefinition
 
 val LocalLogUiIo = compositionLocalOf<LogUiIo> { error("No component found!") }
 
+/**
+ * This is the definition of `log` module. Its implementation is available in the `:log:impl` module.
+ * This indicates the functionality that `log` module provides for other modules.
+ */
 @UiIoDefinition
 interface LogUiIo {
 

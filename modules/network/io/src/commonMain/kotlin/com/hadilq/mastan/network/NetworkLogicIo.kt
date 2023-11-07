@@ -22,7 +22,7 @@ import com.hadilq.mastan.auth.AccessTokenRequest
 val LocalNetworkLogicIo = compositionLocalOf<NetworkLogicIo> { error("No component found!") }
 
 /**
- * This is the output of `network` module. Its implementation is available in the `:network:impl` module.
+ * This is the definition of `network` module. Its implementation is available in the `:network:impl` module.
  * This indicates the functionality that `network` module provides for other modules.
  */
 @LogicIoDefinition

@@ -18,7 +18,7 @@ package com.hadilq.mastan.navigation
 import com.hadilq.mastan.logictreearchitecture.di.UiIoDefinition
 
 /**
- * This is the output of `navigation` module. Its implementation is available in the `:navigation:impl` module.
+ * This is the definition of `navigation` module. Its implementation is available in the `:navigation:impl` module.
  * This indicates the functionality that `navigation` module provides for other modules.
  */
 @UiIoDefinition

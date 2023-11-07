@@ -17,6 +17,10 @@ package com.hadilq.mastan.datastore
 
 import com.hadilq.mastan.logictreearchitecture.di.LogicIoDefinition
 
+/**
+ * This is the definition of `datastore` module. Its implementation is available in the `:datastore:impl` module.
+ * This indicates the functionality that `datastore` module provides for other modules.
+ */
 @LogicIoDefinition
 interface DataStoreLogicIo {
     val mastanDataStore: MastanDataStore
