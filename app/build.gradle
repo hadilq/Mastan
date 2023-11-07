@@ -1,40 +1,37 @@
+/**
+ * Copyright 2023 Hadi Lashkari Ghouchani
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
+    id("android-app-plugin")
     alias(libs.plugins.anvil)
-    alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.firebase.crashlytics)
-    alias(libs.plugins.gms.googleServices)
-}
-
-repositories {
-    google()
-    mavenCentral()
-    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
 }
 
 android {
     signingConfigs {
         release {
             storeFile file('/Users/***/keystore')
-
         }
     }
-    namespace 'social.androiddev.firefly'
-    compileSdk 33
+    namespace 'com.hadilq.mastan'
 
     defaultConfig {
-        applicationId "social.androiddev"
-        minSdk 24
-        targetSdk 33
-        versionCode 16
-        versionName "0.0.16"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary true
-        }
+        applicationId "com.hadilq.mastan"
+        versionCode 17
+        versionName "0.0.17"
     }
 
     buildTypes {
@@ -43,27 +40,32 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
-    buildFeatures {
-        compose true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.androidxComposeCompiler.get()
-    }
-    packagingOptions {
-        resources {
-            excludes += '/META-INF/{AL2.0,LGPL2.1}'
-        }
-    }
 }
 
+
 dependencies {
+    implementation(projects.legacy)
+    implementation(projects.modules.logicTreeArchitecture.io)
+    implementation(projects.modules.logicTreeArchitecture.impl)
+    implementation(projects.modules.log.io)
+    implementation(projects.modules.log.impl)
+    implementation(projects.modules.theme.io)
+    implementation(projects.modules.theme.impl)
+    implementation(projects.modules.datastore.io)
+    implementation(projects.modules.datastore.impl)
+    implementation(projects.modules.splash.io)
+    implementation(projects.modules.splash.impl)
+    implementation(projects.modules.root.io)
+    implementation(projects.modules.root.impl)
+    implementation(projects.modules.navigation.io)
+    implementation(projects.modules.navigation.impl)
+    implementation(projects.modules.auth.io)
+    implementation(projects.modules.auth.impl)
+    implementation(projects.modules.loginFlow.io)
+    implementation(projects.modules.loginFlow.impl)
+    implementation(projects.modules.network.io)
+    implementation(projects.modules.network.impl)
+
     implementation(platform(libs.androidx.compose.bom))
     implementation(platform(libs.google.firebase.bom))
     implementation(libs.androidx.constraintlayout)
@@ -123,20 +125,12 @@ dependencies {
     implementation(libs.androidx.room.paging)
     kapt(libs.androidx.room.compiler)
 
-    // optional - Paging 3 Integration
-    implementation "com.google.accompanist:accompanist-placeholder-material3:0.29.1-alpha"
-    implementation("androidx.constraintlayout:constraintlayout-compose:1.1.0-alpha07")
-    implementation("io.coil-kt:coil-gif:2.2.2")
-    implementation("io.coil-kt:coil-video:2.2.2")
-    implementation 'com.google.android.exoplayer:exoplayer:2.18.4'
-    implementation "com.google.accompanist:accompanist-navigation-animation:0.28.0"
-    implementation "com.google.accompanist:accompanist-navigation-material:0.28.0"
-    implementation "com.patrykandpatrick.vico:compose-m3:1.6.4"
-    implementation "me.saket.telephoto:sub-sampling-image:1.0.0-SNAPSHOT"
-//    implementation 'org.whispersystems:signal-protocol-android:2.7.0'
-
-
+    implementation libs.accompanist.navigation.animation
+    implementation libs.accompanist.navigation.material
+    implementation libs.accompanist.placeholder
+    implementation libs.exoplayer
+    implementation libs.coil.gif
+    implementation libs.coil.video
+    implementation libs.patrykandpatrick
+    implementation libs.cash.molecule
 }
-
-
-

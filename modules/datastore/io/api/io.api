@@ -1,0 +1,9 @@
+public abstract interface class com/hadilq/mastan/datastore/DataStoreLogicIo {
+	public abstract fun getMastanDataStore ()Lcom/hadilq/mastan/datastore/MastanDataStore;
+}
+
+public abstract interface class com/hadilq/mastan/datastore/MastanDataStore {
+	public abstract fun load-IoAF18A (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun save (Lcom/hadilq/mastan/root/RootState;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+

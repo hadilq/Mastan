@@ -1,0 +1,5 @@
+public abstract interface class com/hadilq/mastan/splash/SplashUiIo {
+	public abstract fun getMotionLayoutRes ()I
+	public abstract fun getSplashActivityRes ()I
+}
+

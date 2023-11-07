@@ -1,0 +1,137 @@
+import org.jetbrains.kotlin.gradle.tasks.KaptGenerateStubs
+
+plugins {
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.anvil)
+    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.kotlin.serialization)
+}
+
+android {
+    namespace 'com.hadilq.mastan.legacy'
+    compileSdk libs.versions.compileSdk.get().toInteger()
+
+    defaultConfig {
+        minSdk libs.versions.minSdk.get().toInteger()
+        targetSdk libs.versions.targetSdk.get().toInteger()
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary true
+        }
+    }
+
+    def targetJvm = JavaVersion.VERSION_18
+    if (libs.versions.jvmTarget.get() == "11") {
+        targetJvm = JavaVersion.VERSION_11
+    } else if (libs.versions.jvmTarget.get() == "17") {
+        targetJvm = JavaVersion.VERSION_17
+    }
+    compileOptions {
+        sourceCompatibility targetJvm
+        targetCompatibility targetJvm
+    }
+
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.androidxComposeCompiler.get()
+    }
+    packagingOptions {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
+    lint {
+        // Legacy, remember!! We should respect lint in new modules though.
+        abortOnError false
+        checkReleaseBuilds false
+    }
+}
+
+tasks.withType(KaptGenerateStubs).configureEach {
+    kotlinOptions {
+        jvmTarget = libs.versions.jvmTarget.get()
+    }
+}
+
+dependencies {
+    implementation(projects.modules.theme.io)
+    implementation(projects.modules.splash.io)
+    implementation(projects.modules.root.io)
+    implementation(projects.modules.navigation.io)
+    implementation(projects.modules.auth.io)
+    implementation(projects.modules.loginFlow.io)
+    implementation(projects.modules.network.io)
+    implementation(projects.modules.network.impl)
+
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(platform(libs.google.firebase.bom))
+    implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.material)
+    implementation(libs.google.firebase.analytics)
+    implementation(libs.google.firebase.crashlytics)
+    kapt(libs.dagger.compiler)
+    debugImplementation(libs.androidx.compose.ui.test.manifest)
+    debugImplementation(libs.androidx.compose.ui.tooling)
+    implementation(libs.androidx.compose.ui.tooling.preview)
+    implementation(libs.androidx.compose.ui)
+    implementation(libs.androidx.compose.foundation)
+    implementation(libs.me.saket.swipe)
+    implementation(libs.androidx.activity.activity.compose)
+    implementation(libs.androidx.compose.material)
+    implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.core.core.ktx)
+    implementation(libs.androidx.datastore)
+    implementation(libs.androidx.lifecycle.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.lifecycle.runtime.compose)
+    implementation(libs.com.google.dagger)
+    implementation(libs.com.squareup.retrofit2.retrofit)
+    implementation(libs.de.charlex.compose.revealswipe)
+    implementation(libs.coil.compose)
+    implementation(libs.com.jakewharton.retrofit)
+    implementation(libs.com.squareup.okhttp3.logging.interceptor)
+    implementation(libs.com.squareup.okhttp3.okhttp)
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.browser)
+    implementation(libs.store.cache)
+    implementation(libs.store.jvm)
+    implementation(libs.androidx.paging.compose)
+    implementation(libs.retained.compose)
+    implementation(libs.androidx.nav.compose)
+    implementation(libs.accompanist.pager)
+    implementation(libs.accompanist.pager.indicators)
+    implementation(libs.kotlin.datetime)
+    implementation(libs.me.saket.zoomable)
+    implementation(libs.me.saket.zoomable.coil)
+
+    // If using indicators, also depend on
+    api(libs.atomicfu)
+
+    testImplementation(libs.coroutines.test)
+    testImplementation(libs.junit)
+    testImplementation(libs.assertj)
+
+    androidTestImplementation(libs.coroutines.test)
+    androidTestImplementation(libs.junit)
+    androidTestImplementation(libs.assertj)
+    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
+    androidTestImplementation(libs.espresso)
+    androidTestImplementation(libs.junit.ext)
+
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.room.paging)
+    kapt(libs.androidx.room.compiler)
+
+    implementation libs.accompanist.navigation.animation
+    implementation libs.accompanist.navigation.material
+    implementation libs.accompanist.placeholder
+    implementation libs.exoplayer
+    implementation libs.coil.gif
+    implementation libs.coil.video
+    implementation libs.patrykandpatrick
+}

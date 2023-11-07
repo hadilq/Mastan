@@ -4,10 +4,13 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
-        android:name="com.androiddev.social.FireflyApp"
+        android:name="com.hadilq.mastan.UserParent"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -20,7 +23,7 @@
         android:configChanges="locale|layoutDirection">
         <activity
             android:configChanges="locale|layoutDirection"
-            android:name="com.androiddev.social.ui.SplashActivity"
+            android:name="com.hadilq.mastan.splash.SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.Splash"
             >
@@ -32,11 +35,10 @@
         </activity>
         <activity
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
-            android:name="com.androiddev.social.timeline.ui.MainActivity"
+            android:name="com.hadilq.mastan.timeline.ui.MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:launchMode="singleInstance"
-            android:theme="@style/Theme.Firefly"
+            android:theme="@style/Theme.Mastan"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -49,7 +51,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="fireflyoauth2redirect" />
+                <data android:scheme="mastanoauth2redirect" />
             </intent-filter>
 
             <meta-data

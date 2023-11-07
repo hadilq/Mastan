@@ -1,7 +1,10 @@
 let
-  pkgs = import (
-      fetchTarball https://github.com/nixos/nixpkgs/tarball/9f9f5dde5c687f3cb9d67715af7318c1a7cc4103
-    ) {
+  # fetchGit { url = "/home/hadi/dev/nixpkgs"; rev = "cafee7500dc2f5a26b499598144e2762aa4b6a0f"; }
+  pkgs = import
+    (
+      fetchTarball https://github.com/nixos/nixpkgs/tarball/1809b328770806f94d306799147cc1a847d5328f
+    )
+    {
       config.android_sdk.accept_license = true;
       config.allowUnfree = true;
     };
@@ -12,8 +15,7 @@ let
       buildTools = [
         "30.0.3"
         "31.0.0"
-        "32.0.0"
-        "33.0.2"
+        "33.0.1"
       ];
       cmdLine = "8.0";
       emulator = "32.1.12";
@@ -47,13 +49,13 @@ let
     ];
   };
 
+  androidComposition = pkgs.androidenv.composeAndroidPackages sdkArgs;
   androidSdk = androidComposition.androidsdk;
   androidSdkHome = "${androidSdk}/libexec/android-sdk";
   userHome = "${builtins.toString ./.user-home}";
   androidUserHome = "${userHome}/.android";
   androidAvdHome = "${androidUserHome}/avd";
 
-  androidComposition = pkgs.androidenv.composeAndroidPackages sdkArgs;
 
   androidEmulator = pkgs.androidenv.emulateApp {
     name = "emulate-android-nix";
@@ -66,7 +68,7 @@ let
   };
 
   platformTools = androidComposition.platform-tools;
-  jdk = pkgs.jdk11;
+  jdk = pkgs.jdk17;
 in
 with pkgs;
 pkgs.mkShell {
@@ -81,6 +83,11 @@ pkgs.mkShell {
     libunwind
     android-studio
     gradle
+    glslang
+    vulkan-headers
+    vulkan-loader
+    vulkan-validation-layers
+    vulkan-tools
   ];
 
   JAVA_HOME = "${jdk}";
