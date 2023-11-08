@@ -55,11 +55,11 @@ However, currently the only platform in this repository is Android, mainly becau
 but if you check the code it's easy to extend it to other platforms.
 
 Here the code after refactoring is not depending on the [Dagger](https://github.com/google/dagger), and [Anvil](https://github.com/square/anvil),
-because this way of handling dependency injection has less boilerplate code and it's much more clear,
+because the no-framework that is used here to handle dependency injection has less boilerplate code and it's much more clear,
 and also, don't let me start on the build time.
 Notice here the no-framework dependency injection is working on all platforms,
 where Dagger and Anvil are restricted to Android.
-Additionally, be aware that the no-framework is a real dependency inject, not a service locator!
+Additionally, be aware that the no-framework is a real dependency injection, not a service locator!
 
 Each module, as an independent part of the code, has two Gradle modules, `io`, and `impl` module,
 as you may expect from the implementation of Dependency Inversion Principle.
