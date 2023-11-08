@@ -11,17 +11,17 @@ let
 
   android = {
     versions = {
-      platformTools = "33.0.3";
+      platformTools = "34.0.5";
       buildTools = [
         "30.0.3"
-        "31.0.0"
         "33.0.1"
+        "34.0.0"
       ];
-      cmdLine = "8.0";
-      emulator = "32.1.12";
+      cmdLine = "9.0";
+      emulator = "32.1.15";
     };
 
-    platforms = [ "27" "28" "29" "30" "31" "32" "33" ];
+    platforms = [ "27" "28" "29" "30" "31" "32" "33" "34" ];
     abis = [ "x86" "x86_64" ]; # "armeabi-v7a" "arm64-v8a"
     extras = [ "extras;google;gcm" ];
   };
@@ -72,7 +72,7 @@ let
 in
 with pkgs;
 pkgs.mkShell {
-  name = "firefly-mastodon";
+  name = "maston-development";
 
   packages = [
     androidEmulator
