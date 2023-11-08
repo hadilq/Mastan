@@ -7,13 +7,13 @@ on:
 
 jobs:
   check:
-    name: Check
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: cachix/install-nix-action@v22
-        with:
-          nix_path: nixpkgs=channel:nixos-23.05
-
-      - name: Build and check
-      - run: nix-build .github/workflow/check.nix
+    - name: checkout
+      uses: actions/checkout@v2
+    - name: set up nixpkgs
+      uses: cachix/install-nix-action@v22
+      with:
+        nix_path: nixpkgs=channel:nixos-23.05
+    - name: Build and check
+      run: nix-build .github/workflows/check.nix
