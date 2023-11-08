@@ -51,7 +51,11 @@ fun RealNavigationLogic(
             }
 
             is LoginFlowNavigationEvent -> {}
-            NoNavigationEvent -> {}
+            NoNavigationEvent -> {
+                if (authLogicIo.state is NoAuthState && state.stack.isEmpty()) {
+                    onState(NavigationState(listOf(LoginFlow(InitialLoginFlowState))))
+                }
+            }
         }
     }
 

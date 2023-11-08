@@ -61,7 +61,7 @@ fun SignInUi(
             Icon(
                 imageVector = Icons.Rounded.ArrowBack,
                 contentDescription = "Back",
-                tint = colorScheme.primary,
+                tint = colorScheme.onSurface,
             )
         }
         when (state) {
