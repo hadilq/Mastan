@@ -62,6 +62,12 @@ tasks.withType(KaptGenerateStubs).configureEach {
     }
 }
 
+tasks.configureEach { task ->
+    if(task.name.toLowerCase().contains("testrelease")) {
+        task.enabled = false
+    }
+}
+
 dependencies {
     implementation(projects.modules.theme.io)
     implementation(projects.modules.splash.io)

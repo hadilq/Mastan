@@ -24,6 +24,7 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.KotlinMultiplatformPluginWrapper
+import java.util.Locale
 
 class ModuleImplPlugin : Plugin<Project> {
 
@@ -38,6 +39,13 @@ class ModuleImplPlugin : Plugin<Project> {
             configureMultiplatformModule(libs)
         )
         target.extensions.configure(LibraryExtension::class.java, configureAndroidModule(libs))
+
+        target.tasks.configureEach {
+            // Disable testRelease tasks
+            if(name.lowercase(Locale.ROOT).contains("testrelease")) {
+                enabled = false
+            }
+        }
     }
 
     private fun configureMultiplatformModule(libs: LibrariesForLibs): (KotlinMultiplatformExtension).() -> Unit =
