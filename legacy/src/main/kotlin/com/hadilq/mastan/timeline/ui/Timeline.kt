@@ -42,7 +42,6 @@ import androidx.navigation.NavController
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import androidx.paging.compose.items
 import coil.ImageLoader
 import com.hadilq.mastan.AuthRequiredComponent
 import com.hadilq.mastan.UserComponent
@@ -57,6 +56,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 import com.hadilq.mastan.legacy.R
 import com.hadilq.mastan.theme.LocalMastanThemeUiIo
+import com.hadilq.mastan.ui.util.lazyItems
 import java.net.URI
 
 val LocalAuthComponent = compositionLocalOf<AuthRequiredInjector> { error("No component found!") }
@@ -617,7 +617,7 @@ fun TimelineRows(
             }
         } else {
             LazyColumn(state = lazyListState) {
-                items(
+                lazyItems(
                     items = item,
                     key = { "${it.originalId}  ${it.boostCount} ${it.replyCount}" }) {
                     TimelineCard(

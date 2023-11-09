@@ -33,11 +33,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.paging.compose.LazyPagingItems
-import androidx.paging.compose.items
 import com.hadilq.mastan.theme.LocalMastanThemeUiIo
 import com.hadilq.mastan.network.dto.Account
 import com.hadilq.mastan.timeline.ui.AvatarImage
 import com.hadilq.mastan.ui.util.emojiText
+import com.hadilq.mastan.ui.util.lazyItems
 
 @Composable
 fun AccountTab(
@@ -57,7 +57,7 @@ fun AccountTab(
                 Divider()
             }
         else {
-            items(
+            lazyItems(
                 items = resultsPaging!!,
                 key = { it.id }) {
                 if (it != null)

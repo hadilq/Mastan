@@ -3,21 +3,22 @@ compileSdk = "34"
 minSdk = "24"
 targetSdk = "34"
 jvmTarget = "17"
-androidx-activity = "1.3.1"
+androidx-activity = "1.8.0"
 accompanist = "0.28.0"
-androidx-material = "1.4.0"
+androidx-material = "1.10.0"
 androidx-arch-core = "2.1.0"
 androidxComposeBom = "2023.06.01"
 androidxComposeCompiler = "1.4.3"
+androidx-compose-plugin  = "1.5.10"
 androidx-compose = "1.4.3"
 androidx-compose-runtime = "1.4.3"
 androidx-compose-material3= "1.1.1"
-androidx-core = "1.8.0"
+androidx-core = "1.12.0"
 androidx-appcompat = "1.6.1"
-androidx-nav-compose = "2.5.3"
-androidx-paging-compose = "1.0.0-alpha18"
+androidx-nav-compose = "2.6.0"
+androidx-paging-compose = "3.2.1"
 androidx-datastore = "1.0.0"
-androidx-annotation = "1.1.0"
+androidx-annotation = "1.7.0"
 anvil = "2.4.4"
 assertj = "3.24.2"
 atomicfu = "0.20.2"
@@ -39,22 +40,22 @@ kotlin = "1.8.10"
 kotlin-android-plugin = "1.6.21"
 kotlinx-api-compatibility = "0.13.2"
 junit4 = "4.13.2"
-junit-ext = "1.1.3"
-lifecycle-runtime-ktx = "2.3.1"
-io-coil-kt = "2.2.2"
+junit-ext = "1.1.5"
+lifecycle-runtime-ktx = "2.6.2"
+io-coil-kt = "2.3.0"
 retained-compose = "1.0.0"
 retrofit = "2.9.0"
 revealswipe = "1.0.0"
 store = "5.0.0-alpha03"
 swipe = "1.0.0"
-room = "2.5.0"
+room = "2.6.0"
 me-saket-zoomable = "0.3.0"
 cash-molecule = "0.8.0"
 
 [libraries]
 kotlin-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 android-plugin = { module  = "com.android.tools.build:gradle", version.ref = "gradle-plugin" }
-compose-plugin = { module = "org.jetbrains.compose:compose-gradle-plugin", version.ref = "androidx-compose" }
+compose-plugin = { module = "org.jetbrains.compose:compose-gradle-plugin", version.ref = "androidx-compose-plugin" }
 kapt-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlinx-serialization-plugin = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kotlin" }
 kotlinx-api-compatibility = { module = "org.jetbrains.kotlinx:binary-compatibility-validator", version.ref = "kotlinx-api-compatibility" }
@@ -110,7 +111,7 @@ kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serializa
 retained-compose = { module = "dev.marcellogalhardo:retained-compose", version.ref = "retained-compose" }
 store-cache = { module = "org.mobilenativefoundation.store:cache5-jvm", version.ref = "store" }
 store-jvm = { module = "org.mobilenativefoundation.store:store5-jvm", version.ref = "store" }
-google-firebase-bom = "com.google.firebase:firebase-bom:31.2.3"
+google-firebase-bom = "com.google.firebase:firebase-bom:32.5.0"
 google-firebase-analytics = { module = "com.google.firebase:firebase-analytics-ktx" }
 google-firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics-ktx" }
 androidx-room-common = { module = "androidx.room:room-common", version.ref = "room" }
@@ -121,7 +122,7 @@ androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "
 androidx-room-testing = { module = "androidx.room:room-testing", version.ref = "room" }
 kotlin-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
 patrykandpatrick = "com.patrykandpatrick.vico:compose-m3:1.6.4"
-exoplayer = "com.google.android.exoplayer:exoplayer:2.18.4"
+exoplayer = "com.google.android.exoplayer:exoplayer:2.19.1"
 assertk = "com.willowtreeapps.assertk:assertk:0.27.0"
 cash-molecule = { module = "app.cash.molecule:molecule-runtime", version.ref = "cash-molecule" }
 robolectric = { module = "org.robolectric:robolectric", version = "4.10.3" }
