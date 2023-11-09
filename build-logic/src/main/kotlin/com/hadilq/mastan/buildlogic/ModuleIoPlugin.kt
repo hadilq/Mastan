@@ -66,6 +66,7 @@ class ModuleIoPlugin : Plugin<Project> {
             }
 
             val targetSdk = when (libs.versions.jvmTarget.get()) {
+                "19" -> JavaVersion.VERSION_19
                 "17" -> JavaVersion.VERSION_17
                 "11" -> JavaVersion.VERSION_11
                 else -> JavaVersion.VERSION_18

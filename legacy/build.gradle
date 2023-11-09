@@ -27,10 +27,15 @@ android {
         targetJvm = JavaVersion.VERSION_11
     } else if (libs.versions.jvmTarget.get() == "17") {
         targetJvm = JavaVersion.VERSION_17
+    } else if (libs.versions.jvmTarget.get() == "19") {
+        targetJvm = JavaVersion.VERSION_19
     }
     compileOptions {
         sourceCompatibility targetJvm
         targetCompatibility targetJvm
+    }
+    kotlinOptions {
+        jvmTarget = libs.versions.jvmTarget.get()
     }
 
     buildFeatures {
