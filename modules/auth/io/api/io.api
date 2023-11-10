@@ -1,7 +1,6 @@
 public final class com/hadilq/mastan/auth/AccessTokenRequest {
 	public static final field $stable I
 	public static final field Companion Lcom/hadilq/mastan/auth/AccessTokenRequest$Companion;
-	public synthetic fun <init> (ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
@@ -23,7 +22,6 @@ public final class com/hadilq/mastan/auth/AccessTokenRequest {
 	public final fun getScope ()Ljava/lang/String;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
-	public static final fun write$Self (Lcom/hadilq/mastan/auth/AccessTokenRequest;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
 }
 
 public final class com/hadilq/mastan/auth/AccessTokenRequest$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -79,7 +77,6 @@ public final class com/hadilq/mastan/auth/AuthState$Companion {
 public final class com/hadilq/mastan/auth/LoggedInAccountsState : com/hadilq/mastan/auth/AuthState {
 	public static final field $stable I
 	public static final field Companion Lcom/hadilq/mastan/auth/LoggedInAccountsState$Companion;
-	public synthetic fun <init> (ILjava/util/Map;Lcom/hadilq/mastan/auth/User;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
 	public fun <init> (Ljava/util/Map;Lcom/hadilq/mastan/auth/User;)V
 	public synthetic fun <init> (Ljava/util/Map;Lcom/hadilq/mastan/auth/User;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/util/Map;
@@ -91,7 +88,6 @@ public final class com/hadilq/mastan/auth/LoggedInAccountsState : com/hadilq/mas
 	public final fun getServers ()Ljava/util/Map;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
-	public static final fun write$Self (Lcom/hadilq/mastan/auth/LoggedInAccountsState;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
 }
 
 public final class com/hadilq/mastan/auth/LoggedInAccountsState$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -150,7 +146,6 @@ public final class com/hadilq/mastan/auth/RemoveUserByDetailsAuthEvent : com/had
 public final class com/hadilq/mastan/auth/Server {
 	public static final field $stable I
 	public static final field Companion Lcom/hadilq/mastan/auth/Server$Companion;
-	public synthetic fun <init> (ILjava/lang/String;Ljava/util/Map;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
 	public fun <init> (Ljava/lang/String;Ljava/util/Map;)V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
@@ -162,7 +157,6 @@ public final class com/hadilq/mastan/auth/Server {
 	public final fun getUsers ()Ljava/util/Map;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
-	public static final fun write$Self (Lcom/hadilq/mastan/auth/Server;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
 }
 
 public final class com/hadilq/mastan/auth/Server$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -184,7 +178,6 @@ public final class com/hadilq/mastan/auth/Server$Companion {
 public final class com/hadilq/mastan/auth/User {
 	public static final field $stable I
 	public static final field Companion Lcom/hadilq/mastan/auth/User$Companion;
-	public synthetic fun <init> (ILcom/hadilq/mastan/auth/AccessTokenRequest;Ljava/lang/String;Ljava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
 	public fun <init> (Lcom/hadilq/mastan/auth/AccessTokenRequest;Ljava/lang/String;Ljava/lang/String;)V
 	public final fun component1 ()Lcom/hadilq/mastan/auth/AccessTokenRequest;
 	public final fun component2 ()Ljava/lang/String;
@@ -197,7 +190,6 @@ public final class com/hadilq/mastan/auth/User {
 	public final fun getDomain ()Ljava/lang/String;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
-	public static final fun write$Self (Lcom/hadilq/mastan/auth/User;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
 }
 
 public final class com/hadilq/mastan/auth/User$$serializer : kotlinx/serialization/internal/GeneratedSerializer {

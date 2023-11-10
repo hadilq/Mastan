@@ -46,7 +46,6 @@ public final class com/hadilq/mastan/root/RootLogicIoKt {
 public final class com/hadilq/mastan/root/RootState {
 	public static final field $stable I
 	public static final field Companion Lcom/hadilq/mastan/root/RootState$Companion;
-	public synthetic fun <init> (ILcom/hadilq/mastan/auth/AuthState;Lcom/hadilq/mastan/navigation/NavigationState;Lcom/hadilq/mastan/theme/MastanThemeState;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
 	public fun <init> (Lcom/hadilq/mastan/auth/AuthState;Lcom/hadilq/mastan/navigation/NavigationState;Lcom/hadilq/mastan/theme/MastanThemeState;)V
 	public final fun component1 ()Lcom/hadilq/mastan/auth/AuthState;
 	public final fun component2 ()Lcom/hadilq/mastan/navigation/NavigationState;
@@ -59,7 +58,6 @@ public final class com/hadilq/mastan/root/RootState {
 	public final fun getThemeState ()Lcom/hadilq/mastan/theme/MastanThemeState;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
-	public static final fun write$Self (Lcom/hadilq/mastan/root/RootState;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
 }
 
 public final class com/hadilq/mastan/root/RootState$$serializer : kotlinx/serialization/internal/GeneratedSerializer {

@@ -115,7 +115,6 @@ public final class com/hadilq/mastan/network/UserApi$DefaultImpls {
 public final class com/hadilq/mastan/network/dto/Account {
 	public static final field $stable I
 	public static final field Companion Lcom/hadilq/mastan/network/dto/Account$Companion;
-	public synthetic fun <init> (ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ZLjava/util/List;Ljava/lang/Boolean;Ljava/lang/String;Ljava/lang/String;IIILcom/hadilq/mastan/network/dto/Account;Ljava/util/List;Ljava/lang/Boolean;Lcom/hadilq/mastan/network/dto/Source;Ljava/lang/Boolean;Ljava/lang/String;Ljava/lang/String;ZLjava/lang/Boolean;Ljava/lang/Boolean;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ZLjava/util/List;Ljava/lang/Boolean;Ljava/lang/String;Ljava/lang/String;IIILcom/hadilq/mastan/network/dto/Account;Ljava/util/List;Ljava/lang/Boolean;Lcom/hadilq/mastan/network/dto/Source;Ljava/lang/Boolean;Ljava/lang/String;Ljava/lang/String;ZLjava/lang/Boolean;Ljava/lang/Boolean;)V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ZLjava/util/List;Ljava/lang/Boolean;Ljava/lang/String;Ljava/lang/String;IIILcom/hadilq/mastan/network/dto/Account;Ljava/util/List;Ljava/lang/Boolean;Lcom/hadilq/mastan/network/dto/Source;Ljava/lang/Boolean;Ljava/lang/String;Ljava/lang/String;ZLjava/lang/Boolean;Ljava/lang/Boolean;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
@@ -179,7 +178,6 @@ public final class com/hadilq/mastan/network/dto/Account {
 	public fun hashCode ()I
 	public final fun isFollowed ()Z
 	public fun toString ()Ljava/lang/String;
-	public static final fun write$Self (Lcom/hadilq/mastan/network/dto/Account;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
 }
 
 public final class com/hadilq/mastan/network/dto/Account$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -201,7 +199,6 @@ public final class com/hadilq/mastan/network/dto/Account$Companion {
 public final class com/hadilq/mastan/network/dto/Application {
 	public static final field $stable I
 	public static final field Companion Lcom/hadilq/mastan/network/dto/Application$Companion;
-	public synthetic fun <init> (ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
@@ -215,7 +212,6 @@ public final class com/hadilq/mastan/network/dto/Application {
 	public final fun getWebsite ()Ljava/lang/String;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
-	public static final fun write$Self (Lcom/hadilq/mastan/network/dto/Application;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
 }
 
 public final class com/hadilq/mastan/network/dto/Application$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -237,7 +233,6 @@ public final class com/hadilq/mastan/network/dto/Application$Companion {
 public final class com/hadilq/mastan/network/dto/Attachment {
 	public static final field $stable I
 	public static final field Companion Lcom/hadilq/mastan/network/dto/Attachment$Companion;
-	public synthetic fun <init> (ILjava/lang/String;Lcom/hadilq/mastan/network/dto/AttachmentType;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/hadilq/mastan/network/dto/Hash;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
 	public fun <init> (Ljava/lang/String;Lcom/hadilq/mastan/network/dto/AttachmentType;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/hadilq/mastan/network/dto/Hash;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
 	public synthetic fun <init> (Ljava/lang/String;Lcom/hadilq/mastan/network/dto/AttachmentType;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/hadilq/mastan/network/dto/Hash;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
@@ -263,7 +258,6 @@ public final class com/hadilq/mastan/network/dto/Attachment {
 	public final fun getUrl ()Ljava/lang/String;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
-	public static final fun write$Self (Lcom/hadilq/mastan/network/dto/Attachment;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
 }
 
 public final class com/hadilq/mastan/network/dto/Attachment$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -288,6 +282,7 @@ public final class com/hadilq/mastan/network/dto/AttachmentType : java/lang/Enum
 	public static final field image Lcom/hadilq/mastan/network/dto/AttachmentType;
 	public static final field unknown Lcom/hadilq/mastan/network/dto/AttachmentType;
 	public static final field video Lcom/hadilq/mastan/network/dto/AttachmentType;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public static fun valueOf (Ljava/lang/String;)Lcom/hadilq/mastan/network/dto/AttachmentType;
 	public static fun values ()[Lcom/hadilq/mastan/network/dto/AttachmentType;
 }
@@ -295,7 +290,6 @@ public final class com/hadilq/mastan/network/dto/AttachmentType : java/lang/Enum
 public final class com/hadilq/mastan/network/dto/Card {
 	public static final field $stable I
 	public static final field Companion Lcom/hadilq/mastan/network/dto/Card$Companion;
-	public synthetic fun <init> (ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/hadilq/mastan/network/dto/CardType;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/hadilq/mastan/network/dto/CardType;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/hadilq/mastan/network/dto/CardType;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
@@ -331,7 +325,6 @@ public final class com/hadilq/mastan/network/dto/Card {
 	public final fun getWidth ()Ljava/lang/Integer;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
-	public static final fun write$Self (Lcom/hadilq/mastan/network/dto/Card;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
 }
 
 public final class com/hadilq/mastan/network/dto/Card$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -356,6 +349,7 @@ public final class com/hadilq/mastan/network/dto/CardType : java/lang/Enum {
 	public static final field photo Lcom/hadilq/mastan/network/dto/CardType;
 	public static final field rich Lcom/hadilq/mastan/network/dto/CardType;
 	public static final field video Lcom/hadilq/mastan/network/dto/CardType;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public static fun valueOf (Ljava/lang/String;)Lcom/hadilq/mastan/network/dto/CardType;
 	public static fun values ()[Lcom/hadilq/mastan/network/dto/CardType;
 }
@@ -367,7 +361,6 @@ public final class com/hadilq/mastan/network/dto/CardType$Companion {
 public final class com/hadilq/mastan/network/dto/Emoji {
 	public static final field $stable I
 	public static final field Companion Lcom/hadilq/mastan/network/dto/Emoji$Companion;
-	public synthetic fun <init> (ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;ZLjava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ZLjava/lang/String;)V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ZLjava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
@@ -385,7 +378,6 @@ public final class com/hadilq/mastan/network/dto/Emoji {
 	public final fun getVisibleInPicker ()Z
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
-	public static final fun write$Self (Lcom/hadilq/mastan/network/dto/Emoji;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
 }
 
 public final class com/hadilq/mastan/network/dto/Emoji$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -407,7 +399,6 @@ public final class com/hadilq/mastan/network/dto/Emoji$Companion {
 public final class com/hadilq/mastan/network/dto/Field {
 	public static final field $stable I
 	public static final field Companion Lcom/hadilq/mastan/network/dto/Field$Companion;
-	public synthetic fun <init> (ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
@@ -421,7 +412,6 @@ public final class com/hadilq/mastan/network/dto/Field {
 	public final fun getVerifiedAt ()Ljava/lang/String;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
-	public static final fun write$Self (Lcom/hadilq/mastan/network/dto/Field;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
 }
 
 public final class com/hadilq/mastan/network/dto/Field$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -444,7 +434,6 @@ public final class com/hadilq/mastan/network/dto/Focus {
 	public static final field $stable I
 	public static final field Companion Lcom/hadilq/mastan/network/dto/Focus$Companion;
 	public fun <init> ()V
-	public synthetic fun <init> (ILjava/lang/Float;Ljava/lang/Float;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
 	public fun <init> (Ljava/lang/Float;Ljava/lang/Float;)V
 	public synthetic fun <init> (Ljava/lang/Float;Ljava/lang/Float;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/Float;
@@ -456,7 +445,6 @@ public final class com/hadilq/mastan/network/dto/Focus {
 	public final fun getY ()Ljava/lang/Float;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
-	public static final fun write$Self (Lcom/hadilq/mastan/network/dto/Focus;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
 }
 
 public final class com/hadilq/mastan/network/dto/Focus$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -479,7 +467,6 @@ public final class com/hadilq/mastan/network/dto/Hash {
 	public static final field $stable I
 	public static final field Companion Lcom/hadilq/mastan/network/dto/Hash$Companion;
 	public fun <init> ()V
-	public synthetic fun <init> (ILcom/hadilq/mastan/network/dto/Original;Lcom/hadilq/mastan/network/dto/Small;Lcom/hadilq/mastan/network/dto/Focus;Ljava/lang/String;Ljava/lang/Float;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Float;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
 	public fun <init> (Lcom/hadilq/mastan/network/dto/Original;Lcom/hadilq/mastan/network/dto/Small;Lcom/hadilq/mastan/network/dto/Focus;Ljava/lang/String;Ljava/lang/Float;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Float;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
 	public synthetic fun <init> (Lcom/hadilq/mastan/network/dto/Original;Lcom/hadilq/mastan/network/dto/Small;Lcom/hadilq/mastan/network/dto/Focus;Ljava/lang/String;Ljava/lang/Float;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Float;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Lcom/hadilq/mastan/network/dto/Original;
@@ -517,7 +504,6 @@ public final class com/hadilq/mastan/network/dto/Hash {
 	public final fun getWidth ()Ljava/lang/Integer;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
-	public static final fun write$Self (Lcom/hadilq/mastan/network/dto/Hash;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
 }
 
 public final class com/hadilq/mastan/network/dto/Hash$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -539,7 +525,6 @@ public final class com/hadilq/mastan/network/dto/Hash$Companion {
 public final class com/hadilq/mastan/network/dto/History {
 	public static final field $stable I
 	public static final field Companion Lcom/hadilq/mastan/network/dto/History$Companion;
-	public synthetic fun <init> (ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
 	public final fun component1 ()Ljava/lang/String;
 	public final fun component2 ()Ljava/lang/String;
@@ -552,7 +537,6 @@ public final class com/hadilq/mastan/network/dto/History {
 	public final fun getUses ()Ljava/lang/String;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
-	public static final fun write$Self (Lcom/hadilq/mastan/network/dto/History;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
 }
 
 public final class com/hadilq/mastan/network/dto/History$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -574,7 +558,6 @@ public final class com/hadilq/mastan/network/dto/History$Companion {
 public final class com/hadilq/mastan/network/dto/Mention {
 	public static final field $stable I
 	public static final field Companion Lcom/hadilq/mastan/network/dto/Mention$Companion;
-	public synthetic fun <init> (ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
 	public final fun component1 ()Ljava/lang/String;
 	public final fun component2 ()Ljava/lang/String;
@@ -589,7 +572,6 @@ public final class com/hadilq/mastan/network/dto/Mention {
 	public final fun getUsername ()Ljava/lang/String;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
-	public static final fun write$Self (Lcom/hadilq/mastan/network/dto/Mention;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
 }
 
 public final class com/hadilq/mastan/network/dto/Mention$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -611,7 +593,6 @@ public final class com/hadilq/mastan/network/dto/Mention$Companion {
 public final class com/hadilq/mastan/network/dto/NewOauthApplication {
 	public static final field $stable I
 	public static final field Companion Lcom/hadilq/mastan/network/dto/NewOauthApplication$Companion;
-	public synthetic fun <init> (ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
@@ -633,7 +614,6 @@ public final class com/hadilq/mastan/network/dto/NewOauthApplication {
 	public final fun getWebsite ()Ljava/lang/String;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
-	public static final fun write$Self (Lcom/hadilq/mastan/network/dto/NewOauthApplication;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
 }
 
 public final class com/hadilq/mastan/network/dto/NewOauthApplication$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -655,7 +635,6 @@ public final class com/hadilq/mastan/network/dto/NewOauthApplication$Companion {
 public final class com/hadilq/mastan/network/dto/NewPoll {
 	public static final field $stable I
 	public static final field Companion Lcom/hadilq/mastan/network/dto/NewPoll$Companion;
-	public synthetic fun <init> (ILjava/util/List;IZZLkotlinx/serialization/internal/SerializationConstructorMarker;)V
 	public fun <init> (Ljava/util/List;IZZ)V
 	public synthetic fun <init> (Ljava/util/List;IZZILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/util/List;
@@ -671,7 +650,6 @@ public final class com/hadilq/mastan/network/dto/NewPoll {
 	public final fun getOptions ()Ljava/util/List;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
-	public static final fun write$Self (Lcom/hadilq/mastan/network/dto/NewPoll;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
 }
 
 public final class com/hadilq/mastan/network/dto/NewPoll$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -693,7 +671,6 @@ public final class com/hadilq/mastan/network/dto/NewPoll$Companion {
 public final class com/hadilq/mastan/network/dto/NewStatus {
 	public static final field $stable I
 	public static final field Companion Lcom/hadilq/mastan/network/dto/NewStatus$Companion;
-	public synthetic fun <init> (ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Lcom/hadilq/mastan/network/dto/NewPoll;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Lcom/hadilq/mastan/network/dto/NewPoll;)V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Lcom/hadilq/mastan/network/dto/NewPoll;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
@@ -711,7 +688,6 @@ public final class com/hadilq/mastan/network/dto/NewStatus {
 	public final fun getVisibility ()Ljava/lang/String;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
-	public static final fun write$Self (Lcom/hadilq/mastan/network/dto/NewStatus;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
 }
 
 public final class com/hadilq/mastan/network/dto/NewStatus$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -733,7 +709,6 @@ public final class com/hadilq/mastan/network/dto/NewStatus$Companion {
 public final class com/hadilq/mastan/network/dto/Notification {
 	public static final field $stable I
 	public static final field Companion Lcom/hadilq/mastan/network/dto/Notification$Companion;
-	public synthetic fun <init> (ILjava/lang/String;Ljava/lang/String;Lcom/hadilq/mastan/network/dto/Status;Lcom/hadilq/mastan/network/dto/Account;Lkotlinx/datetime/Instant;Lcom/hadilq/mastan/network/dto/Type;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;Lcom/hadilq/mastan/network/dto/Status;Lcom/hadilq/mastan/network/dto/Account;Lkotlinx/datetime/Instant;Lcom/hadilq/mastan/network/dto/Type;)V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lcom/hadilq/mastan/network/dto/Status;Lcom/hadilq/mastan/network/dto/Account;Lkotlinx/datetime/Instant;Lcom/hadilq/mastan/network/dto/Type;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
@@ -753,7 +728,6 @@ public final class com/hadilq/mastan/network/dto/Notification {
 	public final fun getType ()Ljava/lang/String;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
-	public static final fun write$Self (Lcom/hadilq/mastan/network/dto/Notification;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
 }
 
 public final class com/hadilq/mastan/network/dto/Notification$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -776,7 +750,6 @@ public final class com/hadilq/mastan/network/dto/Original {
 	public static final field $stable I
 	public static final field Companion Lcom/hadilq/mastan/network/dto/Original$Companion;
 	public fun <init> ()V
-	public synthetic fun <init> (ILjava/lang/Integer;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/String;Ljava/lang/Integer;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
 	public fun <init> (Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/String;Ljava/lang/Integer;)V
 	public synthetic fun <init> (Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/String;Ljava/lang/Integer;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/Integer;
@@ -798,7 +771,6 @@ public final class com/hadilq/mastan/network/dto/Original {
 	public final fun getWidth ()Ljava/lang/Integer;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
-	public static final fun write$Self (Lcom/hadilq/mastan/network/dto/Original;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
 }
 
 public final class com/hadilq/mastan/network/dto/Original$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -820,7 +792,6 @@ public final class com/hadilq/mastan/network/dto/Original$Companion {
 public final class com/hadilq/mastan/network/dto/Poll {
 	public static final field $stable I
 	public static final field Companion Lcom/hadilq/mastan/network/dto/Poll$Companion;
-	public synthetic fun <init> (ILjava/lang/String;Ljava/lang/String;ZZLjava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Boolean;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;ZZLjava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Boolean;Ljava/util/List;Ljava/util/List;Ljava/util/List;)V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;ZZLjava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Boolean;Ljava/util/List;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
@@ -848,7 +819,6 @@ public final class com/hadilq/mastan/network/dto/Poll {
 	public final fun getVotesCount ()Ljava/lang/Integer;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
-	public static final fun write$Self (Lcom/hadilq/mastan/network/dto/Poll;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
 }
 
 public final class com/hadilq/mastan/network/dto/Poll$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -870,7 +840,6 @@ public final class com/hadilq/mastan/network/dto/Poll$Companion {
 public final class com/hadilq/mastan/network/dto/PollHash {
 	public static final field $stable I
 	public static final field Companion Lcom/hadilq/mastan/network/dto/PollHash$Companion;
-	public synthetic fun <init> (ILjava/lang/String;ILkotlinx/serialization/internal/SerializationConstructorMarker;)V
 	public fun <init> (Ljava/lang/String;I)V
 	public final fun component1 ()Ljava/lang/String;
 	public final fun component2 ()I
@@ -881,7 +850,6 @@ public final class com/hadilq/mastan/network/dto/PollHash {
 	public final fun getVotesCount ()I
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
-	public static final fun write$Self (Lcom/hadilq/mastan/network/dto/PollHash;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
 }
 
 public final class com/hadilq/mastan/network/dto/PollHash$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -905,6 +873,7 @@ public final class com/hadilq/mastan/network/dto/Privacy : java/lang/Enum {
 	public static final field private Lcom/hadilq/mastan/network/dto/Privacy;
 	public static final field public Lcom/hadilq/mastan/network/dto/Privacy;
 	public static final field unlisted Lcom/hadilq/mastan/network/dto/Privacy;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public static fun valueOf (Ljava/lang/String;)Lcom/hadilq/mastan/network/dto/Privacy;
 	public static fun values ()[Lcom/hadilq/mastan/network/dto/Privacy;
 }
@@ -912,7 +881,6 @@ public final class com/hadilq/mastan/network/dto/Privacy : java/lang/Enum {
 public final class com/hadilq/mastan/network/dto/Relationship {
 	public static final field $stable I
 	public static final field Companion Lcom/hadilq/mastan/network/dto/Relationship$Companion;
-	public synthetic fun <init> (ILjava/lang/String;ZZZZZZZZZLjava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
 	public fun <init> (Ljava/lang/String;ZZZZZZZZZLjava/lang/String;)V
 	public final fun component1 ()Ljava/lang/String;
 	public final fun component10 ()Z
@@ -941,7 +909,6 @@ public final class com/hadilq/mastan/network/dto/Relationship {
 	public final fun getRequested ()Z
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
-	public static final fun write$Self (Lcom/hadilq/mastan/network/dto/Relationship;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
 }
 
 public final class com/hadilq/mastan/network/dto/Relationship$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -963,7 +930,6 @@ public final class com/hadilq/mastan/network/dto/Relationship$Companion {
 public final class com/hadilq/mastan/network/dto/SearchResult {
 	public static final field $stable I
 	public static final field Companion Lcom/hadilq/mastan/network/dto/SearchResult$Companion;
-	public synthetic fun <init> (ILjava/util/List;Ljava/util/List;Ljava/util/List;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
 	public fun <init> (Ljava/util/List;Ljava/util/List;Ljava/util/List;)V
 	public final fun component1 ()Ljava/util/List;
 	public final fun component2 ()Ljava/util/List;
@@ -976,7 +942,6 @@ public final class com/hadilq/mastan/network/dto/SearchResult {
 	public final fun getStatuses ()Ljava/util/List;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
-	public static final fun write$Self (Lcom/hadilq/mastan/network/dto/SearchResult;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
 }
 
 public final class com/hadilq/mastan/network/dto/SearchResult$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -999,7 +964,6 @@ public final class com/hadilq/mastan/network/dto/Small {
 	public static final field $stable I
 	public static final field Companion Lcom/hadilq/mastan/network/dto/Small$Companion;
 	public fun <init> ()V
-	public synthetic fun <init> (ILjava/lang/Integer;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/Float;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
 	public fun <init> (Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/Float;)V
 	public synthetic fun <init> (Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/Float;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/Integer;
@@ -1015,7 +979,6 @@ public final class com/hadilq/mastan/network/dto/Small {
 	public final fun getWidth ()Ljava/lang/Integer;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
-	public static final fun write$Self (Lcom/hadilq/mastan/network/dto/Small;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
 }
 
 public final class com/hadilq/mastan/network/dto/Small$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -1037,7 +1000,6 @@ public final class com/hadilq/mastan/network/dto/Small$Companion {
 public final class com/hadilq/mastan/network/dto/Source {
 	public static final field $stable I
 	public static final field Companion Lcom/hadilq/mastan/network/dto/Source$Companion;
-	public synthetic fun <init> (ILjava/lang/String;Ljava/util/List;Lcom/hadilq/mastan/network/dto/Privacy;ZLjava/lang/String;ILkotlinx/serialization/internal/SerializationConstructorMarker;)V
 	public fun <init> (Ljava/lang/String;Ljava/util/List;Lcom/hadilq/mastan/network/dto/Privacy;ZLjava/lang/String;I)V
 	public final fun component1 ()Ljava/lang/String;
 	public final fun component2 ()Ljava/util/List;
@@ -1056,7 +1018,6 @@ public final class com/hadilq/mastan/network/dto/Source {
 	public final fun getSensitive ()Z
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
-	public static final fun write$Self (Lcom/hadilq/mastan/network/dto/Source;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
 }
 
 public final class com/hadilq/mastan/network/dto/Source$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -1078,7 +1039,6 @@ public final class com/hadilq/mastan/network/dto/Source$Companion {
 public final class com/hadilq/mastan/network/dto/Status {
 	public static final field $stable I
 	public static final field Companion Lcom/hadilq/mastan/network/dto/Status$Companion;
-	public synthetic fun <init> (ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlinx/datetime/Instant;Lcom/hadilq/mastan/network/dto/Account;Ljava/lang/String;Lcom/hadilq/mastan/network/dto/Privacy;ZLjava/lang/String;Ljava/util/List;Lcom/hadilq/mastan/network/dto/Application;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/hadilq/mastan/network/dto/Status;Lcom/hadilq/mastan/network/dto/Poll;Lcom/hadilq/mastan/network/dto/Card;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlinx/datetime/Instant;Lcom/hadilq/mastan/network/dto/Account;Ljava/lang/String;Lcom/hadilq/mastan/network/dto/Privacy;ZLjava/lang/String;Ljava/util/List;Lcom/hadilq/mastan/network/dto/Application;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/hadilq/mastan/network/dto/Status;Lcom/hadilq/mastan/network/dto/Poll;Lcom/hadilq/mastan/network/dto/Card;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;)V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlinx/datetime/Instant;Lcom/hadilq/mastan/network/dto/Account;Ljava/lang/String;Lcom/hadilq/mastan/network/dto/Privacy;ZLjava/lang/String;Ljava/util/List;Lcom/hadilq/mastan/network/dto/Application;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/hadilq/mastan/network/dto/Status;Lcom/hadilq/mastan/network/dto/Poll;Lcom/hadilq/mastan/network/dto/Card;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
@@ -1148,7 +1108,6 @@ public final class com/hadilq/mastan/network/dto/Status {
 	public final fun getVisibility ()Lcom/hadilq/mastan/network/dto/Privacy;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
-	public static final fun write$Self (Lcom/hadilq/mastan/network/dto/Status;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
 }
 
 public final class com/hadilq/mastan/network/dto/Status$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -1170,7 +1129,6 @@ public final class com/hadilq/mastan/network/dto/Status$Companion {
 public final class com/hadilq/mastan/network/dto/StatusNode {
 	public static final field $stable I
 	public static final field Companion Lcom/hadilq/mastan/network/dto/StatusNode$Companion;
-	public synthetic fun <init> (ILjava/util/List;Ljava/util/List;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
 	public fun <init> (Ljava/util/List;Ljava/util/List;)V
 	public final fun component1 ()Ljava/util/List;
 	public final fun component2 ()Ljava/util/List;
@@ -1181,7 +1139,6 @@ public final class com/hadilq/mastan/network/dto/StatusNode {
 	public final fun getDescendants ()Ljava/util/List;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
-	public static final fun write$Self (Lcom/hadilq/mastan/network/dto/StatusNode;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
 }
 
 public final class com/hadilq/mastan/network/dto/StatusNode$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -1203,7 +1160,6 @@ public final class com/hadilq/mastan/network/dto/StatusNode$Companion {
 public final class com/hadilq/mastan/network/dto/Tag {
 	public static final field $stable I
 	public static final field Companion Lcom/hadilq/mastan/network/dto/Tag$Companion;
-	public synthetic fun <init> (ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/Boolean;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/Boolean;)V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/Boolean;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
@@ -1221,7 +1177,6 @@ public final class com/hadilq/mastan/network/dto/Tag {
 	public fun hashCode ()I
 	public final fun isFollowing ()Ljava/lang/Boolean;
 	public fun toString ()Ljava/lang/String;
-	public static final fun write$Self (Lcom/hadilq/mastan/network/dto/Tag;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
 }
 
 public final class com/hadilq/mastan/network/dto/Tag$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -1243,7 +1198,6 @@ public final class com/hadilq/mastan/network/dto/Tag$Companion {
 public final class com/hadilq/mastan/network/dto/Token {
 	public static final field $stable I
 	public static final field Companion Lcom/hadilq/mastan/network/dto/Token$Companion;
-	public synthetic fun <init> (ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
 	public final fun component1 ()Ljava/lang/String;
 	public final fun component2 ()Ljava/lang/String;
@@ -1256,7 +1210,6 @@ public final class com/hadilq/mastan/network/dto/Token {
 	public final fun getTokenType ()Ljava/lang/String;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
-	public static final fun write$Self (Lcom/hadilq/mastan/network/dto/Token;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
 }
 
 public final class com/hadilq/mastan/network/dto/Token$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -1287,6 +1240,7 @@ public final class com/hadilq/mastan/network/dto/Type : java/lang/Enum {
 	public static final field reblog Lcom/hadilq/mastan/network/dto/Type;
 	public static final field status Lcom/hadilq/mastan/network/dto/Type;
 	public static final field update Lcom/hadilq/mastan/network/dto/Type;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public final fun getValue ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lcom/hadilq/mastan/network/dto/Type;
 	public static fun values ()[Lcom/hadilq/mastan/network/dto/Type;
@@ -1299,7 +1253,6 @@ public final class com/hadilq/mastan/network/dto/Type$Companion {
 public final class com/hadilq/mastan/network/dto/UploadIds {
 	public static final field $stable I
 	public static final field Companion Lcom/hadilq/mastan/network/dto/UploadIds$Companion;
-	public synthetic fun <init> (ILjava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
 	public fun <init> (Ljava/lang/String;)V
 	public final fun component1 ()Ljava/lang/String;
 	public final fun copy (Ljava/lang/String;)Lcom/hadilq/mastan/network/dto/UploadIds;
@@ -1308,7 +1261,6 @@ public final class com/hadilq/mastan/network/dto/UploadIds {
 	public final fun getId ()Ljava/lang/String;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
-	public static final fun write$Self (Lcom/hadilq/mastan/network/dto/UploadIds;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
 }
 
 public final class com/hadilq/mastan/network/dto/UploadIds$$serializer : kotlinx/serialization/internal/GeneratedSerializer {

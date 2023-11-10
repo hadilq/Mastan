@@ -16,7 +16,6 @@
 plugins {
     id("android-app-plugin")
     alias(libs.plugins.anvil)
-    alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.firebase.crashlytics)
 }
 
@@ -41,7 +40,6 @@ android {
         }
     }
 }
-
 
 dependencies {
     implementation(projects.legacy)
@@ -123,7 +121,7 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.room.paging)
-    kapt(libs.androidx.room.compiler)
+    ksp(libs.androidx.room.compiler)
 
     implementation libs.accompanist.navigation.animation
     implementation libs.accompanist.navigation.material

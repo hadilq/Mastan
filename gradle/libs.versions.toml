@@ -8,7 +8,7 @@ accompanist = "0.28.0"
 androidx-material = "1.10.0"
 androidx-arch-core = "2.1.0"
 androidxComposeBom = "2023.06.01"
-androidxComposeCompiler = "1.4.3"
+androidxComposeCompiler = "1.5.4"
 androidx-compose-plugin  = "1.5.10"
 androidx-compose = "1.4.3"
 androidx-compose-runtime = "1.4.3"
@@ -19,25 +19,25 @@ androidx-nav-compose = "2.6.0"
 androidx-paging-compose = "3.2.1"
 androidx-datastore = "1.0.0"
 androidx-annotation = "1.7.0"
-anvil = "2.4.4"
+anvil = "2.4.8"
 assertj = "3.24.2"
 atomicfu = "0.20.2"
 browser = "1.6.0"
-com-google-dagger = "2.44.2"
+com-google-dagger = "2.48.1"
 com-squareup-anvil = "2.4.4"
 com-squareup-okhttp3 = "4.10.0"
 com-squareup-okio = "3.2.0"
 constraintlayout = "2.1.4"
 coroutines = "1.7.1"
-dagger-compiler = "2.44.2"
 espresso = "3.5.1"
 gradle-plugin = "8.1.2"
 jw-converter = "0.8.0"
 kotlinx-serialization-json = "1.6.0"
 kotlinx-datetime = "0.4.0"
 kotlinx-collections = "0.3.5"
-kotlin = "1.8.10"
-kotlin-android-plugin = "1.6.21"
+ksp = "1.9.20-1.0.14"
+kotlin = "1.9.20"
+kotlin-android-plugin = "1.9.20"
 kotlinx-api-compatibility = "0.13.2"
 junit4 = "4.13.2"
 junit-ext = "1.1.5"
@@ -57,6 +57,7 @@ kotlin-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.
 android-plugin = { module  = "com.android.tools.build:gradle", version.ref = "gradle-plugin" }
 compose-plugin = { module = "org.jetbrains.compose:compose-gradle-plugin", version.ref = "androidx-compose-plugin" }
 kapt-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+ksp-plugin = { module = "com.google.devtools.ksp:symbol-processing-gradle-plugin", version.ref = "ksp" }
 kotlinx-serialization-plugin = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kotlin" }
 kotlinx-api-compatibility = { module = "org.jetbrains.kotlinx:binary-compatibility-validator", version.ref = "kotlinx-api-compatibility" }
 androidx-activity-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity" }
@@ -99,7 +100,7 @@ com-squareup-okhttp3-okhttp = { module = "com.squareup.okhttp3:okhttp", version.
 com-squareup-retrofit2-retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines"}
 coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines"}
-dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger-compiler" }
+dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "com-google-dagger" }
 de-charlex-compose-revealswipe = { module = "de.charlex.compose:revealswipe", version.ref = "revealswipe" }
 espresso = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
 me-saket-swipe = { module = "me.saket.swipe:swipe", version.ref = "swipe" }
@@ -135,8 +136,8 @@ android-library = { id = "com.android.library", version.ref = "gradle-plugin" }
 anvil = { id = "com.squareup.anvil", version.ref = "anvil" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin-android-plugin" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-compose = { id = "org.jetbrains.compose", version.ref = "androidxComposeCompiler" }
+compose = { id = "org.jetbrains.compose", version.ref = "androidx-compose-plugin" }
 firebase-crashlytics = "com.google.firebase.crashlytics:2.9.4"
 gms-googleServices = "com.google.gms.google-services:4.3.15"
-cash-molecule = {  id = "app.cash.molecule", version.ref = "cash-molecule" }

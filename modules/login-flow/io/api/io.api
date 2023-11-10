@@ -11,7 +11,6 @@ public final class com/hadilq/mastan/loginflow/CreatedApplicationErrorRetrySignI
 public final class com/hadilq/mastan/loginflow/CreatedApplicationErrorSignInState : com/hadilq/mastan/loginflow/SignInState {
 	public static final field $stable I
 	public static final field Companion Lcom/hadilq/mastan/loginflow/CreatedApplicationErrorSignInState$Companion;
-	public synthetic fun <init> (ILjava/lang/String;Ljava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
 	public final fun component1 ()Ljava/lang/String;
 	public final fun component2 ()Ljava/lang/String;
@@ -22,7 +21,6 @@ public final class com/hadilq/mastan/loginflow/CreatedApplicationErrorSignInStat
 	public final fun getServerDomain ()Ljava/lang/String;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
-	public static final fun write$Self (Lcom/hadilq/mastan/loginflow/CreatedApplicationErrorSignInState;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
 }
 
 public final class com/hadilq/mastan/loginflow/CreatedApplicationErrorSignInState$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -44,7 +42,6 @@ public final class com/hadilq/mastan/loginflow/CreatedApplicationErrorSignInStat
 public final class com/hadilq/mastan/loginflow/CreatedApplicationSignInState : com/hadilq/mastan/loginflow/SignInState {
 	public static final field $stable I
 	public static final field Companion Lcom/hadilq/mastan/loginflow/CreatedApplicationSignInState$Companion;
-	public synthetic fun <init> (ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
 	public final fun component1 ()Ljava/lang/String;
 	public final fun component2 ()Ljava/lang/String;
@@ -61,7 +58,6 @@ public final class com/hadilq/mastan/loginflow/CreatedApplicationSignInState : c
 	public final fun getRedirectUri ()Ljava/lang/String;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
-	public static final fun write$Self (Lcom/hadilq/mastan/loginflow/CreatedApplicationSignInState;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
 }
 
 public final class com/hadilq/mastan/loginflow/CreatedApplicationSignInState$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -138,7 +134,6 @@ public final class com/hadilq/mastan/loginflow/OAuthFailedRetrySignInEvent : com
 public final class com/hadilq/mastan/loginflow/OAuthFailedToSignInState : com/hadilq/mastan/loginflow/SignInState {
 	public static final field $stable I
 	public static final field Companion Lcom/hadilq/mastan/loginflow/OAuthFailedToSignInState$Companion;
-	public synthetic fun <init> (ILjava/lang/String;Ljava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
 	public final fun component1 ()Ljava/lang/String;
 	public final fun component2 ()Ljava/lang/String;
@@ -149,7 +144,6 @@ public final class com/hadilq/mastan/loginflow/OAuthFailedToSignInState : com/ha
 	public final fun getServerDomain ()Ljava/lang/String;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
-	public static final fun write$Self (Lcom/hadilq/mastan/loginflow/OAuthFailedToSignInState;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
 }
 
 public final class com/hadilq/mastan/loginflow/OAuthFailedToSignInState$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -183,7 +177,6 @@ public final class com/hadilq/mastan/loginflow/ResultUriSignInEvent : com/hadilq
 public final class com/hadilq/mastan/loginflow/ServerErrorServerSelectState : com/hadilq/mastan/loginflow/ServerSelectState {
 	public static final field $stable I
 	public static final field Companion Lcom/hadilq/mastan/loginflow/ServerErrorServerSelectState$Companion;
-	public synthetic fun <init> (ILjava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
 	public fun <init> (Ljava/lang/String;)V
 	public final fun component1 ()Ljava/lang/String;
 	public final fun copy (Ljava/lang/String;)Lcom/hadilq/mastan/loginflow/ServerErrorServerSelectState;
@@ -192,7 +185,6 @@ public final class com/hadilq/mastan/loginflow/ServerErrorServerSelectState : co
 	public final fun getError ()Ljava/lang/String;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
-	public static final fun write$Self (Lcom/hadilq/mastan/loginflow/ServerErrorServerSelectState;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
 }
 
 public final class com/hadilq/mastan/loginflow/ServerErrorServerSelectState$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -225,7 +217,6 @@ public final class com/hadilq/mastan/loginflow/ServerSelectState$Companion {
 public final class com/hadilq/mastan/loginflow/ServerSignInState : com/hadilq/mastan/loginflow/SignInState {
 	public static final field $stable I
 	public static final field Companion Lcom/hadilq/mastan/loginflow/ServerSignInState$Companion;
-	public synthetic fun <init> (ILjava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
 	public fun <init> (Ljava/lang/String;)V
 	public final fun component1 ()Ljava/lang/String;
 	public final fun copy (Ljava/lang/String;)Lcom/hadilq/mastan/loginflow/ServerSignInState;
@@ -234,7 +225,6 @@ public final class com/hadilq/mastan/loginflow/ServerSignInState : com/hadilq/ma
 	public final fun getServerDomain ()Ljava/lang/String;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
-	public static final fun write$Self (Lcom/hadilq/mastan/loginflow/ServerSignInState;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
 }
 
 public final class com/hadilq/mastan/loginflow/ServerSignInState$$serializer : kotlinx/serialization/internal/GeneratedSerializer {

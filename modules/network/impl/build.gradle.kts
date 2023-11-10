@@ -1,5 +1,6 @@
 plugins {
     id(libs.plugins.module.impl.asProvider().get().pluginId)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 kotlin {

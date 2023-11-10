@@ -31,6 +31,7 @@ dependencies {
     implementation(libs.android.plugin)
     implementation(libs.compose.plugin)
     implementation(libs.kapt.plugin)
+    implementation(libs.ksp.plugin)
     implementation(libs.kotlinx.serialization.plugin)
     implementation(libs.kotlinx.api.compatibility)
 }

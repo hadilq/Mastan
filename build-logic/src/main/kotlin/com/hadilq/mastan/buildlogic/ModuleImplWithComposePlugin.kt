@@ -17,19 +17,20 @@ package com.hadilq.mastan.buildlogic
 
 import com.android.build.gradle.LibraryExtension
 import com.android.build.gradle.LibraryPlugin
+import com.hadilq.mastan.buildlogic.di.dependencies
 import com.hadilq.mastan.buildlogic.util.the
 import org.gradle.accessors.dm.LibrariesForLibs
-import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.jetbrains.compose.ComposePlugin
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
+import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
 import org.jetbrains.kotlin.gradle.plugin.KotlinMultiplatformPluginWrapper
 import java.util.Locale
 
 class ModuleImplWithComposePlugin : Plugin<Project> {
 
-    override fun apply(target: Project) {
+    override fun apply(target: Project) = with(dependencies) {
         target.pluginManager.apply(LibraryPlugin::class.java)
         target.pluginManager.apply(KotlinMultiplatformPluginWrapper::class.java)
         target.pluginManager.apply(ComposePlugin::class.java)
@@ -40,64 +41,17 @@ class ModuleImplWithComposePlugin : Plugin<Project> {
             KotlinMultiplatformExtension::class.java,
             configureMultiplatformModule(libs)
         )
-        target.extensions.configure(LibraryExtension::class.java, configureAndroidModule(libs))
+        target.extensions.configure(LibraryExtension::class.java, configureAndroidModuleWithCompose(libs))
+        target.extensions.configure(
+            KotlinProjectExtension::class.java,
+            configureKotlinProject(libs)
+        )
 
         target.tasks.configureEach {
             // Disable testRelease tasks
-            if(name.lowercase(Locale.ROOT).contains("testrelease")) {
+            if (name.lowercase(Locale.ROOT).contains("testrelease")) {
                 enabled = false
             }
         }
     }
-
-    private fun configureMultiplatformModule(libs: LibrariesForLibs): (KotlinMultiplatformExtension).() -> Unit =
-        {
-            android {
-                compilations.all {
-                    kotlinOptions {
-                        jvmTarget = libs.versions.jvmTarget.get()
-                    }
-                }
-            }
-        }
-
-    private fun configureAndroidModule(libs: LibrariesForLibs): (LibraryExtension).() -> Unit =
-        {
-            compileSdkVersion(libs.versions.compileSdk.get().toInt())
-
-            defaultConfig {
-                minSdk = libs.versions.minSdk.get().toInt()
-            }
-
-            val targetSdk = when (libs.versions.jvmTarget.get()) {
-                "19" -> JavaVersion.VERSION_19
-                "17" -> JavaVersion.VERSION_17
-                "11" -> JavaVersion.VERSION_11
-                else -> JavaVersion.VERSION_18
-            }
-            compileOptions {
-                sourceCompatibility = targetSdk
-                targetCompatibility = targetSdk
-            }
-
-            buildFeatures.apply {
-                compose = true
-            }
-
-            composeOptions.kotlinCompilerExtensionVersion =
-                libs.versions.androidxComposeCompiler.get()
-
-            testOptions {
-                unitTests {
-                    isReturnDefaultValues = true
-                    isIncludeAndroidResources = true
-                }
-            }
-
-            packaging {
-                resources {
-                    excludes += "/META-INF/{AL2.0,LGPL2.1}"
-                }
-            }
-        }
 }

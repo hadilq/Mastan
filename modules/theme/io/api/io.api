@@ -34,7 +34,6 @@ public final class com/hadilq/mastan/theme/MastanThemeState {
 	public static final field $stable I
 	public static final field Companion Lcom/hadilq/mastan/theme/MastanThemeState$Companion;
 	public fun <init> ()V
-	public synthetic fun <init> (IZZLkotlinx/serialization/internal/SerializationConstructorMarker;)V
 	public fun <init> (ZZ)V
 	public synthetic fun <init> (ZZILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Z
@@ -46,7 +45,6 @@ public final class com/hadilq/mastan/theme/MastanThemeState {
 	public final fun isDarkTheme ()Z
 	public final fun isDynamicColor ()Z
 	public fun toString ()Ljava/lang/String;
-	public static final fun write$Self (Lcom/hadilq/mastan/theme/MastanThemeState;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
 }
 
 public final class com/hadilq/mastan/theme/MastanThemeState$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -89,7 +87,6 @@ public final class com/hadilq/mastan/theme/NoMastanThemeEvent : com/hadilq/masta
 public final class com/hadilq/mastan/theme/UpdateDarkThemeThemeEvent : com/hadilq/mastan/theme/MastanThemeEvent {
 	public static final field $stable I
 	public static final field Companion Lcom/hadilq/mastan/theme/UpdateDarkThemeThemeEvent$Companion;
-	public synthetic fun <init> (IZLkotlinx/serialization/internal/SerializationConstructorMarker;)V
 	public fun <init> (Z)V
 	public final fun component1 ()Z
 	public final fun copy (Z)Lcom/hadilq/mastan/theme/UpdateDarkThemeThemeEvent;
@@ -98,7 +95,6 @@ public final class com/hadilq/mastan/theme/UpdateDarkThemeThemeEvent : com/hadil
 	public final fun getDarkTheme ()Z
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
-	public static final fun write$Self (Lcom/hadilq/mastan/theme/UpdateDarkThemeThemeEvent;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
 }
 
 public final class com/hadilq/mastan/theme/UpdateDarkThemeThemeEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -120,7 +116,6 @@ public final class com/hadilq/mastan/theme/UpdateDarkThemeThemeEvent$Companion {
 public final class com/hadilq/mastan/theme/UpdateDynamicColorThemeEvent : com/hadilq/mastan/theme/MastanThemeEvent {
 	public static final field $stable I
 	public static final field Companion Lcom/hadilq/mastan/theme/UpdateDynamicColorThemeEvent$Companion;
-	public synthetic fun <init> (IZLkotlinx/serialization/internal/SerializationConstructorMarker;)V
 	public fun <init> (Z)V
 	public final fun component1 ()Z
 	public final fun copy (Z)Lcom/hadilq/mastan/theme/UpdateDynamicColorThemeEvent;
@@ -129,7 +124,6 @@ public final class com/hadilq/mastan/theme/UpdateDynamicColorThemeEvent : com/ha
 	public final fun getDynamicColor ()Z
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
-	public static final fun write$Self (Lcom/hadilq/mastan/theme/UpdateDynamicColorThemeEvent;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
 }
 
 public final class com/hadilq/mastan/theme/UpdateDynamicColorThemeEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {

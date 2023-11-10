@@ -17,77 +17,32 @@ package com.hadilq.mastan.buildlogic
 
 import com.android.build.gradle.AppExtension
 import com.android.build.gradle.AppPlugin
+import com.google.devtools.ksp.gradle.KspGradleSubplugin
+import com.hadilq.mastan.buildlogic.di.dependencies
 import com.hadilq.mastan.buildlogic.util.the
 import org.gradle.accessors.dm.LibrariesForLibs
-import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.api.plugins.ExtensionAware
-import org.gradle.kotlin.dsl.configure
-import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
+import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
 import org.jetbrains.kotlin.gradle.internal.Kapt3GradleSubplugin
-import org.jetbrains.kotlin.gradle.internal.KaptGenerateStubsTask
 import org.jetbrains.kotlin.gradle.plugin.KotlinAndroidPluginWrapper
+import org.jetbrains.kotlinx.serialization.gradle.SerializationGradleSubplugin
 
 class AndroidAppPlugin : Plugin<Project> {
 
-    override fun apply(target: Project) {
+    override fun apply(target: Project) = with(dependencies) {
         target.pluginManager.apply(AppPlugin::class.java)
         target.pluginManager.apply(KotlinAndroidPluginWrapper::class.java)
         target.pluginManager.apply(Kapt3GradleSubplugin::class.java)
+        target.pluginManager.apply(KspGradleSubplugin::class.java)
+        target.pluginManager.apply(SerializationGradleSubplugin::class.java)
 
         val libs = target.the<LibrariesForLibs>()
 
         target.extensions.configure(AppExtension::class.java, configureAndroidApp(libs))
-
-        target.tasks.withType(KaptGenerateStubsTask::class.java).configureEach {
-            kotlinOptions {
-                jvmTarget = libs.versions.jvmTarget.get()
-            }
-        }
+        target.extensions.configure(
+            KotlinProjectExtension::class.java,
+            configureKotlinProject(libs)
+        )
     }
-
-    private fun configureAndroidApp(libs: LibrariesForLibs): (AppExtension).() -> Unit =
-        {
-            compileSdkVersion(libs.versions.compileSdk.get().toInt())
-
-            defaultConfig {
-                minSdk = libs.versions.minSdk.get().toInt()
-                targetSdk = libs.versions.targetSdk.get().toInt()
-
-                testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-                vectorDrawables {
-                    useSupportLibrary = true
-                }
-            }
-
-            val targetSdk = when(libs.versions.jvmTarget.get()) {
-                "19" -> JavaVersion.VERSION_19
-                "17" -> JavaVersion.VERSION_17
-                "11" -> JavaVersion.VERSION_11
-                else -> JavaVersion.VERSION_18
-            }
-            compileOptions {
-                sourceCompatibility = targetSdk
-                targetCompatibility = targetSdk
-            }
-
-            (this as ExtensionAware).configure<KotlinJvmOptions> {
-                jvmTarget = libs.versions.jvmTarget.get()
-            }
-
-            buildFeatures.apply {
-                compose = true
-                buildConfig = true
-            }
-
-            composeOptions.kotlinCompilerExtensionVersion =
-                libs.versions.androidxComposeCompiler.get()
-
-            packagingOptions {
-                resources {
-                    excludes += "/META-INF/{AL2.0,LGPL2.1}"
-                }
-            }
-        }
 }
