@@ -20,10 +20,10 @@ Also the rainbow in the icon is referring to diversity of all kind.
  - You get it, including all kind of spectrum, even it's ends!
 
 # Roadmap
- - Create a light root module.
  - Modularize.
  - Enforcing flat dependency graph by using DIP. All modules must have Input, Output contracts.
- - Apply Logic Tree Architect(LTA)
+ - Apply Logic Tree Architecture(LTA).
+ - It's laggy! Consider using @Stable on the `data classes`s.
  - Handle the errors properly.
  - Complete the features set.
  - Make it multiplatform.
@@ -65,13 +65,15 @@ Each module, as an independent part of the code, has two Gradle modules, `io`, a
 as you may expect from the implementation of Dependency Inversion Principle.
 `io` stands for the definition of input/output of that independent part of the code, and
 `impl` stands for the implementations.
+
 As a side note, in the [Curry–Howard correspondence](https://en.wikipedia.org/wiki/Curry%E2%80%93Howard_correspondence) context
-the `impl` is the mathematical prove of what's claimed in the `io`.
+the `impl` is the mathematical prove of what's claimed in the `io`. How cool it's.
+
 The `io` is where we put the states, events, and also, `interface`s,
 where the `impl` includes the implementations of those `inteface`s.
 In this way, the part of the dependency graph that connects the implementations is a flat tree graph,
 which will help a lot to reduce the incremental build time, while working on the implementations,
-where we do most of our developments there.
+where we do most of our developments there. It's the advantage of coding cool!
 
 By the way, if you noticed there are a lot of different kind of tree graphs are mentioned here.
 My reasoning is that something is comprehensive for human brain, if it has a tree structure.
