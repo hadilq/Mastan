@@ -24,7 +24,7 @@ mkShell {
     vulkan-tools
   ];
 
-  JAVA_HOME = "${jdk}";
+  JAVA_HOME = "${devJdk}";
   ANDROID_HOME = "${androidSdkHome}";
   ANDROID_NDK_ROOT = "${androidSdkHome}/ndk-bundle";
 
@@ -42,7 +42,7 @@ mkShell {
   shellHook = ''
     mkdir -p ${androidAvdHome}
     # Add cmake to the path.
-    export PATH="$cmake_root/bin:${jdk}/bin:$PATH"
+    export PATH="$cmake_root/bin:${devJdk}/bin:$PATH"
 
     # Write out local.properties for Android Studio.
     cat <<EOF > local.properties

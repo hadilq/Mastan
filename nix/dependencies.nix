@@ -76,7 +76,7 @@ in
   androidSdk = androidSdk;
   androidEmulator = androidEmulator;
   platformTools = platformTools;
-  jdk = pkgs.jdk17;
+  devJdk = jdk;
 
   androidSdkHome = androidSdkHome;
   userHome = userHome;

@@ -9,10 +9,10 @@ pkgs.mkShell {
   packages = [
     androidSdk
     gradle
-    jdk
+    devJdk
   ];
 
-  JAVA_HOME = "${jdk}";
+  JAVA_HOME = "${devJdk}";
   ANDROID_HOME = "${androidSdkHome}";
 
   # Ensures that we don't have to use a FHS env by using the nix store's aapt2.

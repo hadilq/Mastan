@@ -9,5 +9,4 @@
 local.properties
 /app/release/app-release.apk
 /app/release/app-release.aab
-/.user-home
 /.envrc
